@@ -18,17 +18,20 @@ import {
   ChevronRight as _ChevronRight,
   ChevronsUpDown as _ChevronsUpDown,
   CirclePlus as _Support,
+  Clock as _Clock,
   Cog as _Cog,
   Component as _Component,
   CreditCard as _CreditCard,
   Download as _Download,
   Flag as _Reporting,
+  Flame as _Flame,
   Heart as _Heart,
   House as _Home,
   Layers as _Layers,
   BookText as _Book,
   LayoutGrid as _LayoutGrid,
   LoaderCircle as _LoaderCircle,
+  MapPin as _MapPin,
   LogOut as _LogOut,
   Mail as _Mail,
   MousePointerClick as _MousePointerClick,
@@ -37,6 +40,8 @@ import {
   PanelLeft as _PanelLeft,
   Pencil as _Pencil,
   Rocket as _Rocket,
+  Star as _Star,
+  UtensilsCrossed as _Utensils,
   Send as _Send,
   Settings as _Settings,
   Sparkles as _Sparkles,
@@ -88,19 +93,24 @@ export const CheckIcon = t(_Check);
 export const ChevronDownIcon = t(_ChevronDown);
 export const ChevronsUpDownIcon = t(_ChevronsUpDown);
 export const CircleNotchIcon = t(_LoaderCircle);
+export const ClockIcon = t(_Clock);
 export const Component = t(_Component);
 export const CreditCardIcon = t(_CreditCard);
 export const DownloadIcon = t(_Download);
 export const EnvelopeIcon = t(_Mail);
+export const FlameIcon = t(_Flame);
 export const GearIcon = t(_Cog);
 export const HeartIcon = t(_Heart);
 export const Layers = t(_Layers);
 export const LogOutIcon = t(_LogOut);
+export const MapPinIcon = t(_MapPin);
 export const MousePointerClickIcon = t(_MousePointerClick);
 export const Palette = t(_Palette);
 export const PencilIcon = t(_Pencil);
 export const SquaresFourIcon = t(_LayoutGrid);
+export const StarIcon = t(_Star);
 export const Trash2Icon = t(_Trash2);
+export const UtensilsIcon = t(_Utensils);
 
 export const CloseIcon = t(_X);
 export const SidebarIcon = t(_PanelLeft);
