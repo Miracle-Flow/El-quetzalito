@@ -14,3 +14,4 @@ Before introducing colors, type sizes, spacing, or radius, read [`DESIGN.md`](./
 Key rules:
 - Use semantic color tokens (`bg-primary`, `text-muted-foreground`, `bg-tertiary`) — never raw hex or oklch in components.
 - Spacing/radius follow fixed scales defined in DESIGN.md (spacing keys × 4px; radius additive from `--radius: 0.625rem`).
+- **Documented exception — decorative background layers.** Full-bleed gradient/glow/texture backgrounds have no token yet (DESIGN.md §5 has no elevation or gradient scale). They may use inline `style` referencing semantic-token CSS vars (e.g. `var(--chart-5)`, `var(--primary)`) or arbitrary utilities built from semantic color classes (`bg-tertiary/40`). Never raw hex/oklch, and only behind content (`-z-*`, `aria-hidden`). Keep it to background decoration — surface and text colors still must use semantic utilities.

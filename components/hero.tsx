@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Cluster, Container, Stack } from "@/components/layout";
+import { Box, Cluster, Container, Section, Stack } from "@/components/layout";
 import { RenderIcon } from "@/components/render-icon";
 import { Typography } from "@/components/typography";
 import {
@@ -18,11 +18,22 @@ const highlights = [
   { icon: HeartIcon, label: "Original recipes" },
 ];
 
+// Textile weave motif used as a faint texture overlay.
+const weavePattern =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M24 2 L46 24 L24 46 L2 24 Z' fill='none' stroke='white' stroke-width='1.2'/%3E%3Cpath d='M24 12 L36 24 L24 36 L12 24 Z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E\")";
+
 export default function Hero() {
   return (
-    <section className="relative isolate overflow-hidden">
-      {/* Warm brand gradient base — burgundy to rose, evoking Guatemalan warmth */}
-      <div
+    // No `variant` → transparent base; the warm brand gradient is applied as a
+    // decorative layer below (see the documented exception in AGENTS.md).
+    <Section spacing="24" className="relative isolate overflow-hidden">
+      {/*
+       * Decorative background. The design system has no gradient/glow tokens
+       * (DESIGN.md §5), so these layers are an intentional, documented
+       * exception. Only `var(--…)` CSS variables (semantic-token roots) are
+       * used — never raw hex/oklch.
+       */}
+      <Box
         aria-hidden="true"
         className="absolute inset-0 -z-30"
         style={{
@@ -31,33 +42,27 @@ export default function Hero() {
         }}
       />
 
-      {/* Soft tertiary-yellow glow, upper left — like lantern light */}
-      <div
+      {/* Tertiary-yellow lantern glow (semantic utility, no var()) */}
+      <Box
         aria-hidden="true"
-        className="absolute -top-40 -left-40 -z-20 size-[34rem] rounded-full opacity-40 blur-[120px]"
-        style={{ backgroundColor: "var(--tertiary)" }}
+        className="absolute -top-40 -left-40 -z-20 size-136 rounded-full bg-tertiary/40 blur-[120px]"
       />
 
-      {/* Rose highlight glow, lower right — depth */}
-      <div
+      {/* Rose depth glow (semantic utility, no var()) */}
+      <Box
         aria-hidden="true"
-        className="absolute right-[-12rem] bottom-[-16rem] -z-20 size-[40rem] rounded-full opacity-30 blur-[130px]"
-        style={{ backgroundColor: "var(--chart-1)" }}
+        className="absolute right-[-12rem] bottom-[-16rem] -z-20 size-[40rem] rounded-full bg-chart-1/30 blur-[130px]"
       />
 
-      {/* Guatemalan-textile diamond weave overlay — subtle texture */}
-      <div
+      {/* Guatemalan-textile diamond weave overlay */}
+      <Box
         aria-hidden="true"
         className="absolute inset-0 -z-10 opacity-[0.07]"
-        style={{
-          backgroundImage:
-            "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M24 2 L46 24 L24 46 L2 24 Z' fill='none' stroke='white' stroke-width='1.2'/%3E%3Cpath d='M24 12 L36 24 L24 36 L12 24 Z' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E\")",
-          backgroundSize: "48px 48px",
-        }}
+        style={{ backgroundImage: weavePattern, backgroundSize: "48px 48px" }}
       />
 
-      {/* Bottom vignette to anchor the content */}
-      <div
+      {/* Bottom vignette to anchor content */}
+      <Box
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 -z-10 h-2/3"
         style={{
@@ -70,18 +75,16 @@ export default function Hero() {
         <Stack
           align="center"
           gap="8"
-          className="px-2 py-24 text-center md:py-32 lg:py-40"
+          className="text-center text-primary-foreground"
         >
           {/* Status badge */}
-          <div className="animate-in fade-in slide-in-from-bottom-4 duration-700">
-            <Badge className="h-7 gap-1.5 border-white/20 bg-white/10 px-3 text-xs font-medium tracking-wide text-white backdrop-blur-md [a]:hover:bg-white/15">
-              <span className="relative flex size-2">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-emerald-300 opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-emerald-400" />
-              </span>
-              Open Now · Steam Table Running
-            </Badge>
-          </div>
+          <Badge className="h-7 gap-1.5 border-primary-foreground/20 bg-primary-foreground/10 px-3 text-xs font-medium tracking-wide backdrop-blur-md [a]:hover:bg-primary-foreground/15">
+            <span className="relative flex size-2">
+              <span className="absolute inline-flex size-full animate-ping rounded-full bg-tertiary/75" />
+              <span className="relative inline-flex size-2 rounded-full bg-tertiary" />
+            </span>
+            Open Now · Steam Table Running
+          </Badge>
 
           {/* Spanish eyebrow */}
           <Typography
@@ -89,7 +92,7 @@ export default function Hero() {
             transform="uppercase"
             weight="semibold"
             align="center"
-            className="animate-in fade-in delay-75 duration-700 tracking-[0.32em] text-white/75"
+            className="tracking-[0.32em] text-primary-foreground/75"
           >
             Auténtica Cocina Guatemalteca y Centroamericana
           </Typography>
@@ -99,17 +102,19 @@ export default function Hero() {
             variant="h1"
             weight="bold"
             align="center"
-            className="animate-in fade-in slide-in-from-bottom-6 delay-100 duration-700 text-white drop-shadow-sm [text-wrap:balance]"
+            className="drop-shadow-sm [text-wrap:balance]"
           >
             El Quetzalito
-            <span className="block text-tertiary">Restaurante Guatemalteco</span>
+            <span className="block text-tertiary">
+              Restaurante Guatemalteco
+            </span>
           </Typography>
 
           {/* Lead copy */}
           <Typography
             variant="text-xl"
             align="center"
-            className="animate-in fade-in delay-150 duration-700 mx-auto max-w-2xl text-white/85 [text-wrap:pretty]"
+            className="mx-auto max-w-2xl text-primary-foreground/85 [text-wrap:pretty]"
           >
             Our steam table is open seven days a week for you to enjoy the most
             delicious Guatemalan and Central American dishes all day long. Our
@@ -117,55 +122,43 @@ export default function Hero() {
             soul and heart into every plate.
           </Typography>
 
-          {/* CTAs */}
-          <Cluster
-            justify="center"
-            wrap
-            gap="3"
-            className="animate-in fade-in slide-in-from-bottom-4 delay-200 duration-700 pt-2"
-          >
+          {/* CTAs — on-system variants (no !important, no custom colors) */}
+          <Cluster justify="center" wrap gap="3">
             <Button
+              variant="secondary"
               size="lg"
-              className="!h-12 gap-2 !rounded-full !bg-white !px-8 !text-base !text-primary shadow-lg shadow-black/20 transition-transform hover:scale-[1.02] hover:!bg-white/90"
+              className="gap-2 shadow-lg shadow-black/20"
             >
               <RenderIcon icon={UtensilsIcon} size={20} />
               Explore the Menu
               <RenderIcon icon={ArrowRight} size={18} />
             </Button>
-            <Button
-              size="lg"
-              className="!h-12 gap-2 !rounded-full !border-white/30 !bg-white/5 !px-8 !text-base !text-white backdrop-blur-md transition-colors hover:!bg-white/15"
-            >
+            <Button variant="outline" size="lg" className="gap-2">
               <RenderIcon icon={MapPinIcon} size={20} />
               Get Directions
             </Button>
           </Cluster>
 
           {/* Highlights strip */}
-          <Cluster
-            justify="center"
-            wrap
-            gap="4"
-            className="animate-in fade-in delay-300 duration-700 pt-10"
-          >
+          <Cluster justify="center" wrap gap="4" className="pt-6">
             {highlights.map(({ icon, label }) => (
-              <div
+              <Box
                 key={label}
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white/80 backdrop-blur-sm"
+                className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/15 bg-primary-foreground/5 px-4 py-2 text-sm text-primary-foreground/80 backdrop-blur-sm"
               >
                 <RenderIcon icon={icon} size={16} className="text-tertiary" />
                 {label}
-              </div>
+              </Box>
             ))}
           </Cluster>
         </Stack>
       </Container>
 
-      {/* Decorative bottom fade into next section */}
-      <div
+      {/* Decorative hairline divider into the next section */}
+      <Box
         aria-hidden="true"
-        className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"
+        className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-primary-foreground/30 to-transparent"
       />
-    </section>
+    </Section>
   );
 }
