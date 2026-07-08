@@ -298,20 +298,48 @@
     "require-unicode-regexp": "off",
     "jsx-curly-brace-presence": "off",
     "no-underscore-dangle": "off",
-    "jsx-a11y/prefer-tag-over-role": "off",
-    "no-restricted-imports": [
-      "error",
-      {
-        "zones": [
+    "jsx-a11y/prefer-tag-over-role": "off"
+  },
+  "overrides": [
+    {
+      "files": [
+        "components/**/*.{ts,tsx}",
+        "hooks/**/*.{ts,tsx}",
+        "lib/**/*.{ts,tsx}",
+        "types/**/*.{ts,tsx}",
+        "utils/**/*.{ts,tsx}"
+      ],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
           {
-            "target": ["./components", "./hooks", "./lib", "./types", "./utils"],
-            "from": ["./features", "./app"],
-            "message": "Shared modules (components, hooks, lib, types, utils) should not import from features or app directories."
+            "patterns": [
+              {
+                "group": ["@/features/**", "@/app/**"],
+                "message": "Shared modules (components, hooks, lib, types, utils) must not import from features or app directories."
+              }
+            ]
           }
         ]
       }
-    ]
-  },
+    },
+    {
+      "files": ["app/(marketing)/**/*.{ts,tsx}"],
+      "rules": {
+        "no-restricted-imports": [
+          "error",
+          {
+            "patterns": [
+              {
+                "group": ["@/**", "!@/features/marketing", "!@/features/marketing/**"],
+                "message": "Marketing pages may only import from @/features/marketing/**."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
   "ignorePatterns": ["**/*.generated.*", "**/*.d.ts"],
   "extends": []
 }
