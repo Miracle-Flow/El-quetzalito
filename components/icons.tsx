@@ -43,6 +43,7 @@ import {
   Star as _Star,
   UtensilsCrossed as _Utensils,
   Send as _Send,
+  Leaf as _Leaf,
   Settings as _Settings,
   Sparkles as _Sparkles,
   SquareCheckBig as _Tasks,
@@ -72,6 +73,7 @@ export const t = (c: ElementType | SvgAsset): IconToken => ({
 
 export const LogoIcon = t({ src: "/logo.svg" });
 export const Home = t(_Home);
+export const Leaf = t(_Leaf);
 export const Dashboard = t(_Dashboard);
 export const Projects = t(_Layers);
 export const Tasks = t(_Tasks);
