@@ -1,0 +1,1 @@
+ALTER TABLE "commerce"."payment_intents" ADD COLUMN "client_secret" text;
