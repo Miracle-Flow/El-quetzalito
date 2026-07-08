@@ -39,9 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# local postgres runtime log
-postgres.log
-
-# kimchi review-tool session artifacts
-.kimchi/

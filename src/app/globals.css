@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@theme {
+  /* palette — cream base, quetzal greens, chest-red accent */
+  --color-cream: #f7f1e4;
+  --color-cream-deep: #efe6d2;
+  --color-sage: #edf3e2;
+  --color-peach: #fbeede;
+  --color-brand: #4a8c3c; /* bright leaf green — headline accent */
+  --color-pine: #3a7230; /* primary buttons */
+  --color-pine-deep: #2e5b26; /* button hover */
+  --color-forest: #22391c; /* footer */
+  --color-ink: #20301b; /* headings */
+  --color-moss: #5e6c55; /* muted body text */
+  --color-marigold: #e9a13b; /* stars, flame */
+  --color-chile: #c8442c; /* quetzal chest, small accents */
+
+  --font-display: var(--font-bricolage), ui-sans-serif, sans-serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-script: var(--font-ephesis), "Snell Roundhand", cursive;
+  --font-menu-body: var(--font-crimson), ui-serif, Georgia, serif;
+}
+
+@keyframes que-spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes que-slide-fill {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
+.que-spin-slow {
+  animation: que-spin-slow 30s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes que-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.que-marquee {
+  animation: que-marquee 38s linear infinite;
+  will-change: transform;
+}
+
+@keyframes que-hero-pullback {
+  from { transform: scale(1.18); }
+  to   { transform: scale(1); }
+}
+
+.que-hero-pullback {
+  animation: que-hero-pullback 26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .que-spin-slow { animation: none; }
+  .que-marquee { animation: none; }
+  .que-hero-pullback { animation: none; transform: none; }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-brand);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-pine);
+  outline-offset: 2px;
+}
