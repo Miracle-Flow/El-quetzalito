@@ -9,6 +9,9 @@ import {
   BadgeCheck as _BadgeCheck,
   Bell as _Bell,
   BookOpen as _BookOpen,
+  Calendar as _Calendar,
+  User as _User,
+  Phone as _Phone,
   BookOpenText as _Story,
   BookPlus as _CreateStory,
   ChartNoAxesColumn as _Dashboard,
@@ -32,10 +35,12 @@ import {
   LayoutGrid as _LayoutGrid,
   LoaderCircle as _LoaderCircle,
   MapPin as _MapPin,
+  Minus as _Minus,
   LogOut as _LogOut,
   Mail as _Mail,
   MousePointerClick as _MousePointerClick,
   Palette as _Palette,
+  Plus as _Plus,
   Grid2X2 as _Collage,
   PanelLeft as _PanelLeft,
   Pencil as _Pencil,
@@ -44,6 +49,8 @@ import {
   UtensilsCrossed as _Utensils,
   Send as _Send,
   Settings as _Settings,
+  ShoppingBag as _ShoppingBag,
+  ShoppingCart as _ShoppingCart,
   Sparkles as _Sparkles,
   SquareCheckBig as _Tasks,
   CircleQuestionMark as _Question,
@@ -99,11 +106,16 @@ export const CreditCardIcon = t(_CreditCard);
 export const DownloadIcon = t(_Download);
 export const EnvelopeIcon = t(_Mail);
 export const FlameIcon = t(_Flame);
+export const CalendarIcon = t(_Calendar);
+export const UserIcon = t(_User);
+export const PhoneIcon = t(_Phone);
 export const GearIcon = t(_Cog);
 export const HeartIcon = t(_Heart);
 export const Layers = t(_Layers);
 export const LogOutIcon = t(_LogOut);
 export const MapPinIcon = t(_MapPin);
+export const MinusIcon = t(_Minus);
+export const PlusIcon = t(_Plus);
 export const MousePointerClickIcon = t(_MousePointerClick);
 export const Palette = t(_Palette);
 export const PencilIcon = t(_Pencil);
@@ -125,3 +137,6 @@ export const RocketIcon = t(_Rocket);
 export const SendIcon = t(_Send);
 export const SparklesIcon = t(_Sparkles);
 export const StoryIcon = t(_Story);
+export const CartIcon = t(_ShoppingCart);
+export const ShoppingBagIcon = t(_ShoppingBag);
+export const TrashIcon = t(_Trash2);
