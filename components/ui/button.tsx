@@ -1,18 +1,28 @@
+import { Children, isValidElement } from "react";
+
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
+import type { IconToken } from "../icons";
+import type { IconComponentProps } from "../render-icon";
+import RenderIcon from "../render-icon";
+import { typographyVariants } from "../typography";
+import { Spinner } from "./spinner";
+
+type ButtonIconProp = { icon: IconToken } & IconComponentProps;
+
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 items-center justify-center rounded-lg border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 active:not-aria-[haspopup]:translate-y-px disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 cursor-pointer items-center justify-center rounded-xl border border-transparent bg-clip-padding whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:bg-primary/80",
+        default: "bg-primary text-primary-foreground shadow-xs [a]:hover:bg-primary/80",
         outline:
           "border-border bg-background hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
         secondary:
-          "bg-secondary text-secondary-foreground hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)] aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80 aria-expanded:bg-secondary aria-expanded:text-secondary-foreground",
         ghost:
           "hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50",
         destructive:
@@ -20,17 +30,20 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
       },
       size: {
-        default:
-          "h-8 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        xs: "h-6 gap-1 rounded-[min(var(--radius-md),10px)] px-2 text-xs in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
-        sm: "h-7 gap-1 rounded-[min(var(--radius-md),12px)] px-2.5 text-[0.8rem] in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        lg: "h-9 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        icon: "size-8",
+        none: "p-0!",
+        default: cn(
+          typographyVariants({ variant: "text-md", weight: "semibold" }),
+          "h-11 gap-2 rounded-md px-4.5 py-2.5 has-data-[icon=inline-end]:pe-2 has-data-[icon=inline-start]:ps-2",
+        ),
+        xs: "h-9 gap-2 rounded-[min(var(--radius-md),8px)] px-3.5 py-2 in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&_svg:not([class*='size-'])]:size-3",
+        sm: "h-10 gap-2 rounded-[min(var(--radius-lg),10px)] px-3 py-2 in-data-[slot=button-group]:rounded-lg has-data-[icon=inline-end]:pe-1.5 has-data-[icon=inline-start]:ps-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+        lg: "h-12 gap-2 px-5 py-3 has-data-[icon=inline-end]:pe-3 has-data-[icon=inline-start]:ps-3",
+        icon: "size-11 rounded-md p-3",
         "icon-xs":
-          "size-6 rounded-[min(var(--radius-md),10px)] in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
+          "size-9 rounded-[min(var(--radius-md),8px)] p-2 in-data-[slot=button-group]:rounded-lg [&_svg:not([class*='size-'])]:size-3",
         "icon-sm":
-          "size-7 rounded-[min(var(--radius-md),12px)] in-data-[slot=button-group]:rounded-lg",
-        "icon-lg": "size-9",
+          "size-10 rounded-[min(var(--radius-md),8px)] p-2.5 in-data-[slot=button-group]:rounded-lg",
+        "icon-lg": "size-12 rounded-md p-3.5",
       },
     },
     defaultVariants: {
@@ -40,19 +53,88 @@ const buttonVariants = cva(
   },
 );
 
+type LegacyButtonProps = {
+  asChild?: boolean;
+  loading?: boolean;
+  leftIcon?: ButtonIconProp | React.ReactNode;
+  rightIcon?: ButtonIconProp | React.ReactNode;
+  typography?: VariantProps<typeof typographyVariants>;
+};
+
 function Button({
   className,
   variant = "default",
   size = "default",
+  asChild = false,
+  loading = false,
+  leftIcon,
+  rightIcon,
+  typography,
+  children,
+  disabled,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants> & LegacyButtonProps) {
+  const typographyClasses = typography
+    ? typographyVariants({
+        variant: "text-sm",
+        weight: "medium",
+        ...typography,
+      })
+    : "";
+
+  const classes = cn(buttonVariants({ variant, size, className }), typographyClasses);
+
+  const isBusy = loading;
+  const isDisabled = disabled ?? isBusy;
+
+  let childForAsChild: React.ReactElement | null = null;
+  if (asChild && children) {
+    const onlyChild = Children.only(children);
+    if (isValidElement(onlyChild)) {
+      childForAsChild = onlyChild;
+    }
+  }
+
+  if (childForAsChild) {
+    return (
+      <ButtonPrimitive
+        data-slot="button"
+        className={classes}
+        render={childForAsChild}
+        disabled={isDisabled}
+        nativeButton={false}
+        {...props}
+      />
+    );
+  }
+
+  const leftIconNode =
+    leftIcon && typeof leftIcon === "object" && "icon" in leftIcon ? (
+      <span data-icon="inline-start" className="inline-flex shrink-0 items-center">
+        <RenderIcon {...leftIcon} />
+      </span>
+    ) : (
+      (leftIcon ?? null)
+    );
+
+  const rightIconNode =
+    rightIcon && typeof rightIcon === "object" && "icon" in rightIcon ? (
+      <span data-icon="inline-end" className="inline-flex shrink-0 items-center">
+        <RenderIcon {...rightIcon} />
+      </span>
+    ) : (
+      (rightIcon ?? null)
+    );
+
   return (
-    <ButtonPrimitive
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
+    <ButtonPrimitive data-slot="button" className={classes} disabled={isDisabled} {...props}>
+      {leftIconNode}
+      {isBusy && !leftIconNode ? <Spinner /> : null}
+      {children}
+      {rightIconNode}
+    </ButtonPrimitive>
   );
 }
 
 export { Button, buttonVariants };
+export type { ButtonIconProp };
