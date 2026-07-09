@@ -53,6 +53,7 @@ import {
   Users as _Users,
   ScanFace as _FaceSwap,
   X as _X,
+  ShoppingBag as _ShoppingBag,
 } from "lucide-react";
 
 export interface SvgAsset {
@@ -127,3 +128,4 @@ export const RocketIcon = t(_Rocket);
 export const SendIcon = t(_Send);
 export const SparklesIcon = t(_Sparkles);
 export const StoryIcon = t(_Story);
+export const ShoppingBagIcon = t(_ShoppingBag);
