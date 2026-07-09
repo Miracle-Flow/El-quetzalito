@@ -136,3 +136,321 @@
         @apply font-sans;
     }
 }
+
+/* ============================================================
+   El Quetzalito — marketing brand layer
+   Scene: a neighborhood taquería at night. Smoke off the plancha,
+   warm bulbs strung overhead, the griddle glowing. Dark ground,
+   masa-cream ink, ember accent. "Real Masa. Real Fire."
+   ============================================================ */
+
+@theme {
+    --font-display: var(--font-eb-garamond), Georgia, "Times New Roman", serif;
+    --font-script: var(--font-ephesis), cursive;
+
+    --color-char-950: oklch(0.13 0.006 40);
+    --color-char-900: oklch(0.16 0.008 42);
+    --color-char-850: oklch(0.19 0.011 44);
+    --color-char-800: oklch(0.22 0.013 46);
+    --color-char-700: oklch(0.27 0.015 48);
+    --color-line: oklch(0.42 0.02 55 / 45%);
+
+    --color-masa: oklch(0.95 0.02 88);
+    --color-masa-dim: oklch(0.79 0.03 82);
+    --color-masa-faint: oklch(0.62 0.028 78);
+
+    --color-ember: oklch(0.66 0.2 40);
+    --color-ember-bright: oklch(0.74 0.18 55);
+    --color-gold: oklch(0.82 0.13 82);
+    --color-lime: oklch(0.84 0.15 132);
+
+    --color-navy: oklch(0.27 0.07 262);
+}
+
+/* ============================================================
+   El Quetzalito — restaurant site layer (from que)
+   Cream base, quetzal greens, chest-red accent. Bricolage display,
+   Figtree body, Playfair serif, Crimson menu body, Ephesis script.
+   Drives the (marketing) route group.
+   ============================================================ */
+@theme {
+    /* palette — cream base, quetzal greens, chest-red accent */
+    --color-cream: #f7f1e4;
+    --color-cream-deep: #efe6d2;
+    --color-sage: #edf3e2;
+    --color-peach: #fbeede;
+    --color-brand: #4a8c3c; /* bright leaf green — headline accent */
+    --color-pine: #3a7230; /* primary buttons */
+    --color-pine-deep: #2e5b26; /* button hover */
+    --color-forest: #22391c; /* footer */
+    --color-ink: #20301b; /* headings */
+    --color-moss: #5e6c55; /* muted body text */
+    --color-marigold: #e9a13b; /* stars, flame */
+    --color-chile: #c8442c; /* quetzal chest, small accents */
+
+    --font-display: var(--font-bricolage), ui-sans-serif, sans-serif;
+    --font-sans: var(--font-figtree), ui-sans-serif, sans-serif;
+    --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+    --font-script: var(--font-ephesis), "Snell Roundhand", cursive;
+    --font-menu-body: var(--font-crimson), ui-serif, Georgia, serif;
+}
+
+@layer base {
+    h1,
+    h2,
+    h3,
+    h4 {
+        @apply font-display;
+    }
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@layer utilities {
+    .spin-slow {
+        animation: spin-slow 18s linear infinite;
+        transform-origin: center;
+    }
+}
+
+@layer components {
+    /* Glassy pill used for the hero-nav CTA over photography */
+    .btn-glass {
+        border: 1px solid oklch(0.95 0.02 88 / 35%);
+        background: oklch(0.95 0.02 88 / 8%);
+        color: white;
+        backdrop-filter: blur(8px) saturate(1.1);
+        transition:
+            background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .btn-glass:hover {
+        background: oklch(0.95 0.02 88 / 16%);
+        border-color: oklch(0.95 0.02 88 / 55%);
+    }
+
+    /* Solid ember CTA */
+    .btn-ember {
+        background: var(--color-ember);
+        color: var(--color-char-950);
+        transition:
+            background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        box-shadow: 0 1px 0 oklch(0.85 0.12 70 / 40%) inset;
+    }
+    .btn-ember:hover {
+        background: var(--color-ember-bright);
+        box-shadow: 0 8px 30px -8px oklch(0.66 0.2 40 / 70%);
+        transform: translateY(-1px);
+    }
+
+    /* Dotted leaders for the menu price rows */
+    .leader {
+        flex: 1;
+        margin: 0 0.75rem 0.35rem;
+        border-bottom: 1px dotted oklch(0.6 0.03 60 / 45%);
+    }
+}
+
+@layer utilities {
+    /* Warm film grain over dark photographic sections */
+    .grain::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.5;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+    }
+
+    /* Ember bloom used behind headlines / at section seams */
+    .ember-bloom {
+        background: radial-gradient(
+            60% 60% at 50% 100%,
+            oklch(0.66 0.2 40 / 45%) 0%,
+            oklch(0.66 0.2 40 / 0%) 70%
+        );
+    }
+
+    .text-balance {
+        text-wrap: balance;
+    }
+    .text-pretty {
+        text-wrap: pretty;
+    }
+
+    /* Scroll reveal — enhances an already-visible default.
+       Hidden start state only applies once JS marks <html class="js">, and
+       never under reduced-motion, so no-JS / reduced-motion ships visible. */
+    .js .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+            opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+            transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: var(--reveal-delay, 0ms);
+        will-change: opacity, transform;
+    }
+    .js .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .js .reveal {
+            opacity: 1;
+            transform: none;
+            transition: none;
+        }
+    }
+}
+
+@keyframes kenburns {
+    from {
+        transform: scale(1.08);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes rise-in {
+    from {
+        opacity: 0;
+        transform: translateY(28px);
+        filter: blur(6px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+        filter: blur(0);
+    }
+}
+
+@keyframes cue-bob {
+    0%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.55;
+    }
+    50% {
+        transform: translateY(7px);
+        opacity: 1;
+    }
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@layer utilities {
+    /* Seamless scrolling marquee (two identical tracks, shift by one track) */
+    .marquee {
+        animation: marquee 42s linear infinite;
+    }
+    .marquee-pause:hover .marquee {
+        animation-play-state: paused;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        .marquee {
+            animation: none;
+        }
+    }
+}
+
+/* ============================================================
+   que animations + base — quetzal marketing site
+   ============================================================ */
+@keyframes que-spin-slow {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes que-slide-fill {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+.que-spin-slow {
+    animation: que-spin-slow 30s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes que-marquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+.que-marquee {
+    animation: que-marquee 38s linear infinite;
+    will-change: transform;
+}
+
+@keyframes que-hero-pullback {
+    from {
+        transform: scale(1.18);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.que-hero-pullback {
+    animation: que-hero-pullback 26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-origin: center;
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .que-spin-slow {
+        animation: none;
+    }
+    .que-marquee {
+        animation: none;
+    }
+    .que-hero-pullback {
+        animation: none;
+        transform: none;
+    }
+}
+
+/* que base — background/ink/selection/focus for the marketing site */
+body {
+    background: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: var(--color-brand);
+    color: #fff;
+}
+
+:focus-visible {
+    outline: 2px solid var(--color-pine);
+    outline-offset: 2px;
+}

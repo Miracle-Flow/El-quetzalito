@@ -43,6 +43,7 @@ import {
   Star as _Star,
   UtensilsCrossed as _Utensils,
   Send as _Send,
+  Leaf as _Leaf,
   Settings as _Settings,
   Sparkles as _Sparkles,
   SquareCheckBig as _Tasks,
@@ -52,6 +53,7 @@ import {
   Users as _Users,
   ScanFace as _FaceSwap,
   X as _X,
+  ShoppingBag as _ShoppingBag,
 } from "lucide-react";
 
 export interface SvgAsset {
@@ -72,6 +74,7 @@ export const t = (c: ElementType | SvgAsset): IconToken => ({
 
 export const LogoIcon = t({ src: "/logo.svg" });
 export const Home = t(_Home);
+export const Leaf = t(_Leaf);
 export const Dashboard = t(_Dashboard);
 export const Projects = t(_Layers);
 export const Tasks = t(_Tasks);
@@ -125,3 +128,4 @@ export const RocketIcon = t(_Rocket);
 export const SendIcon = t(_Send);
 export const SparklesIcon = t(_Sparkles);
 export const StoryIcon = t(_Story);
+export const ShoppingBagIcon = t(_ShoppingBag);
