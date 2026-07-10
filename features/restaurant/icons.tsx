@@ -22,15 +22,9 @@ export function QuetzalMark({ className = "h-10 w-10" }: IconProps) {
         strokeLinecap="round"
       />
       {/* body */}
-      <path
-        d="M15 13c-3 6-1 16 9 16 8 0 11-6 8-13-2.5-6-13-9-17-3Z"
-        fill="var(--color-brand)"
-      />
+      <path d="M15 13c-3 6-1 16 9 16 8 0 11-6 8-13-2.5-6-13-9-17-3Z" fill="var(--color-brand)" />
       {/* red chest */}
-      <path
-        d="M15.5 17c-1.5 5 1.5 11 8 11.8-4.5-3-5.5-8-4-12.8l-4 1Z"
-        fill="var(--color-chile)"
-      />
+      <path d="M15.5 17c-1.5 5 1.5 11 8 11.8-4.5-3-5.5-8-4-12.8l-4 1Z" fill="var(--color-chile)" />
       {/* head */}
       <circle cx="18" cy="10" r="6.5" fill="var(--color-pine)" />
       {/* crest */}
@@ -51,25 +45,24 @@ export function QuetzalMark({ className = "h-10 w-10" }: IconProps) {
 
 type LogoProps = {
   dark?: boolean;
-  size?: "md" | "lg" | "xl";
+  size?: "sm" | "md" | "lg" | "xl";
 };
 
 export function Logo({ dark = false, size = "md" }: LogoProps) {
-  const sizes: Record<"md" | "lg" | "xl", string> = {
-    md: "text-3xl",
-    lg: "text-4xl sm:text-5xl",
-    xl: "text-5xl sm:text-6xl",
+  const sizes: Record<"sm" | "md" | "lg" | "xl", string> = {
+    sm: "h-14 w-auto sm:h-16",
+    md: "h-16 w-auto sm:h-18",
+    lg: "h-18 w-auto sm:h-20",
+    xl: "h-20 w-auto sm:h-24",
   };
   const title = sizes[size] ?? sizes.md;
   return (
-    <span
-      className={`font-script ${title} leading-none ${
-        dark ? "text-cream" : "text-ink"
-      }`}
-      style={{ fontFamily: "var(--font-script)" }}
-    >
-      El Quetzalito
-    </span>
+    <img
+      src="/logo.png"
+      alt="El Quetzalito"
+      className={`${title} block object-contain leading-none`}
+      style={dark ? { filter: "none" } : undefined}
+    />
   );
 }
 
@@ -196,16 +189,8 @@ export function NachoIcon({ className = "h-8 w-8" }: IconProps) {
 export function LimeDoodle({ className = "h-20 w-20" }: IconProps) {
   return (
     <svg viewBox="0 0 80 80" className={className} aria-hidden="true">
-      <path
-        d="M14 46a26 26 0 0 0 44-18L14 46Z"
-        fill="#d9e8a3"
-        stroke="#f4fadf"
-        strokeWidth="3"
-      />
-      <path
-        d="M20 45a19 19 0 0 0 31-13L20 45Z"
-        fill="#b5d36a"
-      />
+      <path d="M14 46a26 26 0 0 0 44-18L14 46Z" fill="#d9e8a3" stroke="#f4fadf" strokeWidth="3" />
+      <path d="M20 45a19 19 0 0 0 31-13L20 45Z" fill="#b5d36a" />
       <path d="M24 44l26-11M28 47l22-9" stroke="#f4fadf" strokeWidth="1.5" />
       <path
         d="M62 18l3-7M68 26l7-3M66 12l5-5"
@@ -219,12 +204,10 @@ export function LimeDoodle({ className = "h-20 w-20" }: IconProps) {
 
 type SocialType = "facebook" | "instagram" | "x";
 
-export function SocialIcon({
-  type,
-  className = "h-4.5 w-4.5",
-}: IconProps & { type: SocialType }) {
+export function SocialIcon({ type, className = "h-4.5 w-4.5" }: IconProps & { type: SocialType }) {
   const paths: Record<SocialType, string> = {
-    facebook: "M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V4.9c-.6-.1-1.4-.2-2.3-.2-2.3 0-3.9 1.4-3.9 4V11H7.8v3h2.4v7h3.3Z",
+    facebook:
+      "M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V4.9c-.6-.1-1.4-.2-2.3-.2-2.3 0-3.9 1.4-3.9 4V11H7.8v3h2.4v7h3.3Z",
     instagram:
       "M12 8.4A3.6 3.6 0 1 0 12 15.6 3.6 3.6 0 0 0 12 8.4Zm0 5.9a2.3 2.3 0 1 1 0-4.6 2.3 2.3 0 0 1 0 4.6ZM16.9 8a.9.9 0 1 1-1.8 0 .9.9 0 0 1 1.8 0ZM12 4.5c-2 0-2.3 0-3.1.1a5.6 5.6 0 0 0-1.9.3 3.9 3.9 0 0 0-2.2 2.2c-.2.6-.3 1.2-.3 1.9-.1.8-.1 1-.1 3s0 2.3.1 3.1c0 .7.1 1.3.3 1.9a3.9 3.9 0 0 0 2.2 2.2c.6.2 1.2.3 1.9.3.8.1 1 .1 3.1.1s2.3 0 3.1-.1c.7 0 1.3-.1 1.9-.3a3.9 3.9 0 0 0 2.2-2.2c.2-.6.3-1.2.3-1.9.1-.8.1-1 .1-3.1s0-2.3-.1-3.1c0-.7-.1-1.3-.3-1.9a3.9 3.9 0 0 0-2.2-2.2 5.6 5.6 0 0 0-1.9-.3c-.8-.1-1-.1-3.1-.1Zm0 1.3c2 0 2.2 0 3 .1.6 0 1 .1 1.4.3.5.2.9.6 1.1 1.1.2.4.3.8.3 1.4 0 .8.1 1 .1 3s0 2.2-.1 3c0 .6-.1 1-.3 1.4a2.5 2.5 0 0 1-1.1 1.1c-.4.2-.8.3-1.4.3-.8.1-1 .1-3 .1s-2.2 0-3-.1c-.6 0-1-.1-1.4-.3a2.5 2.5 0 0 1-1.1-1.1 4.2 4.2 0 0 1-.3-1.4c-.1-.8-.1-1-.1-3s0-2.2.1-3c0-.6.1-1 .3-1.4.2-.5.6-.9 1.1-1.1.4-.2.8-.3 1.4-.3.8-.1 1-.1 3-.1Z",
     x: "M17.2 4h2.7l-5.9 6.8L21 21h-5.4l-4.3-5.6L6.4 21H3.7l6.3-7.2L3.4 4h5.6l3.9 5.1L17.2 4Zm-1 15.4h1.5L8.2 5.5H6.6l9.6 13.9Z",

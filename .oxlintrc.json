@@ -324,6 +324,12 @@
       }
     },
     {
+      "files": ["features/**/*.{ts,tsx}"],
+      "rules": {
+        "unicorn/filename-case": "off"
+      }
+    },
+    {
       "files": ["app/(marketing)/**/*.{ts,tsx}"],
       "rules": {
         "no-restricted-imports": [
@@ -340,6 +346,11 @@
       }
     }
   ],
-  "ignorePatterns": ["**/*.generated.*", "**/*.d.ts"],
+  "ignorePatterns": [
+    "**/*.generated.*",
+    "**/*.d.ts",
+    "app/(payload)/admin/importMap.js",
+    "src/migrations/**"
+  ],
   "extends": []
 }

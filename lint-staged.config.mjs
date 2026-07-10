@@ -19,7 +19,12 @@ const buildCommand = (command, filenames) => {
 const buildOxlintCommand = (filenames) => buildCommand("pnpm exec oxlint --fix", filenames);
 
 /** @param {string[]} filenames - Staged file paths. */
-const buildOxfmtCommand = (filenames) => buildCommand("pnpm exec oxfmt", filenames);
+const buildOxfmtCommand = (filenames) => {
+  // oxfmt ignores package-lock.json (exits 2), so skip it.
+  const filtered = filenames.filter((f) => !f.endsWith("package-lock.json"));
+  if (filtered.length === 0) return "";
+  return buildCommand("pnpm exec oxfmt", filtered);
+};
 
 /** @type {import("lint-staged").Configuration} */
 const config = {

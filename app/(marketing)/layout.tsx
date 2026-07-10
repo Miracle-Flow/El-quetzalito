@@ -1,8 +1,15 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Crimson_Text, Ephesis, Figtree, Geist_Mono, Playfair_Display } from "next/font/google";
+import {
+  Bricolage_Grotesque,
+  Crimson_Text,
+  Ephesis,
+  Figtree,
+  Geist_Mono,
+  Playfair_Display,
+} from "next/font/google";
 
-import Footer from "@/features/restaurant/Footer";
-import Navbar from "@/features/restaurant/Navbar";
+import Footer from "@/features/marketing/Footer";
+import Navbar from "@/features/marketing/Navbar";
 
 import "../globals.css";
 

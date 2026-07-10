@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import MenuCarta from "@/features/restaurant/MenuCarta";
-import PageAnimations from "@/features/restaurant/PageAnimations";
+import MenuOrder from "@/features/marketing/menu/MenuOrder";
+import PageAnimations from "@/features/marketing/PageAnimations";
 
 export const metadata: Metadata = {
   title: "The Menu — El Quetzalito",
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function MenuPage() {
   return (
     <>
-      <MenuCarta />
+      <MenuOrder />
       <PageAnimations />
     </>
   );

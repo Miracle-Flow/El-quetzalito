@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import { usePathname } from "next/navigation";
+
 import { Logo, BagIcon } from "./icons";
 
 const links = [
@@ -38,7 +40,7 @@ export default function Navbar() {
     >
       <nav className="flex h-24 items-center justify-between px-6 sm:px-10 lg:px-16 xl:px-24">
         <a href="/" aria-label="El Quetzalito — home">
-          <Logo size="lg" dark={!solid} />
+          <Logo size="sm" dark={!solid} />
         </a>
 
         <ul className="hidden items-center gap-10 lg:flex">
@@ -47,9 +49,7 @@ export default function Navbar() {
               <a
                 href={link.href}
                 className={`text-lg font-semibold transition-colors ${
-                  solid
-                    ? "text-moss hover:text-pine"
-                    : "text-cream/90 hover:text-white"
+                  solid ? "text-moss hover:text-pine" : "text-cream/90 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -87,11 +87,7 @@ export default function Navbar() {
               strokeWidth="2"
               strokeLinecap="round"
             >
-              {open ? (
-                <path d="M6 6l12 12M18 6 6 18" />
-              ) : (
-                <path d="M4 7h16M4 12h16M4 17h16" />
-              )}
+              {open ? <path d="M6 6l12 12M18 6 6 18" /> : <path d="M4 7h16M4 12h16M4 17h16" />}
             </svg>
           </button>
         </div>

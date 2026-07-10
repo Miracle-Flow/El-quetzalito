@@ -1,4 +1,4 @@
-import Container from "@/features/restaurant/ui/Container";
+import Container from "@/features/marketing/ui/Container";
 
 export default function ContactPage() {
   return (
