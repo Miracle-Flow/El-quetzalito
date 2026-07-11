@@ -51,7 +51,7 @@ export default function MenuTabs({ tabs }: { tabs: MenuTab[] }) {
               onClick={() => goTo(tab.id)}
               aria-current={isActive ? "true" : undefined}
               className={`border-b-[3px] px-1 py-4 text-sm font-bold whitespace-nowrap transition-colors sm:text-base ${
-                isActive ? "border-pine text-ink" : "border-transparent text-moss hover:text-ink"
+                isActive ? "border-navy text-ink" : "border-transparent text-moss hover:text-navy"
               }`}
             >
               {tab.label}

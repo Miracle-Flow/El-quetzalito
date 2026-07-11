@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
+
 import Image from "next/image";
+
 import { menuCategories, type MenuItem } from "@/features/restaurant/data/menu";
+
 import { LeafIcon } from "./icons";
 
 function formatPrice(item: MenuItem) {
@@ -16,11 +19,9 @@ export default function FullMenu({ showPhotos = true }: { showPhotos?: boolean }
 
   return (
     <section id="menu" className="scroll-mt-20 bg-[#fdf9f0]">
-      <div className="px-6 pt-16 pb-20 sm:px-10 sm:pt-20 lg:px-16 lg:pb-28 lg:pt-24 xl:px-24">
+      <div className="px-6 pt-16 pb-20 sm:px-10 sm:pt-20 lg:px-16 lg:pt-24 lg:pb-28 xl:px-24">
         <div className="text-center">
-          <p className="text-sm font-bold tracking-[0.22em] text-[#2E5AA8] sm:text-base">
-            THE MENU
-          </p>
+          <p className="text-sm font-bold tracking-[0.22em] text-navy sm:text-base">THE MENU</p>
           <h2 className="mt-4 font-display text-5xl font-extrabold tracking-tight text-ink sm:text-6xl">
             The Full Menu
           </h2>
@@ -39,9 +40,7 @@ export default function FullMenu({ showPhotos = true }: { showPhotos?: boolean }
               aria-selected={cat.id === active}
               onClick={() => setActive(cat.id)}
               className={`rounded-full px-5 py-2.5 text-sm font-bold transition-colors sm:px-7 sm:py-3.5 sm:text-base ${
-                cat.id === active
-                  ? "bg-[#2E5AA8] text-white"
-                  : "bg-white text-moss hover:text-[#2E5AA8]"
+                cat.id === active ? "bg-navy text-white" : "bg-white text-moss hover:text-navy"
               }`}
             >
               {cat.label}
@@ -49,7 +48,7 @@ export default function FullMenu({ showPhotos = true }: { showPhotos?: boolean }
           ))}
         </div>
 
-        <p className="mx-auto mt-8 max-w-xl text-center font-serif text-base italic text-moss sm:text-lg">
+        <p className="mx-auto mt-8 max-w-xl text-center font-serif text-base text-moss italic sm:text-lg">
           {category.note}
         </p>
 
@@ -82,7 +81,7 @@ function MenuCard({ item }: { item: MenuItem }) {
 
   return (
     <li className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(32,48,27,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_36px_-20px_rgba(32,48,27,0.25)]">
-      <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-sage via-cream to-cream-deep">
+      <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-cream-deep via-cream to-cream-deep">
         {item.image ? (
           <Image
             src={item.image}
@@ -92,18 +91,13 @@ function MenuCard({ item }: { item: MenuItem }) {
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div
-            aria-hidden="true"
-            className="flex h-full items-center justify-center"
-          >
-            <span className="font-serif text-7xl italic text-pine/25 select-none">
-              {initial}
-            </span>
+          <div aria-hidden="true" className="flex h-full items-center justify-center">
+            <span className="font-serif text-7xl text-navy/25 italic select-none">{initial}</span>
           </div>
         )}
 
         {item.signature && (
-          <span className="absolute left-3 top-3 rounded-full bg-chile px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-white shadow-sm">
+          <span className="absolute top-3 left-3 rounded-full bg-chile px-2.5 py-1 text-[0.6rem] font-bold tracking-[0.18em] text-white uppercase shadow-sm">
             ★ Signature
           </span>
         )}
@@ -112,7 +106,7 @@ function MenuCard({ item }: { item: MenuItem }) {
           <span
             aria-label="Vegetarian"
             title="Vegetarian"
-            className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-brand shadow-sm backdrop-blur-sm"
+            className="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-navy shadow-sm backdrop-blur-sm"
           >
             <LeafIcon className="h-4 w-4" />
           </span>
@@ -120,13 +114,11 @@ function MenuCard({ item }: { item: MenuItem }) {
       </div>
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <h3 className="font-display text-lg font-bold leading-tight text-ink sm:text-xl">
+        <h3 className="font-display text-lg leading-tight font-bold text-ink sm:text-xl">
           {item.name}
         </h3>
-        <p className="mt-2 flex-1 text-sm leading-relaxed text-moss">
-          {item.description}
-        </p>
-        <p className="mt-4 font-display text-lg font-extrabold text-pine sm:text-xl">
+        <p className="mt-2 flex-1 text-sm leading-relaxed text-moss">{item.description}</p>
+        <p className="mt-4 font-display text-lg font-extrabold text-navy sm:text-xl">
           {formatPrice(item)}
         </p>
       </div>
@@ -140,13 +132,9 @@ function MenuRow({ item, showStar }: { item: MenuItem; showStar: boolean }) {
   return (
     <li className="border-b border-ink/10 py-7 last:border-b-0 sm:py-8">
       <div className="flex items-baseline gap-4">
-        <h3 className="shrink-0 font-display text-xl font-bold leading-tight text-ink sm:text-2xl">
+        <h3 className="shrink-0 font-display text-xl leading-tight font-bold text-ink sm:text-2xl">
           {showStar && item.signature && (
-            <span
-              aria-label="Signature dish"
-              title="Signature dish"
-              className="mr-2 text-chile"
-            >
+            <span aria-label="Signature dish" title="Signature dish" className="mr-2 text-chile">
               ★
             </span>
           )}
@@ -154,7 +142,7 @@ function MenuRow({ item, showStar }: { item: MenuItem; showStar: boolean }) {
           {item.veg && (
             <LeafIcon
               aria-label="Vegetarian"
-              className="ml-2 inline h-4.5 w-4.5 align-[-0.15em] text-brand"
+              className="ml-2 inline h-4.5 w-4.5 align-[-0.15em] text-navy"
             />
           )}
         </h3>
@@ -164,13 +152,11 @@ function MenuRow({ item, showStar }: { item: MenuItem; showStar: boolean }) {
           className="mb-[0.35em] flex-1 border-b border-dotted border-ink/30"
         />
 
-        <span className="shrink-0 font-display text-lg font-extrabold text-pine sm:text-xl">
+        <span className="shrink-0 font-display text-lg font-extrabold text-navy sm:text-xl">
           {formatPrice(item)}
         </span>
       </div>
-      <p className="mt-3 max-w-lg text-[0.95rem] leading-relaxed text-moss">
-        {item.description}
-      </p>
+      <p className="mt-3 max-w-lg text-[0.95rem] leading-relaxed text-moss">{item.description}</p>
     </li>
   );
 }

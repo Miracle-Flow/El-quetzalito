@@ -1,21 +1,29 @@
 import type { Metadata } from "next";
 import {
-  Bricolage_Grotesque,
+  Cinzel,
   Crimson_Text,
-  Ephesis,
   Figtree,
   Geist_Mono,
+  Great_Vibes,
   Playfair_Display,
 } from "next/font/google";
 
 import Footer from "@/features/marketing/Footer";
+import LanguageProvider from "@/features/marketing/language-provider";
 import Navbar from "@/features/marketing/Navbar";
 
 import "../globals.css";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
   subsets: ["latin"],
+  weight: ["400", "700", "900"],
+});
+
+const greatVibes = Great_Vibes({
+  variable: "--font-great-vibes",
+  subsets: ["latin"],
+  weight: ["400"],
 });
 
 const figtree = Figtree({
@@ -28,12 +36,6 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
-});
-
-const ephesis = Ephesis({
-  variable: "--font-ephesis",
-  subsets: ["latin"],
-  weight: ["400"],
 });
 
 const crimson = Crimson_Text({
@@ -64,12 +66,14 @@ export default function MarketingLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${bricolage.variable} ${figtree.variable} ${playfair.variable} ${ephesis.variable} ${crimson.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
+      className={`${cinzel.variable} ${greatVibes.variable} ${figtree.variable} ${playfair.variable} ${crimson.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <LanguageProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -1,15 +1,11 @@
 import type { MenuItem } from "../types";
 
 export type DailySpecialsDay = {
-  /** Weekday id matching `Date.prototype.getDay()` order (sunday = 0). */
   id: string;
   label: string;
   items: MenuItem[];
 };
 
-// Image folder for every daily special: public/menu/daily-specials/<slug>.<ext>.
-// Dishes repeat across days, so they are defined once here and referenced from
-// each day's list. A few change price by day — those days spread an override.
 const dish = {
   sopaDeRes: {
     slug: "sopa-de-res",
@@ -28,6 +24,7 @@ const dish = {
     name: "Sopa de Gallina",
     description: "Hen soup served with rice.",
     price: 14,
+    image: "/Menu/Sopa de Gallina.avif",
   },
   sopaDePata: {
     slug: "sopa-de-pata",
@@ -40,6 +37,7 @@ const dish = {
     name: "Guisado de Res",
     description: "Beef stew with rice, beans and salad.",
     price: 13,
+    image: "/Menu/Guisado de Res.avif",
   },
   guisadoDePollo: {
     slug: "guisado-de-pollo",
@@ -52,12 +50,14 @@ const dish = {
     name: "Pepian de Pollo",
     description: "Marinated thick chicken stew with rice and avocado.",
     price: 13,
+    image: "/Menu/Pepián de Gallina o Res.avif",
   },
   pepianDeRes: {
     slug: "pepian-de-res",
     name: "Pepian de Res",
     description: "Marinated thick beef stew with rice and avocado.",
     price: 14,
+    image: "/Menu/Pepián de Gallina o Res.avif",
   },
   estofadoDeRes: {
     slug: "estofado-de-res",

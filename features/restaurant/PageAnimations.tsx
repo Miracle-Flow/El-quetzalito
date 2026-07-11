@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -49,7 +50,7 @@ export default function PageAnimations() {
               ease: "power4.out",
               delay: 0.15,
               clearProps: "opacity",
-            }
+            },
           );
         }
       }
@@ -130,7 +131,7 @@ export default function PageAnimations() {
       }
 
       // --- Promo banner ---
-      const promo = document.querySelector(".bg-pine.rounded-\\[3rem\\]");
+      const promo = document.querySelector(".bg-navy.rounded-\\[3rem\\]");
       if (promo) {
         const promoImg = promo.querySelector("img");
         const promoText = promo.querySelector(":scope > div > div:last-child");

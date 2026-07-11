@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 
 import { usePathname } from "next/navigation";
 
+import { useTranslation } from "@/lib/i18n";
+
 import { Logo, BagIcon } from "./icons";
 
-const links = [
-  { href: "/", label: "Home" },
-  { href: "/menu", label: "Menu" },
-  { href: "/#faqs", label: "FAQs" },
-  { href: "/#contact", label: "Contact" },
+const linkKeys = [
+  { href: "/", key: "nav.home" },
+  { href: "/menu", key: "nav.menu" },
+  { href: "/#faqs", key: "nav.faqs" },
+  { href: "/#contact", key: "nav.contact" },
 ];
 
 export default function Navbar() {
@@ -18,6 +20,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const { locale, setLocale, t } = useTranslation();
 
   useEffect(() => {
     if (!isHome) return;
@@ -44,37 +47,47 @@ export default function Navbar() {
         </a>
 
         <ul className="hidden items-center gap-10 lg:flex">
-          {links.map((link) => (
+          {linkKeys.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
                 className={`text-lg font-semibold transition-colors ${
-                  solid ? "text-moss hover:text-pine" : "text-cream/90 hover:text-white"
+                  solid ? "text-moss hover:text-navy" : "text-cream/90 hover:text-gold"
                 }`}
               >
-                {link.label}
+                {t(link.key)}
               </a>
             </li>
           ))}
         </ul>
 
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setLocale(locale === "en" ? "es" : "en")}
+            aria-label={`Switch to ${locale === "en" ? "Spanish" : "English"}`}
+            className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-colors ${
+              solid
+                ? "bg-cream-deep text-ink hover:bg-gold hover:text-white"
+                : "bg-white/15 text-cream hover:bg-white/25"
+            }`}
+          >
+            {locale === "en" ? "ES" : "EN"}
+          </button>
           <a
             href="/menu"
             className={`hidden rounded-full px-7 py-3.5 text-base font-bold transition-colors sm:inline-flex sm:items-center sm:gap-2 ${
-              solid
-                ? "bg-pine text-white hover:bg-pine-deep"
-                : "bg-cream/95 text-ink hover:bg-white"
+              solid ? "bg-navy text-white hover:bg-gold" : "bg-cream/95 text-ink hover:bg-white"
             }`}
           >
             <BagIcon className="h-5 w-5" />
-            Order Now
+            {t("nav.orderNow")}
           </a>
           <button
             type="button"
             onClick={() => setOpen(!open)}
             aria-expanded={open}
-            aria-label="Toggle navigation menu"
+            aria-label={t("nav.toggleMenu")}
             className={`flex h-12 w-12 items-center justify-center rounded-full transition-colors lg:hidden ${
               solid ? "text-ink" : "text-cream"
             }`}
@@ -96,25 +109,32 @@ export default function Navbar() {
       {open && (
         <div className="border-t border-cream-deep bg-white px-4 pb-4 lg:hidden">
           <ul className="flex flex-col gap-1 pt-2">
-            {links.map((link) => (
+            {linkKeys.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-xl px-3 py-2.5 text-sm font-semibold text-ink hover:bg-sage"
+                  className="block rounded-xl px-3 py-2.5 text-sm font-semibold text-ink hover:bg-cream-deep"
                 >
-                  {link.label}
+                  {t(link.key)}
                 </a>
               </li>
             ))}
-            <li className="pt-2">
+            <li className="flex items-center gap-2 pt-2">
               <a
                 href="/menu"
                 onClick={() => setOpen(false)}
-                className="block rounded-full bg-pine px-5 py-2.5 text-center text-sm font-bold text-white"
+                className="block flex-1 rounded-full bg-navy px-5 py-2.5 text-center text-sm font-bold text-white"
               >
-                Order Now
+                {t("nav.orderNow")}
               </a>
+              <button
+                type="button"
+                onClick={() => setLocale(locale === "en" ? "es" : "en")}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cream-deep text-sm font-bold text-ink transition-colors hover:bg-gold hover:text-white"
+              >
+                {locale === "en" ? "ES" : "EN"}
+              </button>
             </li>
           </ul>
         </div>

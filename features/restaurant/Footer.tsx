@@ -1,19 +1,27 @@
+"use client";
+
 import Image from "next/image";
-import heroTacos from "@/features/restaurant/assets/tacos1.jpg";
+
+import { useTranslation } from "@/lib/i18n";
+
+import heroBg from "@/features/restaurant/assets/Parrillada Chapina.webp";
+
 import { Logo } from "./icons";
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/menu", label: "Menu" },
-  { href: "/#faqs", label: "FAQs" },
-  { href: "/#contact", label: "Contact" },
-];
-
 export default function Footer() {
+  const { t } = useTranslation();
+
+  const navLinks = [
+    { href: "/", labelKey: "nav.home" },
+    { href: "/menu", labelKey: "nav.menu" },
+    { href: "/#faqs", labelKey: "nav.faqs" },
+    { href: "/#contact", labelKey: "nav.contact" },
+  ];
+
   return (
     <footer id="contact" className="relative scroll-mt-20 overflow-hidden bg-black text-cream">
       <Image
-        src={heroTacos}
+        src={heroBg}
         alt=""
         aria-hidden="true"
         fill
@@ -29,19 +37,19 @@ export default function Footer() {
           <Logo dark size="xl" />
         </div>
 
-        <h2 className="mt-10 font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-white sm:text-6xl xl:text-7xl">
-          Cocina de <span className="text-[#2E5AA8]">Puebla.</span>
+        <h2 className="mt-10 font-display text-5xl leading-[0.95] font-extrabold tracking-tight text-white sm:text-6xl xl:text-7xl">
+          Cocina <span className="text-gold">Chapina.</span>
         </h2>
 
         <nav aria-label="Footer navigation" className="mt-12">
           <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4">
-            {navLinks.map(({ href, label }) => (
-              <li key={label}>
+            {navLinks.map(({ href, labelKey }) => (
+              <li key={labelKey}>
                 <a
                   href={href}
-                  className="text-base font-semibold text-cream transition-colors hover:text-[#2E5AA8]"
+                  className="text-base font-semibold text-cream transition-colors hover:text-gold"
                 >
-                  {label}
+                  {t(labelKey)}
                 </a>
               </li>
             ))}
@@ -49,7 +57,7 @@ export default function Footer() {
         </nav>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-cream/70">
-          <span>1428 Calle del Mercado, Puebla</span>
+          <span>1428 Calle del Mercado</span>
           <Dot />
           <a href="tel:+15555550123" className="transition-colors hover:text-white">
             +1 (555) 555-0123
@@ -65,22 +73,21 @@ export default function Footer() {
         <ul className="mt-8 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-sm text-cream/70">
           <li>
             <a href="#top" className="transition-colors hover:text-white">
-              Privacy Policy
+              {t("footer.privacy")}
             </a>
           </li>
           <li>
             <a href="#top" className="transition-colors hover:text-white">
-              Terms &amp; Conditions
+              {t("footer.terms")}
             </a>
           </li>
         </ul>
 
         <p className="mt-6 text-sm text-cream/60">
-          © 2026 El Quetzalito · Real Mexican, fresh off the fire.
+          {t("footer.copyright")} {t("footer.tagline")}
         </p>
         <p className="mt-3 text-sm text-cream/60">
-          Hecho con cariño en{" "}
-          <span className="font-semibold text-[#2E5AA8]">Puebla, MX</span>
+          {t("footer.madeWith")} <span className="font-semibold text-gold">Guatemala</span>
         </p>
       </div>
     </footer>
@@ -88,7 +95,5 @@ export default function Footer() {
 }
 
 function Dot() {
-  return (
-    <span aria-hidden="true" className="h-1 w-1 rounded-full bg-cream/40" />
-  );
+  return <span aria-hidden="true" className="h-1 w-1 rounded-full bg-cream/40" />;
 }

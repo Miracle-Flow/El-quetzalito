@@ -13,18 +13,21 @@ export const breakfast: MenuCategoryData = {
           name: "Tipico Chapin",
           description: "Grilled meat with eggs any style.",
           price: 13,
+          image: "/Menu/Desayuno Chapín.avif",
         },
         {
           slug: "el-montanero",
           name: "El Montañero",
           description: "Marinated meat with eggs any style.",
           price: 13,
+          image: "/Menu/Desayuno El Buen Amanecer.avif",
         },
         {
           slug: "rey-quiche",
           name: "Rey Quiche",
           description: "Guatemalan chorizo and sausage with eggs any style.",
           price: 13,
+          image: "/Menu/Desayuno El Quetzalito.avif",
         },
         {
           slug: "mixto",
@@ -37,6 +40,7 @@ export const breakfast: MenuCategoryData = {
           name: "Omeleta Chapina",
           description: "Guatemalan-style omelet with mushrooms, spinach, tomato and onion.",
           price: 12,
+          image: "/Menu/Omelette.avif",
         },
         {
           slug: "huevos-rancheros",
@@ -44,6 +48,13 @@ export const breakfast: MenuCategoryData = {
           description:
             "Sunny-side eggs with ranch sauce, served with fried plantain, rice, beans, cheese, cream and tortillas.",
           price: 12,
+        },
+        {
+          slug: "pancakes-con-banana-y-fresas",
+          name: "Pancakes con Banana y Fresas",
+          description: "Pancakes with banana and strawberries.",
+          price: 8,
+          image: "/Menu/Pancakes con Huevos.avif",
         },
         {
           slug: "tamales-de-elote",
@@ -81,6 +92,7 @@ export const breakfast: MenuCategoryData = {
           name: "Pan con Pollo",
           description: "Shredded chicken sandwich.",
           price: 7,
+          image: "/Menu/Pan con Pollo.avif",
         },
         {
           slug: "empanadas",
@@ -97,12 +109,6 @@ export const breakfast: MenuCategoryData = {
           slug: "egg-and-cheese",
           name: "Egg and Cheese",
           price: 5,
-        },
-        {
-          slug: "pancakes-con-banana-y-fresas",
-          name: "Pancakes con Banana y Fresas",
-          description: "Pancakes with banana and strawberries.",
-          price: 8,
         },
       ],
     },

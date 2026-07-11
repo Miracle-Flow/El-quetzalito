@@ -1,131 +1,112 @@
+"use client";
+
 import Image from "next/image";
 
-import bowl from "@/features/restaurant/assets/bowl.jpg";
-import burrito from "@/features/restaurant/assets/burrito.jpg";
-import nachos from "@/features/restaurant/assets/nachos.jpg";
-import tacos1 from "@/features/restaurant/assets/tacos1.jpg";
-import tacos2 from "@/features/restaurant/assets/tacos2.jpg";
-import tacos3 from "@/features/restaurant/assets/tacos3.jpg";
-import tacos4 from "@/features/restaurant/assets/tacos4.jpg";
+import { useTranslation } from "@/lib/i18n";
+
+import GuatemalanPattern from "./GuatemalanPattern";
 
 const plates = [
-  { name: "Parillada Chapina", price: "$22", image: tacos1, alt: "Grilled mixed meats platter" },
-  {
-    name: "Sopa de Gallina",
-    price: "$13",
-    image: bowl,
-    alt: "Guatemalan hen soup with vegetables",
-  },
   {
     name: "Churrasco Tikal",
+    descKey: "sig.plate1.desc",
     price: "$20",
-    image: tacos2,
-    alt: "Guatemalan-style grilled meat with cebollines",
+    src: "/Menu/Churrasco_Tikal.avif",
+  },
+  { name: "Carne Asada", descKey: "sig.plate2.desc", price: "$15", src: "/Menu/Carne Asada.avif" },
+  {
+    name: "Costillas BBQ",
+    descKey: "sig.plate3.desc",
+    price: "$18",
+    src: "/Menu/Costillas BBQ.avif",
+  },
+  { name: "Alitas BBQ", descKey: "sig.plate4.desc", price: "$14", src: "/Menu/Alitas BBQ.avif" },
+  {
+    name: "Desayuno El Quetzalito",
+    descKey: "sig.plate5.desc",
+    price: "$12",
+    src: "/Menu/Desayuno El Quetzalito.avif",
   },
   {
-    name: "Tamales de Elote",
-    price: "$4",
-    image: burrito,
-    alt: "Sweet corn tamales with sour cream",
+    name: "Pepián de Gallina o Res",
+    descKey: "sig.plate6.desc",
+    price: "$14",
+    src: "/Menu/Pepián de Gallina o Res.avif",
   },
-  { name: "Ceviche", price: "$14", image: nachos, alt: "Lime-marinated shrimp ceviche" },
-  { name: "Churrasco Mixto", price: "$20", image: tacos3, alt: "Mixed grill with pasta salad" },
-  { name: "Pollo Asado", price: "$12", image: tacos4, alt: "Grilled chicken plate" },
 ];
 
-function tileTransform(i: number, total: number) {
-  const center = (total - 1) / 2;
-  const offset = i - center;
-  const rotateZ = offset * 5;
-  const translateY = Math.abs(offset) * 22;
-  return `translateY(${translateY}px) rotateZ(${rotateZ}deg)`;
-}
-
 export default function Signatures() {
+  const { t } = useTranslation();
+
   return (
-    <section className="relative overflow-hidden bg-[#FEFBEE] px-6 py-28 sm:px-10 lg:px-16 lg:py-40 xl:px-24">
-      {/* soft radial warmth behind the fan */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-1/2 h-[70%] -translate-y-1/2 bg-[radial-gradient(closest-side,rgba(46,90,168,0.08),transparent_70%)]"
+    <section className="relative overflow-hidden bg-[#FEFBEE] px-6 py-24 sm:px-10 lg:px-16 lg:py-32 xl:px-24">
+      {/* Huipil textile pattern — decorative background */}
+      <GuatemalanPattern
+        patternId="gt-huipil-sig"
+        className="pointer-events-none absolute inset-0 h-full w-full text-navy opacity-[0.04]"
       />
 
-      <div className="relative mx-auto max-w-7xl">
-        {/* section head */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-1/2 h-[70%] -translate-y-1/2 bg-[radial-gradient(closest-side,rgba(29,52,84,0.08),transparent_70%)]"
+      />
+
+      <div className="relative mx-auto max-w-3xl">
         <div className="text-center">
-          <p className="text-base font-bold tracking-[0.28em] text-[#2E5AA8] sm:text-lg">
-            SIGNATURES
+          <p className="text-base font-bold tracking-[0.28em] text-navy sm:text-lg">
+            {t("sig.eyebrow")}
           </p>
           <h2 className="mt-5 font-display text-6xl font-extrabold tracking-tight text-ink sm:text-7xl lg:text-8xl">
-            What the kitchen is known for.
+            {t("sig.heading")}
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-moss sm:text-xl lg:text-2xl">
-            Seven plates we&apos;re known for — pulled straight from the carta.
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-moss sm:text-xl">
+            {t("sig.subheading")}
           </p>
         </div>
 
-        {/* fanned photo gallery */}
-        <div className="relative mt-20 lg:mt-28">
-          {/* desktop / tablet — fanned overlapping tiles */}
-          <ul className="hidden items-center justify-center gap-3 pb-24 sm:flex lg:gap-5 xl:gap-7">
-            {plates.map(({ name, price, image, alt }, i) => (
-              <li
-                key={name}
-                className="group relative shrink-0"
-                style={{
-                  transform: tileTransform(i, plates.length),
-                  transformStyle: "preserve-3d",
-                  transition: "transform 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94)",
-                  zIndex: 10 - Math.abs(i - (plates.length - 1) / 2),
-                }}
+        <ul className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {plates.map(({ name, descKey, price, src }) => (
+            <li key={name}>
+              <a
+                href="/menu"
+                className="group flex items-start gap-4 rounded-xl border border-cream-deep bg-white p-4 transition-shadow duration-200 hover:shadow-md"
               >
-                <div className="relative aspect-[3/4] w-56 overflow-hidden rounded-2xl bg-[#fdf9f0] shadow-[0_30px_62px_-18px_rgba(20,35,64,0.5)] ring-1 ring-black/5 transition-transform duration-500 group-hover:scale-[1.06] lg:w-72 xl:w-80">
+                <div className="flex min-w-0 flex-1 flex-col">
+                  <h3 className="text-base leading-snug font-bold text-ink">{name}</h3>
+                  <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-moss">
+                    {t(descKey)}
+                  </p>
+                  <p className="mt-auto pt-2 text-sm font-bold text-ink">{price}</p>
+                </div>
+                <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-cream-deep">
                   <Image
-                    src={image}
-                    alt={alt}
+                    src={src}
+                    alt={name}
                     fill
-                    sizes="(min-width: 1280px) 18rem, (min-width: 1024px) 16rem, 13rem"
-                    className="object-cover"
+                    sizes="96px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
                   />
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/80 via-black/30 to-transparent"
-                  />
-                  <div className="absolute inset-x-4 bottom-4 text-white sm:inset-x-5 sm:bottom-5">
-                    <div className="font-display text-sm leading-tight font-bold tracking-[0.14em] uppercase drop-shadow-md lg:text-base">
-                      {name}
-                    </div>
-                    <div className="mt-1 font-serif text-base text-white/95 italic drop-shadow-md lg:text-lg">
-                      {price}
-                    </div>
-                  </div>
                 </div>
-              </li>
-            ))}
-          </ul>
+              </a>
+            </li>
+          ))}
+        </ul>
 
-          {/* mobile — horizontal snap-scroll */}
-          <ul className="-mx-6 flex snap-x snap-mandatory scroll-px-6 gap-4 overflow-x-auto px-6 pb-4 sm:hidden">
-            {plates.map(({ name, price, image, alt }) => (
-              <li key={name} className="shrink-0 snap-start">
-                <div className="relative aspect-[3/4] w-48 overflow-hidden rounded-2xl bg-[#fdf9f0] shadow-[0_18px_36px_-14px_rgba(20,35,64,0.4)]">
-                  <Image src={image} alt={alt} fill sizes="12rem" className="object-cover" />
-                  <div
-                    aria-hidden="true"
-                    className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/80 via-black/30 to-transparent"
-                  />
-                  <div className="absolute inset-x-4 bottom-4 text-white">
-                    <div className="font-display text-sm leading-tight font-bold tracking-[0.14em] uppercase drop-shadow-md">
-                      {name}
-                    </div>
-                    <div className="mt-1 font-serif text-base text-white/95 italic drop-shadow-md">
-                      {price}
-                    </div>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+        <div className="mt-10 text-center">
+          <a
+            href="/menu"
+            className="group inline-flex items-baseline gap-3 font-serif text-lg text-ink italic"
+          >
+            <span className="border-b border-navy/60 pb-1 transition-colors group-hover:border-navy">
+              {t("sig.viewFull")}
+            </span>
+            <span
+              aria-hidden="true"
+              className="text-navy not-italic transition-transform duration-500 group-hover:translate-x-1"
+            >
+              →
+            </span>
+          </a>
         </div>
       </div>
     </section>

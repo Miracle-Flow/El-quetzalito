@@ -10,33 +10,33 @@ export function QuetzalMark({ className = "h-10 w-10" }: IconProps) {
       <path
         d="M26 27c-2 7-7 12-14 17"
         fill="none"
-        stroke="var(--color-pine)"
+        stroke="var(--color-emerald)"
         strokeWidth="3"
         strokeLinecap="round"
       />
       <path
         d="M29 28c-.5 8-4 13-8 18"
         fill="none"
-        stroke="var(--color-brand)"
+        stroke="var(--color-emerald)"
         strokeWidth="3"
         strokeLinecap="round"
       />
       {/* body */}
-      <path d="M15 13c-3 6-1 16 9 16 8 0 11-6 8-13-2.5-6-13-9-17-3Z" fill="var(--color-brand)" />
+      <path d="M15 13c-3 6-1 16 9 16 8 0 11-6 8-13-2.5-6-13-9-17-3Z" fill="var(--color-emerald)" />
       {/* red chest */}
       <path d="M15.5 17c-1.5 5 1.5 11 8 11.8-4.5-3-5.5-8-4-12.8l-4 1Z" fill="var(--color-chile)" />
       {/* head */}
-      <circle cx="18" cy="10" r="6.5" fill="var(--color-pine)" />
+      <circle cx="18" cy="10" r="6.5" fill="var(--color-emerald)" />
       {/* crest */}
       <path
         d="M14 5.5c1.5-2 5-2.5 7-1"
         fill="none"
-        stroke="var(--color-pine)"
+        stroke="var(--color-emerald)"
         strokeWidth="2.5"
         strokeLinecap="round"
       />
       {/* beak */}
-      <path d="M12 8.5 7.5 10.5 12.5 12.5Z" fill="var(--color-marigold)" />
+      <path d="M12 8.5 7.5 10.5 12.5 12.5Z" fill="var(--color-gold)" />
       {/* eye */}
       <circle cx="16.5" cy="9" r="1.4" fill="#fff" />
     </svg>
@@ -194,7 +194,7 @@ export function LimeDoodle({ className = "h-20 w-20" }: IconProps) {
       <path d="M24 44l26-11M28 47l22-9" stroke="#f4fadf" strokeWidth="1.5" />
       <path
         d="M62 18l3-7M68 26l7-3M66 12l5-5"
-        stroke="var(--color-marigold)"
+        stroke="var(--color-gold)"
         strokeWidth="3"
         strokeLinecap="round"
       />
