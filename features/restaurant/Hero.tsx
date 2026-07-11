@@ -13,12 +13,25 @@ export default function Hero() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    // Safari requires muted set as a DOM property before play() — React's muted prop
-    // only sets the HTML attribute, which Safari ignores for autoplay gating.
+
+    // Safari checks the muted DOM property (not the HTML attribute) before allowing
+    // autoplay. React's muted prop only sets the attribute, so we set the property too.
     video.muted = true;
-    video.play().catch((_err: unknown) => {
-      // Autoplay blocked by browser policy — video stays on poster frame
-    });
+
+    const tryPlay = () => {
+      video.play().catch((_err: unknown) => {
+        // Autoplay blocked (Low Power Mode, browser policy, etc.)
+      });
+    };
+
+    // If data is already buffered (e.g. fast connection), play immediately.
+    // Otherwise wait until Safari has enough data to start.
+    if (video.readyState >= 2) {
+      tryPlay();
+    } else {
+      video.addEventListener("loadeddata", tryPlay, { once: true });
+      return () => video.removeEventListener("loadeddata", tryPlay);
+    }
   }, []);
 
   return (
@@ -33,6 +46,7 @@ export default function Hero() {
         loop
         muted
         playsInline
+        preload="auto"
         className="absolute inset-0 h-full w-full object-cover"
       >
         <source src="/herowalkin.mp4" type="video/mp4" />
