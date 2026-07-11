@@ -1,11 +1,25 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
 import { useTranslation } from "@/lib/i18n";
 
 import { ArrowRightIcon } from "./icons";
 
 export default function Hero() {
   const { t } = useTranslation();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    // Safari requires muted set as a DOM property before play() — React's muted prop
+    // only sets the HTML attribute, which Safari ignores for autoplay gating.
+    video.muted = true;
+    video.play().catch((_err: unknown) => {
+      // Autoplay blocked by browser policy — video stays on poster frame
+    });
+  }, []);
 
   return (
     <section
@@ -14,6 +28,7 @@ export default function Hero() {
       style={{ minHeight: "100svh" }}
     >
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
