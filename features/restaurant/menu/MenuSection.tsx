@@ -1,7 +1,14 @@
 import MenuItemCard from "./MenuItemCard";
+import type { CatalogBySlug } from "./MenuOrder";
 import type { MenuCategoryData } from "./types";
 
-export default function MenuSection({ category }: { category: MenuCategoryData }) {
+export default function MenuSection({
+  category,
+  catalogBySlug,
+}: {
+  category: MenuCategoryData;
+  catalogBySlug: CatalogBySlug;
+}) {
   return (
     <section id={category.id} className="scroll-mt-44 py-10">
       <h2 className="border-b border-cream-deep pb-4 text-2xl font-black tracking-tight text-ink">
@@ -19,6 +26,7 @@ export default function MenuSection({ category }: { category: MenuCategoryData }
                 key={item.slug}
                 item={item}
                 category={{ id: category.id, label: category.label }}
+                catalogBySlug={catalogBySlug}
               />
             ))}
           </div>

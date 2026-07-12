@@ -1,6 +1,174 @@
 import { getPayload } from "payload";
 
+import { dailySpecialsDays } from "../../features/restaurant/menu/data/dailySpecials.ts";
+import { DAILY_SPECIALS_ID, menuCategories } from "../../features/restaurant/menu/data/index.ts";
+import type {
+  MenuCategoryData,
+  MenuItem as StaticMenuItem,
+} from "../../features/restaurant/menu/types.ts";
 import config from "../../payload.config.ts";
+
+interface SeedItem {
+  slug: string;
+  name: string;
+  description: string | null;
+  basePrice: number;
+  categorySlug: string;
+  availabilityType: "steamTable" | "madeToOrder";
+  modifierGroupSlugs: string[];
+  sortOrder: number;
+}
+
+const PLATTER_GROUPS = ["sides", "spice-level"];
+const DRINK_SIZE_GROUPS = ["bebida-size"];
+
+const DRINK_SIZE_SUBSECTIONS = new Set(["aguas-frescas", "licuados", "jugos", "granizadas"]);
+
+function isOrderable(item: StaticMenuItem): item is StaticMenuItem & { price: number } {
+  return typeof item.price === "number" && Number.isFinite(item.price) && item.price >= 0;
+}
+
+function flattenCategory(
+  category: MenuCategoryData,
+  availabilityType: "steamTable" | "madeToOrder",
+  groupSelector: (subId: string) => string[],
+): SeedItem[] {
+  let order = 0;
+  const items: SeedItem[] = [];
+  const seen = new Set<string>();
+
+  for (const sub of category.subsections) {
+    for (const item of sub.items) {
+      if (!isOrderable(item) || seen.has(item.slug)) {
+        continue;
+      }
+      seen.add(item.slug);
+      items.push({
+        slug: item.slug,
+        name: item.name,
+        description: item.description ?? null,
+        basePrice: Math.round(item.price * 100),
+        categorySlug: category.id,
+        availabilityType,
+        modifierGroupSlugs: groupSelector(sub.id),
+        sortOrder: (order += 1),
+      });
+    }
+  }
+
+  return items;
+}
+
+function flattenDailySpecials(): SeedItem[] {
+  const seen = new Map<string, SeedItem>();
+  let order = 0;
+
+  for (const day of dailySpecialsDays) {
+    for (const item of day.items) {
+      if (!isOrderable(item) || seen.has(item.slug)) {
+        continue;
+      }
+      seen.set(item.slug, {
+        slug: item.slug,
+        name: item.name,
+        description: item.description ?? null,
+        basePrice: Math.round(item.price * 100),
+        categorySlug: DAILY_SPECIALS_ID,
+        availabilityType: "steamTable",
+        modifierGroupSlugs: PLATTER_GROUPS,
+        sortOrder: (order += 1),
+      });
+    }
+  }
+
+  return [...seen.values()];
+}
+
+function buildSeedItems(): SeedItem[] {
+  const items: SeedItem[] = [];
+  const seen = new Set<string>();
+
+  function addAll(list: SeedItem[]) {
+    for (const item of list) {
+      if (seen.has(item.slug)) {
+        continue;
+      }
+      seen.add(item.slug);
+      items.push(item);
+    }
+  }
+
+  for (const category of menuCategories) {
+    const isEspeciales = category.id === "especiales";
+    addAll(
+      flattenCategory(category, "madeToOrder", (subId) =>
+        isEspeciales ? PLATTER_GROUPS : DRINK_SIZE_SUBSECTIONS.has(subId) ? DRINK_SIZE_GROUPS : [],
+      ),
+    );
+  }
+
+  addAll(flattenDailySpecials());
+
+  return items;
+}
+
+const groupDefinitions = [
+  {
+    slug: "sides",
+    label: "Sides",
+    selectionType: "pickMany" as const,
+    required: true,
+    minSelection: 2,
+    maxSelection: 2,
+    pricingMode: "included" as const,
+    options: [
+      { label: "Arroz", priceDelta: 0 },
+      { label: "Frijoles", priceDelta: 0 },
+      { label: "Ensalada", priceDelta: 50 },
+      { label: "Plátanos fritos", priceDelta: 75 },
+    ],
+  },
+  {
+    slug: "spice-level",
+    label: "Spice Level",
+    selectionType: "pickOne" as const,
+    required: false,
+    minSelection: 0,
+    maxSelection: 1,
+    pricingMode: "included" as const,
+    options: [
+      { label: "Mild", priceDelta: 0 },
+      { label: "Medium", priceDelta: 0 },
+      { label: "Hot", priceDelta: 0 },
+    ],
+  },
+  {
+    slug: "size",
+    label: "Size",
+    selectionType: "pickOne" as const,
+    required: false,
+    minSelection: 0,
+    maxSelection: 1,
+    pricingMode: "priced" as const,
+    options: [
+      { label: "Regular", priceDelta: 0 },
+      { label: "Large", priceDelta: 150 },
+    ],
+  },
+  {
+    slug: "bebida-size",
+    label: "Beverage Size",
+    selectionType: "pickOne" as const,
+    required: false,
+    minSelection: 0,
+    maxSelection: 1,
+    pricingMode: "priced" as const,
+    options: [
+      { label: "Regular", priceDelta: 0 },
+      { label: "Large", priceDelta: 100 },
+    ],
+  },
+];
 
 async function seed() {
   const payload = await getPayload({ config });
@@ -37,86 +205,33 @@ async function seed() {
     slug: "main",
     active: true,
   });
-  const mainMenuId = mainMenu.id;
 
   console.info("[seed] upserting categories");
-  const categoriesInput = [
-    { name: "Platos Fuertes", slug: "platos-fuertes", sortOrder: 1 },
-    { name: "Sopas", slug: "sopas", sortOrder: 2 },
-    { name: "Bebidas", slug: "bebidas", sortOrder: 3 },
-    { name: "Postres", slug: "postres", sortOrder: 4 },
+  const categoryInputs = [
+    ...menuCategories.map((cat, index) => ({
+      name: cat.label,
+      slug: cat.id,
+      sortOrder: index + 1,
+    })),
+    {
+      name: "Daily Specials / Especiales Diarios",
+      slug: DAILY_SPECIALS_ID,
+      sortOrder: 0,
+    },
   ];
 
   const categoryMap: Record<string, number | string> = {};
-  for (const cat of categoriesInput) {
+  for (const cat of categoryInputs) {
     const doc = await upsertCollection(payload, "category", cat.slug, {
       ...cat,
-      menu: mainMenuId,
+      menu: mainMenu.id,
       active: true,
     });
     categoryMap[cat.slug] = doc.id;
   }
 
   console.info("[seed] upserting modifier groups");
-  const groupDefinitions = [
-    {
-      slug: "sides",
-      label: "Sides",
-      selectionType: "pickMany" as const,
-      required: true,
-      minSelection: 2,
-      maxSelection: 2,
-      pricingMode: "included" as const,
-      options: [
-        { label: "Arroz", priceDelta: 0 },
-        { label: "Frijoles", priceDelta: 0 },
-        { label: "Ensalada", priceDelta: 50 },
-        { label: "Plátanos fritos", priceDelta: 75 },
-      ],
-    },
-    {
-      slug: "spice-level",
-      label: "Spice Level",
-      selectionType: "pickOne" as const,
-      required: false,
-      minSelection: 0,
-      maxSelection: 1,
-      pricingMode: "included" as const,
-      options: [
-        { label: "Mild", priceDelta: 0 },
-        { label: "Medium", priceDelta: 0 },
-        { label: "Hot", priceDelta: 0 },
-      ],
-    },
-    {
-      slug: "size",
-      label: "Size",
-      selectionType: "pickOne" as const,
-      required: false,
-      minSelection: 0,
-      maxSelection: 1,
-      pricingMode: "priced" as const,
-      options: [
-        { label: "Regular", priceDelta: 0 },
-        { label: "Large", priceDelta: 150 },
-      ],
-    },
-    {
-      slug: "bebida-size",
-      label: "Beverage Size",
-      selectionType: "pickOne" as const,
-      required: false,
-      minSelection: 0,
-      maxSelection: 1,
-      pricingMode: "priced" as const,
-      options: [
-        { label: "Regular", priceDelta: 0 },
-        { label: "Large", priceDelta: 100 },
-      ],
-    },
-  ];
-
-  const groupMap: Record<string, number | string> = {};
+  const groupMap: Record<string, number> = {};
   const groupOptionsMap: Record<string, number[]> = {};
 
   for (const def of groupDefinitions) {
@@ -140,17 +255,10 @@ async function seed() {
     let groupId: number;
     if (existingGroup.docs.length > 0 && existingGroup.docs[0]?.id) {
       groupId = existingGroup.docs[0].id;
-      await payload.update({
-        collection: "modifier-group",
-        id: groupId,
-        data: groupData,
-      });
+      await payload.update({ collection: "modifier-group", id: groupId, data: groupData });
       console.info(`[seed] updated modifier-group ${def.slug} (${groupId})`);
     } else {
-      const created = await payload.create({
-        collection: "modifier-group",
-        data: groupData,
-      });
+      const created = await payload.create({ collection: "modifier-group", data: groupData });
       groupId = created.id;
       console.info(`[seed] created modifier-group ${def.slug} (${groupId})`);
     }
@@ -161,37 +269,21 @@ async function seed() {
     for (const opt of def.options) {
       const existingOption = await payload.find({
         collection: "modifier-option",
-        where: {
-          and: [{ group: { equals: groupId } }, { label: { equals: opt.label } }],
-        },
+        where: { and: [{ group: { equals: groupId } }, { label: { equals: opt.label } }] },
         limit: 1,
         pagination: false,
       });
 
-      const optionData = {
-        label: opt.label,
-        priceDelta: opt.priceDelta,
-        group: groupId,
-      };
+      const optionData = { label: opt.label, priceDelta: opt.priceDelta, group: groupId };
 
       let optionId: number;
       if (existingOption.docs.length > 0 && existingOption.docs[0]?.id) {
         optionId = existingOption.docs[0].id;
-        await payload.update({
-          collection: "modifier-option",
-          id: optionId,
-          data: optionData,
-        });
-        console.info(`[seed] updated modifier-option ${def.slug}/${opt.label} (${optionId})`);
+        await payload.update({ collection: "modifier-option", id: optionId, data: optionData });
       } else {
-        const created = await payload.create({
-          collection: "modifier-option",
-          data: optionData,
-        });
+        const created = await payload.create({ collection: "modifier-option", data: optionData });
         optionId = created.id;
-        console.info(`[seed] created modifier-option ${def.slug}/${opt.label} (${optionId})`);
       }
-
       groupOptionsMap[def.slug].push(optionId);
     }
 
@@ -203,171 +295,20 @@ async function seed() {
   }
 
   console.info("[seed] upserting menu items");
-  const menuItemsInput = [
-    {
-      name: "Pepián",
-      slug: "pepian",
-      description: "A rich Guatemalan meat stew with toasted sesame and pumpkin seeds.",
-      basePrice: 995,
-      category: "platos-fuertes",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: ["sides", "spice-level"],
-      sortOrder: 1,
-    },
-    {
-      name: "Chiles Rellenos",
-      slug: "chiles-rellenos",
-      description: "Sweet peppers stuffed with seasoned meat and vegetables.",
-      basePrice: 1095,
-      category: "platos-fuertes",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: ["sides", "spice-level"],
-      sortOrder: 2,
-    },
-    {
-      name: "Pollo en Crema",
-      slug: "pollo-en-crema",
-      description: "Chicken simmered in a creamy white sauce.",
-      basePrice: 895,
-      category: "platos-fuertes",
-      availabilityType: "steamTable" as const,
-      modifierGroups: ["sides"],
-      sortOrder: 3,
-    },
-    {
-      name: "Carne Guisada",
-      slug: "carne-guisada",
-      description: "Slow-braised beef in a savory tomato sauce.",
-      basePrice: 1050,
-      category: "platos-fuertes",
-      availabilityType: "steamTable" as const,
-      modifierGroups: ["sides"],
-      sortOrder: 4,
-    },
-    {
-      name: "Tostadas de Pollo",
-      slug: "tostadas-de-pollo",
-      description: "Crispy tortillas topped with chicken, lettuce, and crema.",
-      basePrice: 750,
-      category: "platos-fuertes",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: ["spice-level"],
-      sortOrder: 5,
-    },
-    {
-      name: "Sopa de Res",
-      slug: "sopa-de-res",
-      description: "Hearty beef soup with vegetables and fresh cilantro.",
-      basePrice: 695,
-      category: "sopas",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: [] as string[],
-      sortOrder: 1,
-    },
-    {
-      name: "Sopa de Gallina",
-      slug: "sopa-de-gallina",
-      description: "Traditional hen soup with vegetables and herbs.",
-      basePrice: 725,
-      category: "sopas",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: [] as string[],
-      sortOrder: 2,
-    },
-    {
-      name: "Caldo de Pollo",
-      slug: "caldo-de-pollo",
-      description: "Comforting chicken broth with vegetables and rice.",
-      basePrice: 675,
-      category: "sopas",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: [] as string[],
-      sortOrder: 3,
-    },
-    {
-      name: "Agua de Horchata",
-      slug: "agua-de-horchata",
-      description: "Sweet rice drink flavored with cinnamon.",
-      basePrice: 325,
-      category: "bebidas",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: ["bebida-size"],
-      sortOrder: 1,
-    },
-    {
-      name: "Agua de Jamaica",
-      slug: "agua-de-jamaica",
-      description: "Tart and refreshing hibiscus drink.",
-      basePrice: 325,
-      category: "bebidas",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: ["bebida-size"],
-      sortOrder: 2,
-    },
-    {
-      name: "Café de Olla",
-      slug: "cafe-de-olla",
-      description: "Spiced coffee brewed with cinnamon and piloncillo.",
-      basePrice: 275,
-      category: "bebidas",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: [] as string[],
-      sortOrder: 3,
-    },
-    {
-      name: "Refresco",
-      slug: "refresco",
-      description: "Assorted Guatemalan soft drinks.",
-      basePrice: 250,
-      category: "bebidas",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: [] as string[],
-      sortOrder: 4,
-    },
-    {
-      name: "Rellenito de Plátano",
-      slug: "rellenito-de-platano",
-      description: "Sweet plantain dumpling stuffed with black beans.",
-      basePrice: 450,
-      category: "postres",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: [] as string[],
-      sortOrder: 1,
-    },
-    {
-      name: "Buñuelos",
-      slug: "bunuelos",
-      description: "Fried dough fritters drizzled with anise syrup.",
-      basePrice: 395,
-      category: "postres",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: [] as string[],
-      sortOrder: 2,
-    },
-    {
-      name: "Champurrada",
-      slug: "champurrada",
-      description: "Guatemalan sweet bread cookie with a crisp texture.",
-      basePrice: 350,
-      category: "postres",
-      availabilityType: "madeToOrder" as const,
-      modifierGroups: [] as string[],
-      sortOrder: 3,
-    },
-  ];
-
-  for (const item of menuItemsInput) {
+  const seedItems = buildSeedItems();
+  for (const item of seedItems) {
     await upsertCollection(payload, "menu-item", item.slug, {
       name: item.name,
       description: item.description,
       basePrice: item.basePrice,
-      category: categoryMap[item.category],
+      category: categoryMap[item.categorySlug],
       availabilityType: item.availabilityType,
       active: true,
-      modifierGroups: item.modifierGroups.map((g) => groupMap[g]),
+      modifierGroups: item.modifierGroupSlugs.map((g) => groupMap[g]),
       sortOrder: item.sortOrder,
     });
   }
+  console.info(`[seed] upserted ${seedItems.length} menu items`);
 
   console.info("[seed] upserting promotions");
   await upsertPromotion(payload, {
@@ -409,11 +350,7 @@ async function upsertCollection(
 
   if (existing.docs.length > 0 && existing.docs[0]?.id) {
     const id = existing.docs[0].id;
-    const updated = await payload.update({
-      collection,
-      id,
-      data,
-    });
+    const updated = await payload.update({ collection, id, data });
     console.info(`[seed] updated ${collection} ${slug} (${id})`);
     return updated;
   }
@@ -454,19 +391,12 @@ async function upsertPromotion(
 
   if (existing.docs.length > 0 && existing.docs[0]?.id) {
     const id = existing.docs[0].id;
-    const updated = await payload.update({
-      collection: "promotion",
-      id,
-      data,
-    });
+    const updated = await payload.update({ collection: "promotion", id, data });
     console.info(`[seed] updated promotion ${key} (${id})`);
     return updated;
   }
 
-  const created = await payload.create({
-    collection: "promotion",
-    data,
-  });
+  const created = await payload.create({ collection: "promotion", data });
   console.info(`[seed] created promotion ${key} (${created.id})`);
   return created;
 }

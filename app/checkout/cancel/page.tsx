@@ -48,8 +48,12 @@ export default async function CheckoutCancelPage({ searchParams }: CancelPagePro
               </Typography>
             </Stack>
             <Cluster gap="3">
-              <Button variant="outline" render={<Link href="/cart">Return to cart</Link>} />
-              <Button render={<Link href="/">Back to menu</Link>} />
+              <Button variant="outline" asChild>
+                <Link href="/cart">Return to cart</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/">Back to menu</Link>
+              </Button>
             </Cluster>
           </Stack>
         </Container>
@@ -103,18 +107,19 @@ export default async function CheckoutCancelPage({ searchParams }: CancelPagePro
             </Typography>
           </Stack>
           <Cluster gap="3">
-            <Button variant="outline" render={<Link href="/cart">Return to cart</Link>} />
-            <Button render={<Link href="/">Back to menu</Link>} />
+            <Button variant="outline" asChild>
+              <Link href="/cart">Return to cart</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/">Back to menu</Link>
+            </Button>
           </Cluster>
-          <Button
-            variant="ghost"
-            render={
-              <a href="mailto:hello@elquetzalito.com">
-                <RenderIcon icon={Question} size={16} />
-                Contact support
-              </a>
-            }
-          />
+          <Button variant="ghost" asChild>
+            <a href="mailto:hello@elquetzalito.com">
+              <RenderIcon icon={Question} size={16} />
+              Contact support
+            </a>
+          </Button>
         </Stack>
       </Container>
     </Section>

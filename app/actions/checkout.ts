@@ -17,7 +17,6 @@ import { computeQuote, getTodayDateInZone } from "@/src/lib/checkout/compute-quo
 import {
   CheckoutInputSchema,
   QuoteResultSchema,
-  type CheckoutInput,
   type QuoteResult,
 } from "@/src/lib/checkout/schemas.ts";
 import { createCheckoutSession } from "@/src/lib/stripe.ts";
@@ -95,7 +94,19 @@ export async function getQuote(input: unknown): Promise<QuoteActionResult> {
   }
 
   const context = await loadStoreContext();
-  const quote = computeQuote(parseResult.data as CheckoutInput, context);
+  const quote = computeQuote(
+    {
+      name: parseResult.data.name ?? "Quote Preview",
+      phone: parseResult.data.phone ?? "0000000000",
+      email: parseResult.data.email ?? "quote@preview.test",
+      pickupMode: parseResult.data.pickupMode,
+      pickupSlot: parseResult.data.pickupSlot,
+      promoCode: parseResult.data.promoCode,
+      tipCents: parseResult.data.tipCents,
+      cartLines: parseResult.data.cartLines,
+    },
+    context,
+  );
 
   return { success: true, quote: QuoteResultSchema.parse(quote) };
 }

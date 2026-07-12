@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 
 import { DAILY_SPECIALS_ID, dailySpecialsDays, dailySpecialsNote } from "./data";
 import MenuItemCard from "./MenuItemCard";
+import type { CatalogBySlug } from "./MenuOrder";
 
-export default function DailySpecialsSection() {
+export default function DailySpecialsSection({ catalogBySlug }: { catalogBySlug: CatalogBySlug }) {
   const [activeDay, setActiveDay] = useState(dailySpecialsDays[1].id);
 
   useEffect(() => {
@@ -53,6 +54,7 @@ export default function DailySpecialsSection() {
             key={item.slug}
             item={item}
             category={{ id: DAILY_SPECIALS_ID, label: "Daily Specials" }}
+            catalogBySlug={catalogBySlug}
           />
         ))}
       </div>

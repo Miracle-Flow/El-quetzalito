@@ -30,16 +30,12 @@ export default function CartPage() {
           <CartSummary />
 
           <Stack gap="4" align="center">
-            <Button
-              variant="outline"
-              className="w-full sm:w-auto"
-              render={
-                <Link href="/menu">
-                  <RenderIcon icon={CartIcon} size={16} />
-                  Continue ordering
-                </Link>
-              }
-            />
+            <Button variant="outline" className="w-full sm:w-auto" asChild>
+              <Link href="/menu">
+                <RenderIcon icon={CartIcon} size={16} />
+                Continue ordering
+              </Link>
+            </Button>
           </Stack>
         </Stack>
       </Container>

@@ -72,7 +72,9 @@ export function CartSummary({ checkoutHref = "/checkout" }: CartSummaryProps) {
                   Add some delicious items from the menu to get started.
                 </Typography>
               </Stack>
-              <Button render={<Link href="/menu">Browse menu</Link>} />
+              <Button asChild>
+                <Link href="/menu">Browse menu</Link>
+              </Button>
             </Stack>
           );
         }
@@ -172,11 +174,9 @@ export function CartSummary({ checkoutHref = "/checkout" }: CartSummaryProps) {
                 </Cluster>
               </Box>
 
-              <Button
-                size="lg"
-                className="w-full"
-                render={<Link href={checkoutHref}>Proceed to checkout</Link>}
-              />
+              <Button size="lg" className="w-full" asChild>
+                <Link href={checkoutHref}>Proceed to checkout</Link>
+              </Button>
             </Stack>
           </>
         );

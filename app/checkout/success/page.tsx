@@ -48,7 +48,9 @@ export default async function CheckoutSuccessPage({ searchParams }: SuccessPageP
                 link might be incorrect.
               </Typography>
             </Stack>
-            <Button variant="outline" render={<Link href="/">Back to menu</Link>} />
+            <Button variant="outline" asChild>
+              <Link href="/">Back to menu</Link>
+            </Button>
           </Stack>
         </Container>
       </Section>
@@ -73,8 +75,12 @@ export default async function CheckoutSuccessPage({ searchParams }: SuccessPageP
               </Typography>
             </Stack>
             <Cluster gap="3">
-              <Button variant="outline" render={<Link href="/cart">Return to cart</Link>} />
-              <Button render={<Link href="/">Back to menu</Link>} />
+              <Button variant="outline" asChild>
+                <Link href="/cart">Return to cart</Link>
+              </Button>
+              <Button asChild>
+                <Link href="/">Back to menu</Link>
+              </Button>
             </Cluster>
           </Stack>
         </Container>
@@ -98,11 +104,12 @@ export default async function CheckoutSuccessPage({ searchParams }: SuccessPageP
               </Typography>
             </Stack>
             <Cluster gap="3">
-              <Button
-                variant="outline"
-                render={<a href={`/checkout/success?order_id=${orderId}`}>Refresh status</a>}
-              />
-              <Button render={<Link href="/">Continue to menu</Link>} />
+              <Button variant="outline" asChild>
+                <a href={`/checkout/success?order_id=${orderId}`}>Refresh status</a>
+              </Button>
+              <Button asChild>
+                <Link href="/">Continue to menu</Link>
+              </Button>
             </Cluster>
           </Stack>
         </Container>

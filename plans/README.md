@@ -23,6 +23,7 @@ silently diverging.
 2. `02-data-model.md` — Payload collections + Drizzle tables (fields, types, money in cents).
 3. `03-request-flows.md` — end-to-end sequences (browse, checkout, webhook, lifecycle, slots, availability).
 4. `04-build-phases.md` — phased delivery with deliverables + verification. **Start with the tracer bullet.**
+5. `05-cms-cart-checkout-bridge.md` — **NEXT UP:** CMS cart IDs + porting `feat/checkout` onto current `feat/ordering`. Read this before implementing checkout on the post-main ordering branch.
 
 ## How to work (non-negotiable conventions)
 - Follow `../AGENTS.md`, `../COMPONENTS.md`, `../DESIGN.md`.

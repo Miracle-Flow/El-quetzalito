@@ -41,7 +41,7 @@ interface CartActions {
 
 export type CartStore = CartState & CartActions;
 
-const STORAGE_KEY = "el-quetzalito-cart";
+const STORAGE_KEY = "el-quetzalito-cart-v2";
 
 const noopStorage: StateStorage = {
   getItem: () => null,
@@ -90,7 +90,7 @@ export function createCartStore(storage?: StateStorage) {
   return create<CartStore>()(
     persist(
       (set) => ({
-        version: 1,
+        version: 2,
         lines: [],
         _hasHydrated: false,
 
@@ -168,7 +168,7 @@ export function createCartStore(storage?: StateStorage) {
           }
           state?.setHasHydrated(true);
         },
-        version: 1,
+        version: 2,
       },
     ),
   );

@@ -63,9 +63,6 @@ function useQuoteRequest() {
           setError(null);
           const result = await getQuote({
             ...partialInput,
-            name: "",
-            phone: "",
-            email: "review@example.com",
             cartLines: lines.map(cartLineToInput),
           });
 

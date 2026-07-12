@@ -170,11 +170,9 @@ export function OrderDetails({ order, lineItems, modifiers }: OrderDetailsProps)
         </Box>
       </Stack>
 
-      <Button
-        variant="outline"
-        className="w-full sm:w-auto"
-        render={<Link href="/">Back to menu</Link>}
-      />
+      <Button variant="outline" className="w-full sm:w-auto" asChild>
+        <Link href="/">Back to menu</Link>
+      </Button>
     </Stack>
   );
 }

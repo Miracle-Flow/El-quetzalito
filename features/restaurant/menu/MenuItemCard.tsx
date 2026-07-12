@@ -4,7 +4,7 @@ import Image from "next/image";
 
 import { MenuItemConfigurator } from "@/components/menu-item-configurator";
 
-import { toOrderableItem } from "./to-orderable-item";
+import type { CatalogBySlug } from "./MenuOrder";
 import type { MenuItem } from "./types";
 
 function formatPrice(item: MenuItem) {
@@ -15,13 +15,13 @@ function formatPrice(item: MenuItem) {
 
 export default function MenuItemCard({
   item,
-  category,
+  catalogBySlug,
 }: {
   item: MenuItem;
-  category: { id: string; label: string };
+  catalogBySlug: CatalogBySlug;
 }) {
   const price = formatPrice(item);
-  const orderable = toOrderableItem(item, category);
+  const cmsItem = catalogBySlug[item.slug] ?? null;
 
   return (
     <article className="flex items-start gap-4 rounded-xl border border-cream-deep bg-white p-4 transition-shadow duration-200 hover:shadow-md">
@@ -32,7 +32,7 @@ export default function MenuItemCard({
         )}
         <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-2">
           {price && <p className="text-sm font-bold text-ink">{price}</p>}
-          {orderable && <MenuItemConfigurator item={orderable} />}
+          {cmsItem && <MenuItemConfigurator item={cmsItem} />}
         </div>
       </div>
       {item.image && (
