@@ -34,7 +34,7 @@ export default function CartPage() {
               variant="outline"
               className="w-full sm:w-auto"
               render={
-                <Link href="/">
+                <Link href="/menu">
                   <RenderIcon icon={CartIcon} size={16} />
                   Continue ordering
                 </Link>

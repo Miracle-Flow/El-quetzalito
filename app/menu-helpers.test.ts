@@ -1,7 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 
-import type { Category, DailyAvailability, MenuItem } from "../payload-types.ts";
 import {
   buildSoldOutSet,
   formatPrice,
@@ -10,7 +9,8 @@ import {
   getCategoryName,
   groupItemsByCategory,
   isItemAddDisabled,
-} from "./menu-helpers.ts";
+} from "../lib/menu-helpers.ts";
+import type { Category, DailyAvailability, MenuItem } from "../payload-types.ts";
 
 function makeCategory(id: number, name: string): Category {
   return {

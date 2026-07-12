@@ -2,12 +2,12 @@
 
 import * as React from "react";
 
+import { formatPrice } from "@/lib/menu-helpers.ts";
+
 import { Label } from "@/components/ui/label";
 
 import { Cluster, Stack } from "@/components/layout";
 import { Typography } from "@/components/typography";
-
-import { formatPrice } from "@/app/menu-helpers.ts";
 
 import type { MenuItem } from "../payload-types.ts";
 import {

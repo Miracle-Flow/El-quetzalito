@@ -7,132 +7,450 @@
 @source "../**/*.{ts,tsx}";
 
 @theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --font-sans: var(--font-geist-sans);
-    --font-mono: var(--font-geist-mono);
-    --font-heading: var(--font-geist-sans);
-    --color-sidebar-ring: var(--sidebar-ring);
-    --color-sidebar-border: var(--sidebar-border);
-    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-    --color-sidebar-accent: var(--sidebar-accent);
-    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-    --color-sidebar-primary: var(--sidebar-primary);
-    --color-sidebar-foreground: var(--sidebar-foreground);
-    --color-sidebar: var(--sidebar);
-    --color-chart-5: var(--chart-5);
-    --color-chart-4: var(--chart-4);
-    --color-chart-3: var(--chart-3);
-    --color-chart-2: var(--chart-2);
-    --color-chart-1: var(--chart-1);
-    --color-ring: var(--ring);
-    --color-input: var(--input);
-    --color-border: var(--border);
-    --color-destructive: var(--destructive);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-accent: var(--accent);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-muted: var(--muted);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-secondary: var(--secondary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-primary: var(--primary);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-popover: var(--popover);
-    --color-card-foreground: var(--card-foreground);
-    --color-card: var(--card);
-    --color-tertiary-foreground: var(--tertiary-foreground);
-    --color-tertiary: var(--tertiary);
-    --radius-sm: calc(var(--radius) - 4px);
-    --radius-md: calc(var(--radius) - 2px);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) + 4px);
-    --radius-2xl: calc(var(--radius) + 6px);
-    --radius-3xl: calc(var(--radius) + 12px);
-    --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-geist-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-tertiary-foreground: var(--tertiary-foreground);
+  --color-tertiary: var(--tertiary);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 6px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
 }
 
 :root {
-    --background: oklch(1 0 0); /* white */
-    --foreground: oklch(0.4386 0 0); /* neutral-600 */
-    --card: oklch(1 0 0); /* white */
-    --card-foreground: oklch(0.3715 0 0); /* neutral-700 */
-    --popover: oklch(1 0 0); /* white */
-    --popover-foreground: oklch(0.3715 0 0); /* neutral-700 */
-    --primary: oklch(0.619 0.192 261.349); /* brand-500 */
-    --primary-foreground: oklch(1 0 0); /* white */
-    --secondary: oklch(0.9851 0 0); /* neutral-50 */
-    --secondary-foreground: oklch(0.2686 0 0); /* neutral-800 */
-    --tertiary: oklch(0.86 0.18 95); /* yellow-400 */
-    --tertiary-foreground: oklch(0.2 0 0); /* neutral-900 */
-    --muted: oklch(0.9702 0 0); /* neutral-100 */
-    --muted-foreground: oklch(0.5555 0 0); /* neutral-500 */
-    --accent: oklch(0.9219 0 0); /* neutral-200 */
-    --accent-foreground: oklch(1 0 0); /* white */
-    --destructive: oklch(0.6368 0.2078 25.33); /* red-500 */
-    --border: oklch(0.9219 0 0); /* neutral-200 */
-    --input: oklch(0.8699 0 0); /* neutral-300 */
-    --ring: oklch(0.953 0.0282 306.05);
-    --chart-1: oklch(0.751 0.119 261.349); /* brand-300 */
-    --chart-2: oklch(0.685 0.155 261.349); /* brand-400 */
-    --chart-3: oklch(0.619 0.192 261.349); /* brand-500 */
-    --chart-4: oklch(0.539 0.222 261.349); /* brand-600 */
-    --chart-5: oklch(0.379 0.156 261.349); /* brand-800 */
-    --radius: 0.625rem;
-    --sidebar: oklch(0.379 0.156 261.349); /* brand-800 */
-    --sidebar-foreground: oklch(0.95 0.022 261.349);
-    --sidebar-primary: oklch(0.459 0.189 261.349); /* brand-700 */
-    --sidebar-primary-foreground: oklch(0.95 0.022 261.349);
-    --sidebar-accent: oklch(0.539 0.222 261.349); /* brand-600 */
-    --sidebar-accent-foreground: oklch(0.884 0.053 261.349); /* brand-100 */
-    --sidebar-border: oklch(0.751 0.119 261.349); /* brand-300 */
-    --sidebar-ring: oklch(0.708 0 0);
+  --background: oklch(1 0 0); /* white */
+  --foreground: oklch(0.4386 0 0); /* neutral-600 */
+  --card: oklch(1 0 0); /* white */
+  --card-foreground: oklch(0.3715 0 0); /* neutral-700 */
+  --popover: oklch(1 0 0); /* white */
+  --popover-foreground: oklch(0.3715 0 0); /* neutral-700 */
+  --primary: oklch(0.619 0.192 261.349); /* brand-500 */
+  --primary-foreground: oklch(1 0 0); /* white */
+  --secondary: oklch(0.9851 0 0); /* neutral-50 */
+  --secondary-foreground: oklch(0.2686 0 0); /* neutral-800 */
+  --tertiary: oklch(0.86 0.18 95); /* yellow-400 */
+  --tertiary-foreground: oklch(0.2 0 0); /* neutral-900 */
+  --muted: oklch(0.9702 0 0); /* neutral-100 */
+  --muted-foreground: oklch(0.5555 0 0); /* neutral-500 */
+  --accent: oklch(0.9219 0 0); /* neutral-200 */
+  --accent-foreground: oklch(1 0 0); /* white */
+  --destructive: oklch(0.6368 0.2078 25.33); /* red-500 */
+  --border: oklch(0.9219 0 0); /* neutral-200 */
+  --input: oklch(0.8699 0 0); /* neutral-300 */
+  --ring: oklch(0.953 0.0282 306.05);
+  --chart-1: oklch(0.751 0.119 261.349); /* brand-300 */
+  --chart-2: oklch(0.685 0.155 261.349); /* brand-400 */
+  --chart-3: oklch(0.619 0.192 261.349); /* brand-500 */
+  --chart-4: oklch(0.539 0.222 261.349); /* brand-600 */
+  --chart-5: oklch(0.379 0.156 261.349); /* brand-800 */
+  --radius: 0.625rem;
+  --sidebar: oklch(0.379 0.156 261.349); /* brand-800 */
+  --sidebar-foreground: oklch(0.95 0.022 261.349);
+  --sidebar-primary: oklch(0.459 0.189 261.349); /* brand-700 */
+  --sidebar-primary-foreground: oklch(0.95 0.022 261.349);
+  --sidebar-accent: oklch(0.539 0.222 261.349); /* brand-600 */
+  --sidebar-accent-foreground: oklch(0.884 0.053 261.349); /* brand-100 */
+  --sidebar-border: oklch(0.751 0.119 261.349); /* brand-300 */
+  --sidebar-ring: oklch(0.708 0 0);
 }
 
 .dark {
-    --background: oklch(0 0 0);
-    --foreground: oklch(0.9328 0.0025 228.7857);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.95 0.022 261.349);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.87 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --tertiary: oklch(0.75 0.16 95); /* yellow-500 */
-    --tertiary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.371 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.809 0.105 251.813);
-    --chart-2: oklch(0.623 0.214 259.815);
-    --chart-3: oklch(0.546 0.245 262.881);
-    --chart-4: oklch(0.488 0.243 264.376);
-    --chart-5: oklch(0.424 0.199 265.638);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+  --background: oklch(0 0 0);
+  --foreground: oklch(0.9328 0.0025 228.7857);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.95 0.022 261.349);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.87 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --tertiary: oklch(0.75 0.16 95); /* yellow-500 */
+  --tertiary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.371 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
 }
 
 @layer base {
-    * {
-        @apply border-border outline-ring/50;
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+/* ============================================================
+   El Quetzalito — marketing brand layer
+   Scene: a neighborhood taquería at night. Smoke off the plancha,
+   warm bulbs strung overhead, the griddle glowing. Dark ground,
+   masa-cream ink, ember accent. "Real Masa. Real Fire."
+   ============================================================ */
+
+@theme {
+  --font-display: var(--font-eb-garamond), Georgia, "Times New Roman", serif;
+  --font-script: var(--font-ephesis), cursive;
+
+  --color-char-950: oklch(0.13 0.006 40);
+  --color-char-900: oklch(0.16 0.008 42);
+  --color-char-850: oklch(0.19 0.011 44);
+  --color-char-800: oklch(0.22 0.013 46);
+  --color-char-700: oklch(0.27 0.015 48);
+  --color-line: oklch(0.42 0.02 55 / 45%);
+
+  --color-masa: oklch(0.95 0.02 88);
+  --color-masa-dim: oklch(0.79 0.03 82);
+  --color-masa-faint: oklch(0.62 0.028 78);
+
+  --color-ember: oklch(0.66 0.2 40);
+  --color-ember-bright: oklch(0.74 0.18 55);
+  --color-gold: #d2a75c; /* logo — classic gold, headings/borders */
+  --color-gold-bright: #e8c988; /* logo — lighter gold, gradient highlight */
+  --color-lime: oklch(0.84 0.15 132);
+
+  --color-navy: #1d3454; /* logo — deep navy banner background */
+  --color-emerald: #1e8449; /* logo — quetzal plumage, accent/hover */
+}
+
+/* ============================================================
+   El Quetzalito — restaurant site layer (from que)
+   Cream base, quetzal greens, chest-red accent. Bricolage display,
+   Figtree body, Playfair serif, Crimson menu body, Ephesis script.
+   Drives the (marketing) route group.
+   ============================================================ */
+@theme {
+  /* Logo-accurate palette */
+  --color-navy: #1d3454; /* deep navy — header/banner bg */
+  --color-gold: #d2a75c; /* classic gold — primary headings, borders */
+  --color-gold-bright: #e8c988; /* lighter gold — gradient highlight */
+  --color-emerald: #1e8449; /* quetzal green — accent, hover states */
+  --color-chile: #a93226; /* quetzal chest red — CTA buttons */
+
+  --color-cream: #f7f1e4;
+  --color-cream-deep: #efe6d2;
+  --color-ink: #20301b; /* headings on light surfaces */
+  --color-moss: #5e6c55; /* muted body text */
+
+  --font-display: var(--font-cinzel), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-figtree), ui-sans-serif, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-script: var(--font-great-vibes), "Snell Roundhand", cursive;
+  --font-menu-body: var(--font-crimson), ui-serif, Georgia, serif;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@layer utilities {
+  .spin-slow {
+    animation: spin-slow 18s linear infinite;
+    transform-origin: center;
+  }
+}
+
+@layer components {
+  /* Glassy pill used for the hero-nav CTA over photography */
+  .btn-glass {
+    border: 1px solid oklch(0.95 0.02 88 / 35%);
+    background: oklch(0.95 0.02 88 / 8%);
+    color: white;
+    backdrop-filter: blur(8px) saturate(1.1);
+    transition:
+      background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-glass:hover {
+    background: oklch(0.95 0.02 88 / 16%);
+    border-color: oklch(0.95 0.02 88 / 55%);
+  }
+
+  /* Solid ember CTA */
+  .btn-ember {
+    background: var(--color-ember);
+    color: var(--color-char-950);
+    transition:
+      background 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 1px 0 oklch(0.85 0.12 70 / 40%) inset;
+  }
+  .btn-ember:hover {
+    background: var(--color-ember-bright);
+    box-shadow: 0 8px 30px -8px oklch(0.66 0.2 40 / 70%);
+    transform: translateY(-1px);
+  }
+
+  /* Dotted leaders for the menu price rows */
+  .leader {
+    flex: 1;
+    margin: 0 0.75rem 0.35rem;
+    border-bottom: 1px dotted oklch(0.6 0.03 60 / 45%);
+  }
+}
+
+@layer utilities {
+  /* Warm film grain over dark photographic sections */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
+
+  /* Ember bloom used behind headlines / at section seams */
+  .ember-bloom {
+    background: radial-gradient(
+      60% 60% at 50% 100%,
+      oklch(0.66 0.2 40 / 45%) 0%,
+      oklch(0.66 0.2 40 / 0%) 70%
+    );
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Scroll reveal — enhances an already-visible default.
+       Hidden start state only applies once JS marks <html class="js">, and
+       never under reduced-motion, so no-JS / reduced-motion ships visible. */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition:
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+    will-change: opacity, transform;
+  }
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .js .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
     }
-    body {
-        @apply bg-background text-foreground;
+  }
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes cue-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(7px);
+    opacity: 1;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  /* Seamless scrolling marquee (two identical tracks, shift by one track) */
+  .marquee {
+    animation: marquee 42s linear infinite;
+  }
+  .marquee-pause:hover .marquee {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .marquee {
+      animation: none;
     }
-    html {
-        @apply font-sans;
-    }
+  }
+}
+
+/* ============================================================
+   que animations + base — quetzal marketing site
+   ============================================================ */
+@keyframes que-spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes que-slide-fill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.que-spin-slow {
+  animation: que-spin-slow 30s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes que-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.que-marquee {
+  animation: que-marquee 38s linear infinite;
+  will-change: transform;
+}
+
+@keyframes que-hero-pullback {
+  from {
+    transform: scale(1.18);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.que-hero-pullback {
+  animation: que-hero-pullback 26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: center;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .que-spin-slow {
+    animation: none;
+  }
+  .que-marquee {
+    animation: none;
+  }
+  .que-hero-pullback {
+    animation: none;
+    transform: none;
+  }
+}
+
+/* que base — background/ink/selection/focus for the marketing site */
+body {
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-navy);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-emerald);
+  outline-offset: 2px;
 }

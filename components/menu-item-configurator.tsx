@@ -2,17 +2,16 @@
 
 import * as React from "react";
 
+import { formatPrice, getCategoryId } from "@/lib/menu-helpers.ts";
+
 import { Button } from "@/components/ui/button";
 
 import { Box, Cluster, Stack } from "@/components/layout";
 import { RenderIcon } from "@/components/render-icon";
 import { Typography } from "@/components/typography";
 
-import { formatPrice } from "@/app/menu-helpers.ts";
-
 import { useCartStore, type CartItemSnapshot, type CartModifierOption } from "@/src/store/cart.ts";
 
-import { getCategoryId } from "../app/menu-helpers.ts";
 import type { MenuItem } from "../payload-types.ts";
 import { CartIcon, CloseIcon, MinusIcon, PlusIcon } from "./icons.tsx";
 import {

@@ -16,10 +16,20 @@ const buildCommand = (command, filenames) => {
 };
 
 /** @param {string[]} filenames - Staged file paths. */
-const buildOxlintCommand = (filenames) => buildCommand("pnpm exec oxlint --fix", filenames);
+const buildOxlintCommand = (filenames) => {
+  // Payload-generated types use blanket eslint-disable; skip them.
+  const filtered = filenames.filter((f) => !f.endsWith("payload-types.ts"));
+  if (filtered.length === 0) return "";
+  return buildCommand("pnpm exec oxlint --fix", filtered);
+};
 
 /** @param {string[]} filenames - Staged file paths. */
-const buildOxfmtCommand = (filenames) => buildCommand("pnpm exec oxfmt", filenames);
+const buildOxfmtCommand = (filenames) => {
+  // oxfmt ignores package-lock.json (exits 2), so skip it.
+  const filtered = filenames.filter((f) => !f.endsWith("package-lock.json"));
+  if (filtered.length === 0) return "";
+  return buildCommand("pnpm exec oxfmt", filtered);
+};
 
 /** @type {import("lint-staged").Configuration} */
 const config = {

@@ -1,5 +1,7 @@
 import type { NextConfig } from "next";
 
+import { withPayload } from "@payloadcms/next/withPayload";
+
 const nextConfig: NextConfig = {
   transpilePackages: ["@payloadcms/next"],
   serverExternalPackages: [
@@ -13,4 +15,4 @@ const nextConfig: NextConfig = {
   ],
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);

@@ -4,14 +4,14 @@ import * as React from "react";
 
 import Link from "next/link";
 
+import { formatPrice } from "@/lib/menu-helpers.ts";
+
 import { Button } from "@/components/ui/button";
 
 import { CartIcon, MinusIcon, PlusIcon, Trash2Icon } from "@/components/icons.tsx";
 import { Box, Cluster, Stack } from "@/components/layout";
 import { RenderIcon } from "@/components/render-icon";
 import { Typography } from "@/components/typography";
-
-import { formatPrice } from "@/app/menu-helpers.ts";
 
 import {
   computeLineSubtotal,
@@ -72,7 +72,7 @@ export function CartSummary({ checkoutHref = "/checkout" }: CartSummaryProps) {
                   Add some delicious items from the menu to get started.
                 </Typography>
               </Stack>
-              <Button render={<Link href="/">Browse menu</Link>} />
+              <Button render={<Link href="/menu">Browse menu</Link>} />
             </Stack>
           );
         }
