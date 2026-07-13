@@ -13,53 +13,53 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | "Pacific/Midway"
-  | "Pacific/Niue"
-  | "Pacific/Honolulu"
-  | "Pacific/Rarotonga"
-  | "America/Anchorage"
-  | "Pacific/Gambier"
-  | "America/Los_Angeles"
-  | "America/Tijuana"
-  | "America/Denver"
-  | "America/Phoenix"
-  | "America/Chicago"
-  | "America/Guatemala"
-  | "America/New_York"
-  | "America/Bogota"
-  | "America/Caracas"
-  | "America/Santiago"
-  | "America/Buenos_Aires"
-  | "America/Sao_Paulo"
-  | "Atlantic/South_Georgia"
-  | "Atlantic/Azores"
-  | "Atlantic/Cape_Verde"
-  | "Europe/London"
-  | "Europe/Berlin"
-  | "Africa/Lagos"
-  | "Europe/Athens"
-  | "Africa/Cairo"
-  | "Europe/Moscow"
-  | "Asia/Riyadh"
-  | "Asia/Dubai"
-  | "Asia/Baku"
-  | "Asia/Karachi"
-  | "Asia/Tashkent"
-  | "Asia/Calcutta"
-  | "Asia/Dhaka"
-  | "Asia/Almaty"
-  | "Asia/Jakarta"
-  | "Asia/Bangkok"
-  | "Asia/Shanghai"
-  | "Asia/Singapore"
-  | "Asia/Tokyo"
-  | "Asia/Seoul"
-  | "Australia/Brisbane"
-  | "Australia/Sydney"
-  | "Pacific/Guam"
-  | "Pacific/Noumea"
-  | "Pacific/Auckland"
-  | "Pacific/Fiji";
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
 
 export interface Config {
   auth: {
@@ -68,48 +68,46 @@ export interface Config {
   blocks: {};
   collections: {
     users: User;
-    "migration-check": MigrationCheck;
+    'migration-check': MigrationCheck;
     media: Media;
     menu: Menu;
     category: Category;
-    "menu-item": MenuItem;
-    "modifier-group": ModifierGroup;
-    "modifier-option": ModifierOption;
-    "daily-availability": DailyAvailability;
+    'menu-item': MenuItem;
+    'modifier-group': ModifierGroup;
+    'modifier-option': ModifierOption;
+    'daily-availability': DailyAvailability;
     promotion: Promotion;
-    "payload-kv": PayloadKv;
-    "payload-locked-documents": PayloadLockedDocument;
-    "payload-preferences": PayloadPreference;
-    "payload-migrations": PayloadMigration;
+    'payload-kv': PayloadKv;
+    'payload-locked-documents': PayloadLockedDocument;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
-    "migration-check": MigrationCheckSelect<false> | MigrationCheckSelect<true>;
+    'migration-check': MigrationCheckSelect<false> | MigrationCheckSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     menu: MenuSelect<false> | MenuSelect<true>;
     category: CategorySelect<false> | CategorySelect<true>;
-    "menu-item": MenuItemSelect<false> | MenuItemSelect<true>;
-    "modifier-group": ModifierGroupSelect<false> | ModifierGroupSelect<true>;
-    "modifier-option": ModifierOptionSelect<false> | ModifierOptionSelect<true>;
-    "daily-availability": DailyAvailabilitySelect<false> | DailyAvailabilitySelect<true>;
+    'menu-item': MenuItemSelect<false> | MenuItemSelect<true>;
+    'modifier-group': ModifierGroupSelect<false> | ModifierGroupSelect<true>;
+    'modifier-option': ModifierOptionSelect<false> | ModifierOptionSelect<true>;
+    'daily-availability': DailyAvailabilitySelect<false> | DailyAvailabilitySelect<true>;
     promotion: PromotionSelect<false> | PromotionSelect<true>;
-    "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
-    "payload-locked-documents":
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
-    "payload-preferences": PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    "payload-migrations": PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {
-    "store-settings": StoreSetting;
+    'store-settings': StoreSetting;
   };
   globalsSelect: {
-    "store-settings": StoreSettingsSelect<false> | StoreSettingsSelect<true>;
+    'store-settings': StoreSettingsSelect<false> | StoreSettingsSelect<true>;
   };
   locale: null;
   widgets: {
@@ -146,7 +144,7 @@ export interface UserAuthOperations {
 export interface User {
   id: number;
   name?: string | null;
-  role: "admin" | "owner";
+  role: 'admin' | 'owner';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -164,7 +162,7 @@ export interface User {
       }[]
     | null;
   password?: string | null;
-  collection: "users";
+  collection: 'users';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -233,7 +231,7 @@ export interface MenuItem {
   description?: string | null;
   basePrice: number;
   category: number | Category;
-  availabilityType: "steamTable" | "madeToOrder";
+  availabilityType: 'steamTable' | 'madeToOrder';
   active?: boolean | null;
   image?: (number | null) | Media;
   modifierGroups?: (number | ModifierGroup)[] | null;
@@ -248,11 +246,11 @@ export interface MenuItem {
 export interface ModifierGroup {
   id: number;
   label: string;
-  selectionType: "pickOne" | "pickMany";
+  selectionType: 'pickOne' | 'pickMany';
   required?: boolean | null;
   minSelection?: number | null;
   maxSelection?: number | null;
-  pricingMode: "included" | "priced";
+  pricingMode: 'included' | 'priced';
   options?: (number | ModifierOption)[] | null;
   updatedAt: string;
   createdAt: string;
@@ -279,7 +277,7 @@ export interface DailyAvailability {
   id: number;
   date: string;
   menuItem: number | MenuItem;
-  status: "available" | "soldOut";
+  status: 'available' | 'soldOut';
   updatedAt: string;
   createdAt: string;
 }
@@ -290,11 +288,11 @@ export interface DailyAvailability {
 export interface Promotion {
   id: number;
   name: string;
-  applicationType: "auto" | "code";
+  applicationType: 'auto' | 'code';
   code?: string | null;
-  discountType: "percent" | "fixed";
+  discountType: 'percent' | 'fixed';
   value: number;
-  scope: "order" | "category";
+  scope: 'order' | 'category';
   category?: (number | null) | Category;
   validFrom?: string | null;
   validUntil?: string | null;
@@ -328,48 +326,48 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: "users";
+        relationTo: 'users';
         value: number | User;
       } | null)
     | ({
-        relationTo: "migration-check";
+        relationTo: 'migration-check';
         value: number | MigrationCheck;
       } | null)
     | ({
-        relationTo: "media";
+        relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
-        relationTo: "menu";
+        relationTo: 'menu';
         value: number | Menu;
       } | null)
     | ({
-        relationTo: "category";
+        relationTo: 'category';
         value: number | Category;
       } | null)
     | ({
-        relationTo: "menu-item";
+        relationTo: 'menu-item';
         value: number | MenuItem;
       } | null)
     | ({
-        relationTo: "modifier-group";
+        relationTo: 'modifier-group';
         value: number | ModifierGroup;
       } | null)
     | ({
-        relationTo: "modifier-option";
+        relationTo: 'modifier-option';
         value: number | ModifierOption;
       } | null)
     | ({
-        relationTo: "daily-availability";
+        relationTo: 'daily-availability';
         value: number | DailyAvailability;
       } | null)
     | ({
-        relationTo: "promotion";
+        relationTo: 'promotion';
         value: number | Promotion;
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: number | User;
   };
   updatedAt: string;
@@ -382,7 +380,7 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: number;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: number | User;
   };
   key?: string | null;
@@ -609,7 +607,7 @@ export interface StoreSetting {
   isOpen?: boolean | null;
   weeklyHours?:
     | {
-        day: "Mon" | "Tue" | "Wed" | "Thu" | "Fri" | "Sat" | "Sun";
+        day: 'Mon' | 'Tue' | 'Wed' | 'Thu' | 'Fri' | 'Sat' | 'Sun';
         open?: string | null;
         close?: string | null;
         closed?: boolean | null;
@@ -691,7 +689,7 @@ export interface CollectionsWidget {
   data?: {
     [k: string]: unknown;
   };
-  width: "full";
+  width: 'full';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -701,6 +699,7 @@ export interface Auth {
   [k: string]: unknown;
 }
 
-declare module "payload" {
+
+declare module 'payload' {
   export interface GeneratedTypes extends Config {}
 }
