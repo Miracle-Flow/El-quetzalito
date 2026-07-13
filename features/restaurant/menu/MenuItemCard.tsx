@@ -2,15 +2,53 @@
 
 import Image from "next/image";
 
+import { Button } from "@/components/ui/button";
+
 import { MenuItemConfigurator } from "@/components/menu-item-configurator";
 
+import { useCartStore } from "@/src/store/cart.ts";
+
 import type { CatalogBySlug } from "./MenuOrder";
+import { canAddToCart } from "./to-orderable-item";
 import type { MenuItem } from "./types";
 
 function formatPrice(item: MenuItem) {
   if (item.priceLabel) return item.priceLabel;
   if (item.price !== null && item.price !== undefined) return `$${item.price.toFixed(2)}`;
   return null;
+}
+
+function slugToId(slug: string): number {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = Math.trunc(hash * 31 + slug.codePointAt(i)) % 2_147_483_647;
+  }
+  return Math.abs(hash);
+}
+
+function StaticAddToCart({ item }: { item: MenuItem & { price: number } }) {
+  const addItem = useCartStore((state) => state.addItem);
+
+  function handleAdd() {
+    addItem(
+      {
+        id: slugToId(item.slug),
+        name: item.name,
+        basePrice: Math.round(item.price * 100),
+        category: "Daily Specials",
+        categoryId: 0,
+        availabilityType: "steamTable",
+      },
+      [],
+      1,
+    );
+  }
+
+  return (
+    <Button size="sm" onClick={handleAdd} aria-label={`Add ${item.name} to cart`}>
+      + Add
+    </Button>
+  );
 }
 
 export default function MenuItemCard({
@@ -32,7 +70,11 @@ export default function MenuItemCard({
         )}
         <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-2">
           {price && <p className="text-sm font-bold text-ink">{price}</p>}
-          {cmsItem && <MenuItemConfigurator item={cmsItem} />}
+          {cmsItem ? (
+            <MenuItemConfigurator item={cmsItem} />
+          ) : canAddToCart(item) ? (
+            <StaticAddToCart item={item} />
+          ) : null}
         </div>
       </div>
       {item.image && (

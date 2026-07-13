@@ -57,10 +57,10 @@ export default function Footer() {
         </nav>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-cream/70">
-          <span>1428 Calle del Mercado</span>
+          <span>92-05 Roosevelt Ave, Flushing, NY 11372</span>
           <Dot />
-          <a href="tel:+15555550123" className="transition-colors hover:text-white">
-            +1 (555) 555-0123
+          <a href="tel:+17188061013" className="transition-colors hover:text-white">
+            (718) 806-1013
           </a>
           <Dot />
           <a href="mailto:hola@elquetzalito.com" className="transition-colors hover:text-white">
