@@ -4,7 +4,7 @@ import { breakfast } from "./breakfast";
 import { drinks } from "./drinks";
 import { especiales } from "./especiales";
 
-export { dailySpecialsDays, dailySpecialsNote } from "./dailySpecials";
+export { dailySpecialsDays, dailySpecialsNote, dailySpecialsNoteEs } from "./dailySpecials";
 export type { DailySpecialsDay } from "./dailySpecials";
 
 export const DAILY_SPECIALS_ID = "daily-specials";

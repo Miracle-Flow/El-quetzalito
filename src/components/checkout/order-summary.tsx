@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/lib/i18n";
+
 import { Box, Cluster, Stack } from "@/components/layout";
 import { Typography } from "@/components/typography";
 
@@ -16,11 +18,13 @@ interface OrderSummaryProps {
 }
 
 export function OrderSummary({ lines, quote, itemCount, hydrated }: OrderSummaryProps) {
+  const { t } = useTranslation();
+
   const cartContent = (() => {
     if (!hydrated) {
       return (
         <Typography variant="text-sm" textColor="muted">
-          Loading cart…
+          {t("checkout.order.loading")}
         </Typography>
       );
     }
@@ -28,7 +32,7 @@ export function OrderSummary({ lines, quote, itemCount, hydrated }: OrderSummary
     if (lines.length === 0) {
       return (
         <Typography variant="text-sm" textColor="muted">
-          Your cart is empty.
+          {t("checkout.order.empty")}
         </Typography>
       );
     }
@@ -48,7 +52,7 @@ export function OrderSummary({ lines, quote, itemCount, hydrated }: OrderSummary
               )}
               {line.notes && (
                 <Typography variant="text-xs" textColor="muted" className="italic">
-                  “{line.notes}”
+                  &ldquo;{line.notes}&rdquo;
                 </Typography>
               )}
             </Stack>
@@ -69,7 +73,7 @@ export function OrderSummary({ lines, quote, itemCount, hydrated }: OrderSummary
     <Box bg="secondary" p="6" radius="lg">
       <Stack gap="4" align="stretch">
         <Typography as="h2" variant="h5" weight="semibold">
-          Review order
+          {t("checkout.order.heading")}
         </Typography>
 
         {cartContent}
@@ -79,7 +83,8 @@ export function OrderSummary({ lines, quote, itemCount, hydrated }: OrderSummary
         <Stack gap="2" align="stretch">
           <Cluster align="center" justify="between" gap="3">
             <Typography variant="text-sm" textColor="muted">
-              Subtotal ({itemCount} {itemCount === 1 ? "item" : "items"})
+              {t("checkout.order.subtotal")} ({itemCount}{" "}
+              {itemCount === 1 ? t("cart.item") : t("cart.items")})
             </Typography>
             <Typography variant="text-sm">
               {quote ? formatPrice(quote.subtotalCents) : "—"}
@@ -88,7 +93,7 @@ export function OrderSummary({ lines, quote, itemCount, hydrated }: OrderSummary
 
           <Cluster align="center" justify="between" gap="3">
             <Typography variant="text-sm" textColor="muted">
-              Discount
+              {t("checkout.order.discount")}
             </Typography>
             <Typography variant="text-sm">
               {quote && quote.discountCents > 0 ? `-${formatPrice(quote.discountCents)}` : "—"}
@@ -97,14 +102,14 @@ export function OrderSummary({ lines, quote, itemCount, hydrated }: OrderSummary
 
           <Cluster align="center" justify="between" gap="3">
             <Typography variant="text-sm" textColor="muted">
-              Tax
+              {t("checkout.order.tax")}
             </Typography>
             <Typography variant="text-sm">{quote ? formatPrice(quote.taxCents) : "—"}</Typography>
           </Cluster>
 
           <Cluster align="center" justify="between" gap="3">
             <Typography variant="text-sm" textColor="muted">
-              Tip
+              {t("checkout.order.tip")}
             </Typography>
             <Typography variant="text-sm">{quote ? formatPrice(quote.tipCents) : "—"}</Typography>
           </Cluster>
@@ -113,7 +118,7 @@ export function OrderSummary({ lines, quote, itemCount, hydrated }: OrderSummary
 
           <Cluster align="center" justify="between" gap="3">
             <Typography variant="text-lg" weight="bold">
-              Total
+              {t("checkout.order.total")}
             </Typography>
             <Typography variant="text-lg" weight="bold" textColor="primary">
               {quote ? formatPrice(quote.totalCents) : "—"}
@@ -133,7 +138,7 @@ export function OrderSummary({ lines, quote, itemCount, hydrated }: OrderSummary
 
         {quote?.appliedPromotion && (
           <Typography variant="text-xs" textColor="muted">
-            Promotion applied: {quote.appliedPromotion.name}
+            {t("checkout.order.promo")} {quote.appliedPromotion.name}
           </Typography>
         )}
       </Stack>

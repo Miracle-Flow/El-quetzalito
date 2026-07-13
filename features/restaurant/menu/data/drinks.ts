@@ -3,10 +3,12 @@ import type { MenuCategoryData } from "../types";
 export const drinks: MenuCategoryData = {
   id: "drinks",
   label: "Drinks & Desserts",
+  labelEs: "Bebidas y Postres",
   subsections: [
     {
       id: "bebidas-calientes",
       label: "Hot Beverages / Bebidas Calientes",
+      labelEs: "Bebidas Calientes",
       items: [
         {
           slug: "cafe",
@@ -27,6 +29,7 @@ export const drinks: MenuCategoryData = {
           slug: "arroz-con-leche",
           name: "Arroz con Leche",
           description: "Rice pudding.",
+          descriptionEs: "Postre de arroz con leche.",
           price: 3,
           image: "/Menu/Arroz con Leche.avif",
         },
@@ -34,6 +37,7 @@ export const drinks: MenuCategoryData = {
           slug: "chocolate-con-arroz",
           name: "Chocolate con Arroz",
           description: "Wednesdays & Fridays.",
+          descriptionEs: "Miércoles y Viernes.",
           price: 4,
           image: "/Menu/Chocolate.avif",
         },
@@ -41,24 +45,28 @@ export const drinks: MenuCategoryData = {
           slug: "corazon-de-trigo",
           name: "Corazon de Trigo",
           description: "Tuesdays & Thursdays.",
+          descriptionEs: "Martes y Jueves.",
           price: 4,
         },
         {
           slug: "atole-de-platano",
           name: "Atole de Platano",
           description: "Fridays & Saturdays.",
+          descriptionEs: "Viernes y Sábados.",
           price: 4,
         },
         {
           slug: "avena",
           name: "Avena / Oatmeal",
           description: "Wednesdays & Fridays.",
+          descriptionEs: "Miércoles y Viernes.",
           price: 4,
         },
         {
           slug: "atole-de-elote",
           name: "Atole de Elote",
           description: "Fridays & Saturdays.",
+          descriptionEs: "Viernes y Sábados.",
           price: 3,
         },
       ],
@@ -66,17 +74,20 @@ export const drinks: MenuCategoryData = {
     {
       id: "granizadas",
       label: "Granizadas / Slushies",
+      labelEs: "Granizadas",
       items: [
         {
           slug: "granizada-tradicional",
           name: "Tradicional",
           description: "Pineapple and peanut.",
+          descriptionEs: "Piña y cacahuate.",
           price: 10,
         },
         {
           slug: "granizada-rey-quiche",
           name: "Rey Quiche",
           description: "Pineapple.",
+          descriptionEs: "Piña.",
           price: 10,
           image: "/Menu/Piña (slushie).avif",
         },
@@ -85,12 +96,15 @@ export const drinks: MenuCategoryData = {
           name: "Mixta",
           description:
             "B8 juice, lemon, pepita, chicken consommé, jalapeños, palitos, baby corn and Takis.",
+          descriptionEs:
+            "Jugo B8, limón, pepita, consomé de pollo, jalapeños, palitos, elotitos y Takis.",
           price: 12,
         },
         {
           slug: "granizada-chica-fresa",
           name: "Chica Fresa",
           description: "Strawberry, condensed milk and peanut.",
+          descriptionEs: "Fresa, leche condensada y cacahuate.",
           price: 10,
           image: "/Menu/Fresa.avif",
         },
@@ -98,6 +112,7 @@ export const drinks: MenuCategoryData = {
           slug: "granizada-limon",
           name: "Limon",
           description: "Lemon and pepita.",
+          descriptionEs: "Limón y pepita.",
           price: 10,
           image: "/Menu/Limón.avif",
         },
@@ -105,6 +120,7 @@ export const drinks: MenuCategoryData = {
           slug: "granizada-maya-york",
           name: "Maya York",
           description: "Pineapple, strawberry and candies.",
+          descriptionEs: "Piña, fresa y dulces.",
           price: 11,
           image: "/Menu/Hawaiana.avif",
         },
@@ -112,6 +128,7 @@ export const drinks: MenuCategoryData = {
           slug: "granizada-la-toxica",
           name: "La Toxica",
           description: "Lemon, pepita, strawberry and pineapple.",
+          descriptionEs: "Limón, pepita, fresa y piña.",
           price: 13,
         },
       ],
@@ -142,6 +159,7 @@ export const drinks: MenuCategoryData = {
           slug: "licuado-mixto",
           name: "Mixto",
           description: "Banana, strawberry and pineapple.",
+          descriptionEs: "Banano, fresa y piña.",
           price: 8,
         },
       ],
@@ -149,11 +167,13 @@ export const drinks: MenuCategoryData = {
     {
       id: "aguas-frescas",
       label: "Aguas / Fresh Waters",
+      labelEs: "Aguas Frescas",
       items: [
         {
           slug: "horchata",
           name: "Horchata",
           description: "Rice beverage.",
+          descriptionEs: "Bebida de arroz.",
           price: 5,
           image: "/Menu/Horchata.avif",
         },
@@ -161,6 +181,7 @@ export const drinks: MenuCategoryData = {
           slug: "jamaica",
           name: "Jamaica",
           description: "Hibiscus flower.",
+          descriptionEs: "Flor de Jamaica.",
           price: 5,
           image: "/Menu/Jamaica.avif",
         },
@@ -187,11 +208,13 @@ export const drinks: MenuCategoryData = {
     {
       id: "jugos",
       label: "Jugos / Juices",
+      labelEs: "Jugos",
       items: [
         {
           slug: "jugo-naranja",
           name: "Naranja / Orange",
           description: "Fresh squeezed orange juice.",
+          descriptionEs: "Jugo de naranja recién exprimido.",
           price: 5,
           image: "/Menu/Naranja.avif",
         },
@@ -199,6 +222,7 @@ export const drinks: MenuCategoryData = {
           slug: "jugo-verde",
           name: "Jugo Verde",
           description: "Manzana, Kiwi y Limón — apple, kiwi and lime.",
+          descriptionEs: "Manzana, Kiwi y Limón.",
           price: 7,
           image: "/Menu/Jugo Verde (Manzana, Kiwi, Limón).avif",
         },
@@ -206,6 +230,7 @@ export const drinks: MenuCategoryData = {
           slug: "pina-colada",
           name: "Piña Colada",
           description: "Pineapple and coconut.",
+          descriptionEs: "Piña y coco.",
           price: 8,
           image: "/Menu/Piña Colada.avif",
         },
@@ -214,6 +239,7 @@ export const drinks: MenuCategoryData = {
     {
       id: "frescos",
       label: "Frescos / Beverages",
+      labelEs: "Frescos",
       items: [
         { slug: "tiki-pina", name: "Tiki Piña" },
         { slug: "orange-crush", name: "Orange Crush" },
@@ -229,6 +255,7 @@ export const drinks: MenuCategoryData = {
     {
       id: "postres",
       label: "Postres / Desserts",
+      labelEs: "Postres",
       items: [
         { slug: "chocomania", name: "Chocomania", price: 3 },
         { slug: "chocopina", name: "Chocopiña", price: 3 },

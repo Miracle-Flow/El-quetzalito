@@ -4,6 +4,7 @@ import * as React from "react";
 
 import Link from "next/link";
 
+import { useTranslation } from "@/lib/i18n";
 import { formatPrice } from "@/lib/menu-helpers.ts";
 
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ export interface CartSummaryProps {
 }
 
 export function CartSummary({ checkoutHref = "/checkout" }: CartSummaryProps) {
+  const { t } = useTranslation();
   const lines = useCartStore((state) => state.lines);
   const updateQuantity = useCartStore((state) => state.updateQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
@@ -38,11 +40,11 @@ export function CartSummary({ checkoutHref = "/checkout" }: CartSummaryProps) {
     <Stack gap="6" align="stretch" className="h-full">
       <Cluster align="center" justify="between" gap="3">
         <Typography as="h2" variant="h5" weight="semibold">
-          Your cart
+          {t("cart.heading")}
         </Typography>
         {lines.length > 0 && (
           <Button variant="ghost" size="sm" onClick={clearCart}>
-            Clear
+            {t("cart.clear")}
           </Button>
         )}
       </Cluster>
@@ -52,7 +54,7 @@ export function CartSummary({ checkoutHref = "/checkout" }: CartSummaryProps) {
           return (
             <Box py="12">
               <Typography variant="text-sm" textColor="muted" align="center">
-                Loading cart…
+                {t("cart.loading")}
               </Typography>
             </Box>
           );
@@ -66,14 +68,14 @@ export function CartSummary({ checkoutHref = "/checkout" }: CartSummaryProps) {
               </Box>
               <Stack gap="2" align="center">
                 <Typography variant="text-lg" weight="semibold">
-                  Your cart is empty
+                  {t("cart.empty.title")}
                 </Typography>
                 <Typography variant="text-sm" textColor="muted" align="center">
-                  Add some delicious items from the menu to get started.
+                  {t("cart.empty.subtitle")}
                 </Typography>
               </Stack>
               <Button asChild>
-                <Link href="/menu">Browse menu</Link>
+                <Link href="/menu">{t("cart.empty.browse")}</Link>
               </Button>
             </Stack>
           );
@@ -171,7 +173,7 @@ export function CartSummary({ checkoutHref = "/checkout" }: CartSummaryProps) {
               <Box p="4" bg="secondary" radius="lg">
                 <Cluster align="center" justify="between" gap="3">
                   <Typography variant="text-sm" weight="medium" textColor="muted">
-                    {itemCount} {itemCount === 1 ? "item" : "items"}
+                    {itemCount} {itemCount === 1 ? t("cart.item") : t("cart.items")}
                   </Typography>
                   <Typography variant="text-lg" weight="bold">
                     {formatPrice(subtotal)}
@@ -180,7 +182,7 @@ export function CartSummary({ checkoutHref = "/checkout" }: CartSummaryProps) {
               </Box>
 
               <Button size="lg" className="w-full" asChild>
-                <Link href={checkoutHref}>Proceed to checkout</Link>
+                <Link href={checkoutHref}>{t("cart.checkout")}</Link>
               </Button>
             </Stack>
           </>

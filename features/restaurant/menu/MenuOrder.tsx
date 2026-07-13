@@ -12,14 +12,14 @@ import MenuTabs from "./MenuTabs";
 export type CatalogBySlug = Record<string, MenuItem>;
 
 export default function MenuOrder({ catalogBySlug }: { catalogBySlug: CatalogBySlug }) {
-  const { t } = useTranslation();
+  const { locale, t } = useTranslation();
 
   const tabs = [
     { id: DAILY_SPECIALS_ID, label: t("menuPage.dailySpecials") },
-    ...menuCategories.map((category) => {
-      const [label] = category.label.split(" / ");
-      return { id: category.id, label };
-    }),
+    ...menuCategories.map((category) => ({
+      id: category.id,
+      label: locale === "es" && category.labelEs ? category.labelEs : category.label,
+    })),
   ];
 
   return (
@@ -39,7 +39,12 @@ export default function MenuOrder({ catalogBySlug }: { catalogBySlug: CatalogByS
       <main className="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
         <DailySpecialsSection catalogBySlug={catalogBySlug} />
         {menuCategories.map((category) => (
-          <MenuSection key={category.id} category={category} catalogBySlug={catalogBySlug} />
+          <MenuSection
+            key={category.id}
+            category={category}
+            catalogBySlug={catalogBySlug}
+            locale={locale}
+          />
         ))}
       </main>
     </div>

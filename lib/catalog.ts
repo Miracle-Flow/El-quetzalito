@@ -9,23 +9,28 @@ async function getPayloadInstance() {
 }
 
 export async function getOrderableCatalog(): Promise<CatalogBySlug> {
-  const payload = await getPayloadInstance();
+  try {
+    const payload = await getPayloadInstance();
 
-  const result = await payload.find({
-    collection: "menu-item",
-    depth: 2,
-    where: { active: { equals: true } },
-    limit: 0,
-    pagination: false,
-  });
+    const result = await payload.find({
+      collection: "menu-item",
+      depth: 2,
+      where: { active: { equals: true } },
+      limit: 0,
+      pagination: false,
+    });
 
-  const catalog: CatalogBySlug = {};
-  for (const item of result.docs) {
-    if (item.slug) {
-      catalog[item.slug] = item;
+    const catalog: CatalogBySlug = {};
+    for (const item of result.docs) {
+      if (item.slug) {
+        catalog[item.slug] = item;
+      }
     }
+    return catalog;
+  } catch {
+    // No DB yet — return empty catalog so the static menu still renders.
+    return {};
   }
-  return catalog;
 }
 
 export async function getMenuItemBySlug(slug: string): Promise<MenuItem | null> {

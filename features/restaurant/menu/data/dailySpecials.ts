@@ -3,6 +3,7 @@ import type { MenuItem } from "../types";
 export type DailySpecialsDay = {
   id: string;
   label: string;
+  labelEs: string;
   items: MenuItem[];
 };
 
@@ -11,18 +12,21 @@ const dish = {
     slug: "sopa-de-res",
     name: "Sopa de Res",
     description: "Beef soup served with rice.",
+    descriptionEs: "Sopa de res servida con arroz.",
     price: 13,
   },
   sopaDePollo: {
     slug: "sopa-de-pollo",
     name: "Sopa de Pollo",
     description: "Chicken soup served with rice.",
+    descriptionEs: "Sopa de pollo servida con arroz.",
     price: 12,
   },
   sopaDeGallina: {
     slug: "sopa-de-gallina",
     name: "Sopa de Gallina",
     description: "Hen soup served with rice.",
+    descriptionEs: "Caldo de gallina servido con arroz.",
     price: 14,
     image: "/Menu/Sopa de Gallina.avif",
   },
@@ -30,12 +34,14 @@ const dish = {
     slug: "sopa-de-pata",
     name: "Sopa de Pata",
     description: "Cow feet soup served with rice.",
+    descriptionEs: "Sopa de pata servida con arroz.",
     price: 13,
   },
   guisadoDeRes: {
     slug: "guisado-de-res",
     name: "Guisado de Res",
     description: "Beef stew with rice, beans and salad.",
+    descriptionEs: "Guisado de res con arroz, frijoles y ensalada.",
     price: 13,
     image: "/Menu/Guisado de Res.avif",
   },
@@ -43,12 +49,14 @@ const dish = {
     slug: "guisado-de-pollo",
     name: "Guisado de Pollo",
     description: "Chicken stew with rice and salad.",
+    descriptionEs: "Guisado de pollo con arroz y ensalada.",
     price: 12,
   },
   pepianDePollo: {
     slug: "pepian-de-pollo",
     name: "Pepian de Pollo",
     description: "Marinated thick chicken stew with rice and avocado.",
+    descriptionEs: "Pepián de pollo con arroz y aguacate.",
     price: 13,
     image: "/Menu/Pepián de Gallina o Res.avif",
   },
@@ -56,6 +64,7 @@ const dish = {
     slug: "pepian-de-res",
     name: "Pepian de Res",
     description: "Marinated thick beef stew with rice and avocado.",
+    descriptionEs: "Pepián de res con arroz y aguacate.",
     price: 14,
     image: "/Menu/Pepián de Gallina o Res.avif",
   },
@@ -63,36 +72,42 @@ const dish = {
     slug: "estofado-de-res",
     name: "Estofado de Res",
     description: "Beef stew with vegetables, rice, beans and salad.",
+    descriptionEs: "Estofado de res con verduras, arroz, frijoles y ensalada.",
     price: 13,
   },
   chuletaEnChirmol: {
     slug: "chuleta-en-chirmol",
     name: "Chuleta en Chirmol",
     description: "Pork chops in chirmol sauce with rice, beans and salad.",
+    descriptionEs: "Chuleta en chirmol con arroz, frijoles y ensalada.",
     price: 14,
   },
   bistecEnSalsaDeTomate: {
     slug: "bistec-en-salsa-de-tomate",
     name: "Bistec en Salsa de Tomate",
     description: "Meat in tomato sauce with rice, beans and salad.",
+    descriptionEs: "Bistec en salsa de tomate con arroz, frijoles y ensalada.",
     price: 13,
   },
   hilachasDeRes: {
     slug: "hilachas-de-res",
     name: "Hilachas de Res",
     description: "Shredded beef and vegetables in tomato broth with rice, beans and salad.",
+    descriptionEs: "Hilachas de res con verduras en caldo de tomate, arroz, frijoles y ensalada.",
     price: 13,
   },
   polloSopeado: {
     slug: "pollo-sopeado",
     name: "Pollo Sopeado",
     description: "Chicken soupy rice served with salad.",
+    descriptionEs: "Pollo sopeado con ensalada.",
     price: 12,
   },
   polloEnCrema: {
     slug: "pollo-en-crema",
     name: "Pollo en Crema",
     description: "Chicken in cream sauce with rice and salad.",
+    descriptionEs: "Pollo en crema con arroz y ensalada.",
     price: 12,
   },
   chileRelleno: {
@@ -100,46 +115,54 @@ const dish = {
     name: "Chile Relleno",
     description:
       "Stuffed jalapeño pepper filled with beef and veggies, served with rice, beans and salad.",
+    descriptionEs: "Chile relleno de carne y verduras, servido con arroz, frijoles y ensalada.",
     price: 14,
   },
   chowmein: {
     slug: "chowmein",
     name: "Chowmein (Carne o Pollo)",
     description: "Stir-fried noodles with meat or chicken, served with beans and salad.",
+    descriptionEs: "Fideos salteados con carne o pollo, frijoles y ensalada.",
     price: 13,
   },
   fajitasDeCamaron: {
     slug: "fajitas-de-camaron",
     name: "Fajitas de Camaron",
     description: "Sautéed shrimp with pepper and tomato, rice, beans and salad.",
+    descriptionEs: "Camarón salteado con chile, tomate, arroz, frijoles y ensalada.",
     price: 15,
   },
   brocoliEnvuelto: {
     slug: "brocoli-envuelto",
     name: "Brocoli Envuelto",
     description: "Stuffed broccoli with rice, beans and salad.",
+    descriptionEs: "Brócoli envuelto con arroz, frijoles y ensalada.",
     price: 12,
   },
   coliflorEnvuelto: {
     slug: "coliflor-envuelto",
     name: "Coliflor Envuelto",
     description: "Battered cauliflower with rice, beans and salad.",
+    descriptionEs: "Coliflor envuelta con arroz, frijoles y ensalada.",
     price: 12,
   },
   pacayaEnvuelto: {
     slug: "pacaya-envuelto",
     name: "Pacaya Envuelto",
     description: "Battered pacaya blossom with rice, beans and salad.",
+    descriptionEs: "Pacaya envuelta con arroz, frijoles y ensalada.",
     price: 13,
   },
 } satisfies Record<string, MenuItem>;
 
 export const dailySpecialsNote = "All plates are served with corn tortilla.";
+export const dailySpecialsNoteEs = "Todos los platos se sirven con tortilla de maíz.";
 
 export const dailySpecialsDays: DailySpecialsDay[] = [
   {
     id: "sunday",
-    label: "Domingo / Sunday",
+    label: "Sunday",
+    labelEs: "Domingo",
     items: [
       dish.sopaDeRes,
       { ...dish.sopaDeGallina, price: 13 },
@@ -152,7 +175,8 @@ export const dailySpecialsDays: DailySpecialsDay[] = [
   },
   {
     id: "monday",
-    label: "Lunes / Monday",
+    label: "Monday",
+    labelEs: "Lunes",
     items: [
       dish.sopaDeRes,
       dish.sopaDePollo,
@@ -165,7 +189,8 @@ export const dailySpecialsDays: DailySpecialsDay[] = [
   },
   {
     id: "tuesday",
-    label: "Martes / Tuesday",
+    label: "Tuesday",
+    labelEs: "Martes",
     items: [
       dish.sopaDeRes,
       dish.sopaDeGallina,
@@ -178,7 +203,8 @@ export const dailySpecialsDays: DailySpecialsDay[] = [
   },
   {
     id: "wednesday",
-    label: "Miercoles / Wednesday",
+    label: "Wednesday",
+    labelEs: "Miércoles",
     items: [
       dish.sopaDeRes,
       dish.sopaDePata,
@@ -191,7 +217,8 @@ export const dailySpecialsDays: DailySpecialsDay[] = [
   },
   {
     id: "thursday",
-    label: "Jueves / Thursday",
+    label: "Thursday",
+    labelEs: "Jueves",
     items: [
       dish.sopaDeRes,
       dish.sopaDePollo,
@@ -204,7 +231,8 @@ export const dailySpecialsDays: DailySpecialsDay[] = [
   },
   {
     id: "friday",
-    label: "Viernes / Friday",
+    label: "Friday",
+    labelEs: "Viernes",
     items: [
       dish.sopaDeRes,
       dish.sopaDePata,
@@ -217,7 +245,8 @@ export const dailySpecialsDays: DailySpecialsDay[] = [
   },
   {
     id: "saturday",
-    label: "Sabado / Saturday",
+    label: "Saturday",
+    labelEs: "Sábado",
     items: [
       dish.sopaDeRes,
       dish.guisadoDeRes,

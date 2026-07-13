@@ -2,6 +2,8 @@
 
 import * as React from "react";
 
+import { useTranslation } from "@/lib/i18n";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -20,6 +22,7 @@ interface TipPickerProps {
 }
 
 export function TipPicker({ subtotalCents, tipCents, onTipChange }: TipPickerProps) {
+  const { t } = useTranslation();
   const [customPercent, setCustomPercent] = React.useState("");
 
   function applyPreset(percent: number) {
@@ -39,7 +42,7 @@ export function TipPicker({ subtotalCents, tipCents, onTipChange }: TipPickerPro
   return (
     <Stack gap="3" align="stretch">
       <Typography as="h2" variant="h5" weight="semibold">
-        Tip
+        {t("checkout.tip.heading")}
       </Typography>
 
       <Cluster align="center" gap="2" wrap>
@@ -59,7 +62,7 @@ export function TipPicker({ subtotalCents, tipCents, onTipChange }: TipPickerPro
 
         <Box className="flex flex-1 items-center gap-2">
           <Label htmlFor="checkout-custom-tip" className="sr-only">
-            Custom tip percentage
+            {t("checkout.tip.custom")}
           </Label>
           <Input
             id="checkout-custom-tip"
@@ -67,7 +70,7 @@ export function TipPicker({ subtotalCents, tipCents, onTipChange }: TipPickerPro
             min={0}
             value={customPercent}
             onChange={(event) => applyCustomPercent(event.target.value)}
-            placeholder="Custom %"
+            placeholder={t("checkout.tip.custom")}
             className="w-28"
           />
           <Typography variant="text-sm" textColor="muted">
@@ -79,7 +82,7 @@ export function TipPicker({ subtotalCents, tipCents, onTipChange }: TipPickerPro
       <Cluster align="center" gap="2">
         <RenderIcon icon={HeartIcon} size={14} />
         <Typography variant="text-sm" textColor="muted">
-          Tip amount:
+          {t("checkout.tip.amount")}
         </Typography>
         <Typography variant="text-sm" weight="semibold">
           ${(tipCents / 100).toFixed(2)}

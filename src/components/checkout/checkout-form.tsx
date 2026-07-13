@@ -2,6 +2,8 @@
 
 import * as React from "react";
 
+import { useTranslation } from "@/lib/i18n";
+
 import { Button } from "@/components/ui/button";
 
 import { Box, Stack } from "@/components/layout";
@@ -84,6 +86,7 @@ function useQuoteRequest() {
 }
 
 export function CheckoutForm() {
+  const { t } = useTranslation();
   const itemCount = useCartStore(selectItemCount);
   const hydrated = useCartStore(selectHasHydrated);
   const clearCart = useCartStore((state) => state.clearCart);
@@ -119,7 +122,7 @@ export function CheckoutForm() {
     setSubmitError(null);
 
     if (!quote || quote.validationErrors.length > 0) {
-      setSubmitError("Please fix the errors before placing your order.");
+      setSubmitError(t("checkout.fixErrors"));
       return;
     }
 
@@ -144,9 +147,7 @@ export function CheckoutForm() {
 
         setSubmitError(result.error);
       } catch (error) {
-        setSubmitError(
-          error instanceof Error ? error.message : "Checkout failed. Please try again.",
-        );
+        setSubmitError(error instanceof Error ? error.message : t("checkout.fixErrors"));
       }
     });
   }
@@ -199,8 +200,8 @@ export function CheckoutForm() {
           className="w-full"
         >
           {submitting
-            ? `Placing order…`
-            : `Place order ${quote ? formatPrice(quote.totalCents) : ""}`}
+            ? t("checkout.placing")
+            : `${t("checkout.submit")} ${quote ? formatPrice(quote.totalCents) : ""}`.trim()}
         </Button>
       </Stack>
     </form>
