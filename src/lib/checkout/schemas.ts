@@ -13,6 +13,7 @@ export const CartLineSchema = z.object({
   categoryId: z.number().int().positive(),
   quantity: z.number().int().min(1),
   modifiers: z.array(ModifierSelectionSchema).default([]),
+  notes: z.string().max(500).optional(),
 });
 
 export const CheckoutInputSchema = z.object({

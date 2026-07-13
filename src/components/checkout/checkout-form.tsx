@@ -42,6 +42,7 @@ function cartLineToInput(line: CartLine): CheckoutInput["cartLines"][number] {
         priceDeltaCents: modifier.priceDelta,
       };
     }),
+    notes: line.notes,
   };
 }
 

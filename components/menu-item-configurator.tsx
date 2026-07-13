@@ -5,6 +5,17 @@ import * as React from "react";
 import { formatPrice, getCategoryId } from "@/lib/menu-helpers.ts";
 
 import { Button } from "@/components/ui/button";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Textarea } from "@/components/ui/textarea";
 
 import { Box, Cluster, Stack } from "@/components/layout";
 import { RenderIcon } from "@/components/render-icon";
@@ -30,15 +41,16 @@ const MIN_QUANTITY = 1;
 const MAX_QUANTITY = 20;
 
 export function MenuItemConfigurator({ item, disabled = false }: MenuItemConfiguratorProps) {
-  const dialogRef = React.useRef<HTMLDialogElement>(null);
   const groups = resolveModifierGroups(item);
   const hasModifiers = groups.length > 0;
 
+  const [open, setOpen] = React.useState(false);
   const [quantity, setQuantity] = React.useState(MIN_QUANTITY);
   const [selection, setSelection] = React.useState<ModifierSelection>(createEmptySelection());
   const [isValid, setIsValid] = React.useState(!hasModifiers);
   const [provisionalPrice, setProvisionalPrice] = React.useState(item.basePrice);
   const [cartModifiers, setCartModifiers] = React.useState<CartModifierOption[]>([]);
+  const [notes, setNotes] = React.useState("");
 
   function resetState() {
     setQuantity(MIN_QUANTITY);
@@ -47,44 +59,33 @@ export function MenuItemConfigurator({ item, disabled = false }: MenuItemConfigu
     setIsValid(!hasModifiers);
     setProvisionalPrice(item.basePrice);
     setCartModifiers([]);
+    setNotes("");
   }
 
-  function openDialog() {
-    if (disabled) {
-      return;
+  function handleOpenChange(nextOpen: boolean) {
+    if (nextOpen) {
+      resetState();
     }
-
-    resetState();
-    dialogRef.current?.showModal();
-  }
-
-  function closeDialog() {
-    dialogRef.current?.close();
-  }
-
-  function addToCartDirectly() {
-    if (disabled) {
-      return;
-    }
-
-    useCartStore.getState().addItem(buildItemSnapshot(item), [], MIN_QUANTITY);
-  }
-
-  function addToCartWithModifiers() {
-    if (!isValid) {
-      return;
-    }
-
-    useCartStore.getState().addItem(buildItemSnapshot(item), cartModifiers, quantity);
-    closeDialog();
+    setOpen(nextOpen);
   }
 
   function handleClick() {
-    if (hasModifiers) {
-      openDialog();
-    } else {
-      addToCartDirectly();
+    if (disabled) {
+      return;
     }
+    handleOpenChange(true);
+  }
+
+  function handleAddToCart() {
+    if (!isValid || disabled) {
+      return;
+    }
+
+    const trimmedNotes = notes.trim();
+    useCartStore
+      .getState()
+      .addItem(buildItemSnapshot(item), cartModifiers, quantity, trimmedNotes || undefined);
+    setOpen(false);
   }
 
   function handleSelectionChange(result: {
@@ -121,95 +122,91 @@ export function MenuItemConfigurator({ item, disabled = false }: MenuItemConfigu
         Add to cart
       </Button>
 
-      {hasModifiers && (
-        <dialog
-          ref={dialogRef}
-          className="m-auto max-h-[85dvh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-2xl bg-card p-0 text-card-foreground shadow-lg backdrop:bg-black/50 backdrop:backdrop-blur-sm"
-          onClick={(event) => {
-            if (event.target === dialogRef.current) {
-              closeDialog();
-            }
-          }}
-        >
-          <Box p="6">
+      <Drawer open={open} onOpenChange={handleOpenChange} showSwipeHandle>
+        <DrawerContent className="max-h-[92dvh]">
+          <DrawerHeader className="flex-row items-start justify-between">
+            <Stack gap="1" align="start">
+              <DrawerTitle className="text-lg font-semibold">{item.name}</DrawerTitle>
+              <DrawerDescription>
+                {formatPrice(item.basePrice)}
+                {item.description ? ` · ${item.description}` : ""}
+              </DrawerDescription>
+            </Stack>
+            <DrawerClose
+              render={<Button variant="ghost" size="icon-xs" aria-label="Close configurator" />}
+            >
+              <RenderIcon icon={CloseIcon} size={16} />
+            </DrawerClose>
+          </DrawerHeader>
+
+          <Box className="flex-1 overflow-y-auto px-4 pb-2">
             <Stack gap="6">
-              <Cluster align="start" justify="between" gap="3">
-                <Stack gap="1" align="start">
-                  <Typography as="h3" variant="h5" weight="semibold">
-                    {item.name}
-                  </Typography>
-                  <Typography variant="text-sm" weight="semibold" textColor="primary">
-                    {formatPrice(item.basePrice)}
-                  </Typography>
-                </Stack>
-
-                <Button variant="ghost" size="icon-xs" onClick={closeDialog} aria-label="Close">
-                  <RenderIcon icon={CloseIcon} size={16} />
-                </Button>
-              </Cluster>
-
-              {item.description && (
-                <Typography variant="text-sm" textColor="muted">
-                  {item.description}
-                </Typography>
+              {hasModifiers && (
+                <ModifierSelector
+                  item={item}
+                  onChange={handleSelectionChange}
+                  initialSelection={selection}
+                />
               )}
 
-              <ModifierSelector
-                item={item}
-                onChange={handleSelectionChange}
-                initialSelection={selection}
-              />
-
-              <Cluster align="center" justify="between" gap="3" wrap>
-                <Typography variant="text-sm" weight="medium">
-                  Quantity
-                </Typography>
-
-                <Cluster align="center" gap="2">
-                  <Button
-                    variant="outline"
-                    size="icon-xs"
-                    onClick={decrementQuantity}
-                    disabled={quantity <= MIN_QUANTITY}
-                    aria-label="Decrease quantity"
-                  >
-                    <RenderIcon icon={MinusIcon} size={14} />
-                  </Button>
-
-                  <Box px="3" py="1" bg="muted" radius="md">
-                    <Typography variant="text-sm" weight="semibold">
-                      {quantity}
-                    </Typography>
-                  </Box>
-
-                  <Button
-                    variant="outline"
-                    size="icon-xs"
-                    onClick={incrementQuantity}
-                    disabled={quantity >= MAX_QUANTITY}
-                    aria-label="Increase quantity"
-                  >
-                    <RenderIcon icon={PlusIcon} size={14} />
-                  </Button>
-                </Cluster>
-              </Cluster>
-
-              <Button onClick={addToCartWithModifiers} disabled={!isValid} className="w-full">
-                <Cluster align="center" justify="between" gap="2" className="w-full">
-                  <Cluster align="center" gap="2">
-                    <RenderIcon icon={CartIcon} size={16} />
-                    Add {quantity} to cart
-                  </Cluster>
-
-                  <Typography as="span" variant="text-sm" weight="semibold" textColor="inherit">
-                    {formatPrice(totalPrice)}
-                  </Typography>
-                </Cluster>
-              </Button>
+              <Field>
+                <FieldLabel htmlFor={`item-notes-${item.id}`}>Special notes</FieldLabel>
+                <Textarea
+                  id={`item-notes-${item.id}`}
+                  placeholder="Any extra requests? (e.g. no cilantro, extra spicy, well done)"
+                  value={notes}
+                  onChange={(event) => setNotes(event.target.value)}
+                  rows={3}
+                  maxLength={500}
+                />
+              </Field>
             </Stack>
           </Box>
-        </dialog>
-      )}
+
+          <DrawerFooter className="flex-row items-center justify-between gap-4">
+            <Cluster align="center" gap="2">
+              <Button
+                variant="outline"
+                size="icon-xs"
+                onClick={decrementQuantity}
+                disabled={quantity <= MIN_QUANTITY}
+                aria-label="Decrease quantity"
+              >
+                <RenderIcon icon={MinusIcon} size={14} />
+              </Button>
+
+              <Box px="3" py="1" bg="muted" radius="md">
+                <Typography variant="text-sm" weight="semibold">
+                  {quantity}
+                </Typography>
+              </Box>
+
+              <Button
+                variant="outline"
+                size="icon-xs"
+                onClick={incrementQuantity}
+                disabled={quantity >= MAX_QUANTITY}
+                aria-label="Increase quantity"
+              >
+                <RenderIcon icon={PlusIcon} size={14} />
+              </Button>
+            </Cluster>
+
+            <Button onClick={handleAddToCart} disabled={!isValid} className="flex-1">
+              <Cluster align="center" justify="between" gap="2" className="w-full">
+                <Cluster align="center" gap="2">
+                  <RenderIcon icon={CartIcon} size={16} />
+                  Add {quantity} to cart
+                </Cluster>
+
+                <Typography as="span" variant="text-sm" weight="semibold" textColor="inherit">
+                  {formatPrice(totalPrice)}
+                </Typography>
+              </Cluster>
+            </Button>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 }

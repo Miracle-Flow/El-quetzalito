@@ -22,12 +22,7 @@ export default function MenuSection({
           {sub.note && <p className="mb-3 text-xs text-moss">{sub.note}</p>}
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {sub.items.map((item) => (
-              <MenuItemCard
-                key={item.slug}
-                item={item}
-                category={{ id: category.id, label: category.label }}
-                catalogBySlug={catalogBySlug}
-              />
+              <MenuItemCard key={item.slug} item={item} catalogBySlug={catalogBySlug} />
             ))}
           </div>
         </div>

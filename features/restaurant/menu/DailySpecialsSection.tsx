@@ -50,12 +50,7 @@ export default function DailySpecialsSection({ catalogBySlug }: { catalogBySlug:
 
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {day.items.map((item) => (
-          <MenuItemCard
-            key={item.slug}
-            item={item}
-            category={{ id: DAILY_SPECIALS_ID, label: "Daily Specials" }}
-            catalogBySlug={catalogBySlug}
-          />
+          <MenuItemCard key={item.slug} item={item} catalogBySlug={catalogBySlug} />
         ))}
       </div>
     </section>

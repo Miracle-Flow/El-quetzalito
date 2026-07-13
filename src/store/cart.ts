@@ -23,6 +23,7 @@ export interface CartLine {
   itemSnapshot: CartItemSnapshot;
   quantity: number;
   modifiers: CartModifierOption[];
+  notes?: string;
 }
 
 interface CartState {
@@ -32,7 +33,12 @@ interface CartState {
 }
 
 interface CartActions {
-  addItem: (item: CartItemSnapshot, modifiers: CartModifierOption[], quantity?: number) => void;
+  addItem: (
+    item: CartItemSnapshot,
+    modifiers: CartModifierOption[],
+    quantity?: number,
+    notes?: string,
+  ) => void;
   updateQuantity: (lineId: string, quantity: number) => void;
   removeItem: (lineId: string) => void;
   clearCart: () => void;
@@ -60,9 +66,14 @@ function getDefaultStorage(): StateStorage {
   return localStorage;
 }
 
-function buildLineId(itemId: number, modifiers: CartModifierOption[]): string {
+function buildLineId(itemId: number, modifiers: CartModifierOption[], notes?: string): string {
   const modifierIds = [...modifiers].map((modifier) => modifier.id).toSorted();
-  return [String(itemId), ...modifierIds].join(":");
+  const segments = [String(itemId), ...modifierIds];
+  const trimmedNotes = notes?.trim();
+  if (trimmedNotes) {
+    segments.push(`notes:${trimmedNotes}`);
+  }
+  return segments.join(":");
 }
 
 export function computeLineSubtotal(line: CartLine): number {
@@ -77,12 +88,15 @@ function makeLine(
   item: CartItemSnapshot,
   modifiers: CartModifierOption[],
   quantity: number,
+  notes?: string,
 ): CartLine {
+  const trimmedNotes = notes?.trim();
   return {
-    lineId: buildLineId(item.id, modifiers),
+    lineId: buildLineId(item.id, modifiers, notes),
     itemSnapshot: item,
     modifiers: [...modifiers],
     quantity,
+    notes: trimmedNotes,
   };
 }
 
@@ -98,9 +112,9 @@ export function createCartStore(storage?: StateStorage) {
           set({ _hasHydrated: hydrated });
         },
 
-        addItem: (item, modifiers, quantity = 1) => {
-          const normalizedQuantity = Math.max(1, Math.floor(quantity));
-          const lineId = buildLineId(item.id, modifiers);
+        addItem: (item, modifiers, quantity, notes) => {
+          const normalizedQuantity = Math.max(1, Math.floor(quantity ?? 1));
+          const lineId = buildLineId(item.id, modifiers, notes);
 
           set((state) => {
             const existingIndex = state.lines.findIndex((line) => line.lineId === lineId);
@@ -115,7 +129,7 @@ export function createCartStore(storage?: StateStorage) {
             }
 
             return {
-              lines: [...state.lines, makeLine(item, modifiers, normalizedQuantity)],
+              lines: [...state.lines, makeLine(item, modifiers, normalizedQuantity, notes)],
             };
           });
         },

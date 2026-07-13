@@ -46,6 +46,11 @@ export function OrderSummary({ lines, quote, itemCount, hydrated }: OrderSummary
                   {line.modifiers.map((modifier) => modifier.label).join(", ")}
                 </Typography>
               )}
+              {line.notes && (
+                <Typography variant="text-xs" textColor="muted" className="italic">
+                  “{line.notes}”
+                </Typography>
+              )}
             </Stack>
             <Typography variant="text-sm" weight="semibold">
               {formatPrice(

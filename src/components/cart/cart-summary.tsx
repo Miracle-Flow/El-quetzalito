@@ -109,6 +109,11 @@ export function CartSummary({ checkoutHref = "/checkout" }: CartSummaryProps) {
                               {line.modifiers.map((modifier) => modifier.label).join(", ")}
                             </Typography>
                           )}
+                          {line.notes && (
+                            <Typography variant="text-xs" textColor="muted" className="italic">
+                              “{line.notes}”
+                            </Typography>
+                          )}
                         </Stack>
                         <Typography
                           as="span"
