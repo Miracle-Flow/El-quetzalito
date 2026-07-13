@@ -6,6 +6,9 @@
   "scripts": {
     "build": "next build",
     "cn": "pnpm dlx shadcn@latest add",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
     "dev": "next dev --turbopack",
     "format": "oxfmt --check",
     "format:fix": "oxfmt .",

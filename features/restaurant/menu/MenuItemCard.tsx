@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 
+import { MenuItemConfigurator } from "@/components/menu-item-configurator";
+
+import type { CatalogBySlug } from "./MenuOrder";
 import type { MenuItem } from "./types";
 
 function formatPrice(item: MenuItem) {
@@ -10,8 +13,15 @@ function formatPrice(item: MenuItem) {
   return null;
 }
 
-export default function MenuItemCard({ item }: { item: MenuItem }) {
+export default function MenuItemCard({
+  item,
+  catalogBySlug,
+}: {
+  item: MenuItem;
+  catalogBySlug: CatalogBySlug;
+}) {
   const price = formatPrice(item);
+  const cmsItem = catalogBySlug[item.slug] ?? null;
 
   return (
     <article className="flex items-start gap-4 rounded-xl border border-cream-deep bg-white p-4 transition-shadow duration-200 hover:shadow-md">
@@ -20,7 +30,10 @@ export default function MenuItemCard({ item }: { item: MenuItem }) {
         {item.description && (
           <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-moss">{item.description}</p>
         )}
-        {price && <p className="mt-auto pt-2 text-sm font-bold text-ink">{price}</p>}
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-2">
+          {price && <p className="text-sm font-bold text-ink">{price}</p>}
+          {cmsItem && <MenuItemConfigurator item={cmsItem} />}
+        </div>
       </div>
       {item.image && (
         <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-cream-deep">

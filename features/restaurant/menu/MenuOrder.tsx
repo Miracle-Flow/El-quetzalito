@@ -2,12 +2,16 @@
 
 import { useTranslation } from "@/lib/i18n";
 
+import type { MenuItem } from "@/payload-types";
+
 import DailySpecialsSection from "./DailySpecialsSection";
 import { DAILY_SPECIALS_ID, menuCategories } from "./data";
 import MenuSection from "./MenuSection";
 import MenuTabs from "./MenuTabs";
 
-export default function MenuOrder() {
+export type CatalogBySlug = Record<string, MenuItem>;
+
+export default function MenuOrder({ catalogBySlug }: { catalogBySlug: CatalogBySlug }) {
   const { t } = useTranslation();
 
   const tabs = [
@@ -33,9 +37,9 @@ export default function MenuOrder() {
       <MenuTabs tabs={tabs} />
 
       <main className="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
-        <DailySpecialsSection />
+        <DailySpecialsSection catalogBySlug={catalogBySlug} />
         {menuCategories.map((category) => (
-          <MenuSection key={category.id} category={category} />
+          <MenuSection key={category.id} category={category} catalogBySlug={catalogBySlug} />
         ))}
       </main>
     </div>

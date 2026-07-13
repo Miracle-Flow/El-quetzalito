@@ -350,7 +350,8 @@
     "**/*.generated.*",
     "**/*.d.ts",
     "app/(payload)/admin/importMap.js",
-    "src/migrations/**"
+    "src/migrations/**",
+    "payload-types.ts"
   ],
   "extends": []
 }

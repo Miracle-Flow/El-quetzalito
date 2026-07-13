@@ -77,59 +77,6 @@ export default function PageAnimations() {
         });
       });
 
-      // --- MenuCategories cards ---
-      const menuCards = document.querySelectorAll("[data-menu-card]");
-      if (menuCards.length) {
-        const trigger = {
-          trigger: menuCards[0],
-          start: "top 85%",
-          once: true,
-        };
-
-        gsap.set(menuCards, { opacity: 0, y: 64 });
-        gsap.to(menuCards, {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.14,
-          ease,
-          scrollTrigger: trigger,
-          clearProps: "transform,opacity",
-        });
-
-        // photos reveal slightly zoomed and settle — quiet depth cue
-        const menuImages = document.querySelectorAll("[data-menu-card] img");
-        if (menuImages.length) {
-          gsap.set(menuImages, { scale: 1.08 });
-          gsap.to(menuImages, {
-            scale: 1,
-            duration: 1.4,
-            stagger: 0.14,
-            ease: "power2.out",
-            scrollTrigger: trigger,
-            clearProps: "transform",
-          });
-        }
-      }
-
-      // --- Full menu items ---
-      const menuList = document.querySelectorAll("#menu ul > li");
-      if (menuList.length) {
-        gsap.set(menuList, { opacity: 0, y: 30 });
-        gsap.to(menuList, {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          stagger: 0.06,
-          ease,
-          scrollTrigger: {
-            trigger: menuList[0].parentElement,
-            start: "top 82%",
-            once: true,
-          },
-        });
-      }
-
       // --- Promo banner ---
       const promo = document.querySelector(".bg-navy.rounded-\\[3rem\\]");
       if (promo) {

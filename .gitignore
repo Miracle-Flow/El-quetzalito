@@ -45,3 +45,4 @@ postgres.log
 
 # kimchi review-tool session artifacts
 .kimchi/
+.env*.local

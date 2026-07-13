@@ -10,7 +10,6 @@ export default function Home() {
     <>
       <Hero />
       <Marquee />
-      {/* <MenuCategories /> */}
       <Signatures />
       <PromoBanner />
       <Faqs />

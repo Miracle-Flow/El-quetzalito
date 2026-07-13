@@ -16,7 +16,12 @@ const buildCommand = (command, filenames) => {
 };
 
 /** @param {string[]} filenames - Staged file paths. */
-const buildOxlintCommand = (filenames) => buildCommand("pnpm exec oxlint --fix", filenames);
+const buildOxlintCommand = (filenames) => {
+  // Payload-generated types use blanket eslint-disable; skip them.
+  const filtered = filenames.filter((f) => !f.endsWith("payload-types.ts"));
+  if (filtered.length === 0) return "";
+  return buildCommand("pnpm exec oxlint --fix", filtered);
+};
 
 /** @param {string[]} filenames - Staged file paths. */
 const buildOxfmtCommand = (filenames) => {

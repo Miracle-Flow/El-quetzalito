@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 
 import { DAILY_SPECIALS_ID, dailySpecialsDays, dailySpecialsNote } from "./data";
 import MenuItemCard from "./MenuItemCard";
+import type { CatalogBySlug } from "./MenuOrder";
 
-export default function DailySpecialsSection() {
+export default function DailySpecialsSection({ catalogBySlug }: { catalogBySlug: CatalogBySlug }) {
   const [activeDay, setActiveDay] = useState(dailySpecialsDays[1].id);
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export default function DailySpecialsSection() {
 
       <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
         {day.items.map((item) => (
-          <MenuItemCard key={item.slug} item={item} />
+          <MenuItemCard key={item.slug} item={item} catalogBySlug={catalogBySlug} />
         ))}
       </div>
     </section>

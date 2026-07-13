@@ -14,19 +14,6 @@ export const translations: Record<Locale, Record<string, string>> = {
     "hero.orderHere": "Order here",
     "hero.pickup": "Pickup & delivery",
 
-    // MenuCategories
-    "menuCat.eyebrow": "WHAT TO ORDER",
-    "menuCat.heading": "Explore Our Menu",
-    "menuCat.subheading": "Three things we make well — every service, every plate.",
-    "menuCat.card1.label": "The grill",
-    "menuCat.card1.desc": "Guatemalan-style grilled meats served with cebollines and coditos.",
-    "menuCat.card2.label": "The classic",
-    "menuCat.card2.desc": "Grilled marinated beef served with rice, beans and salad.",
-    "menuCat.card3.label": "The crowd favorite",
-    "menuCat.card3.desc": "BBQ pork ribs served with rice, beans and salad.",
-    "menuCat.seeMore": "See more",
-    "menuCat.viewFull": "View the full menu",
-
     // Signatures
     "sig.eyebrow": "SIGNATURES",
     "sig.heading": "What the kitchen is known for.",
@@ -97,19 +84,6 @@ export const translations: Record<Locale, Record<string, string>> = {
     // Hero
     "hero.orderHere": "Ordenar aquí",
     "hero.pickup": "Para llevar y entrega",
-
-    // MenuCategories
-    "menuCat.eyebrow": "QUÉ ORDENAR",
-    "menuCat.heading": "Explora Nuestro Menú",
-    "menuCat.subheading": "Tres platos que hacemos bien — en cada servicio, en cada orden.",
-    "menuCat.card1.label": "La parrilla",
-    "menuCat.card1.desc": "Carnes a la parrilla estilo guatemalteco con cebollines y coditos.",
-    "menuCat.card2.label": "El clásico",
-    "menuCat.card2.desc": "Carne de res marinada a la parrilla con arroz, frijoles y ensalada.",
-    "menuCat.card3.label": "El favorito de todos",
-    "menuCat.card3.desc": "Costillas BBQ de cerdo con arroz, frijoles y ensalada.",
-    "menuCat.seeMore": "Ver más",
-    "menuCat.viewFull": "Ver el menú completo",
 
     // Signatures
     "sig.eyebrow": "ESPECIALIDADES",

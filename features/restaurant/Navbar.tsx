@@ -6,6 +6,8 @@ import { usePathname } from "next/navigation";
 
 import { useTranslation } from "@/lib/i18n";
 
+import { CartTrigger } from "@/src/components/cart/cart-trigger";
+
 import { Logo, BagIcon } from "./icons";
 
 const linkKeys = [
@@ -62,6 +64,7 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-3">
+          <CartTrigger variant="navbar" solid={solid} />
           <button
             type="button"
             onClick={() => setLocale(locale === "en" ? "es" : "en")}
