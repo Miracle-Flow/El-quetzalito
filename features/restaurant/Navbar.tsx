@@ -69,13 +69,14 @@ export default function Navbar() {
             type="button"
             onClick={() => setLocale(locale === "en" ? "es" : "en")}
             aria-label={`Switch to ${locale === "en" ? "Spanish" : "English"}`}
-            className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-bold transition-colors ${
+            className={`flex h-10 items-center gap-1.5 rounded-full px-3 text-sm font-semibold transition-colors ${
               solid
                 ? "bg-cream-deep text-ink hover:bg-gold hover:text-white"
                 : "bg-white/15 text-cream hover:bg-white/25"
             }`}
           >
-            {locale === "en" ? "ES" : "EN"}
+            <span aria-hidden="true">{locale === "en" ? "🇬🇹" : "🇺🇸"}</span>
+            {t("nav.switchTo")}
           </button>
           <a
             href="/menu"
@@ -134,9 +135,10 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setLocale(locale === "en" ? "es" : "en")}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-cream-deep text-sm font-bold text-ink transition-colors hover:bg-gold hover:text-white"
+                className="flex h-10 shrink-0 items-center gap-1.5 rounded-full bg-cream-deep px-3 text-sm font-semibold text-ink transition-colors hover:bg-gold hover:text-white"
               >
-                {locale === "en" ? "ES" : "EN"}
+                <span aria-hidden="true">{locale === "en" ? "🇬🇹" : "🇺🇸"}</span>
+                {t("nav.switchTo")}
               </button>
             </li>
           </ul>

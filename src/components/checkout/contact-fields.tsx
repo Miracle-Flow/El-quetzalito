@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/lib/i18n";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -25,22 +27,24 @@ export function ContactFields({
   onPhoneChange,
   onEmailChange,
 }: ContactFieldsProps) {
+  const { t } = useTranslation();
+
   return (
     <Stack gap="4" align="stretch">
       <Typography as="h2" variant="h5" weight="semibold">
-        Contact
+        {t("checkout.contact.heading")}
       </Typography>
 
       <Stack gap="1" align="stretch">
         <Label htmlFor="checkout-name">
           <RenderIcon icon={UserIcon} size={14} />
-          Name
+          {t("checkout.contact.name")}
         </Label>
         <Input
           id="checkout-name"
           value={name}
           onChange={(event) => onNameChange(event.target.value)}
-          placeholder="Your name"
+          placeholder={t("checkout.contact.name.placeholder")}
           required
         />
       </Stack>
@@ -48,7 +52,7 @@ export function ContactFields({
       <Stack gap="1" align="stretch">
         <Label htmlFor="checkout-phone">
           <RenderIcon icon={PhoneIcon} size={14} />
-          Phone
+          {t("checkout.contact.phone")}
         </Label>
         <Input
           id="checkout-phone"
@@ -63,7 +67,7 @@ export function ContactFields({
       <Stack gap="1" align="stretch">
         <Label htmlFor="checkout-email">
           <RenderIcon icon={EnvelopeIcon} size={14} />
-          Email
+          {t("checkout.contact.email")}
         </Label>
         <Input
           id="checkout-email"

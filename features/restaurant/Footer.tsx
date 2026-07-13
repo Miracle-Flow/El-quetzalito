@@ -63,8 +63,11 @@ export default function Footer() {
             (718) 806-1013
           </a>
           <Dot />
-          <a href="mailto:hola@elquetzalito.com" className="transition-colors hover:text-white">
-            hola@elquetzalito.com
+          <a
+            href="mailto:elquetzalitorestaurantny@gmail.com"
+            className="transition-colors hover:text-white"
+          >
+            elquetzalitorestaurantny@gmail.com.com
           </a>
         </div>
 

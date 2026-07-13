@@ -1,5 +1,7 @@
 "use client";
 
+import { useTranslation } from "@/lib/i18n";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,32 +19,35 @@ interface PromoFieldProps {
 }
 
 export function PromoField({ code, appliedCode, onCodeChange, onApply }: PromoFieldProps) {
+  const { t } = useTranslation();
+
   return (
     <Stack gap="3" align="stretch">
       <Typography as="h2" variant="h5" weight="semibold">
-        Promo code
+        {t("checkout.promo.heading")}
       </Typography>
 
       <Cluster align="center" gap="2" className="w-full">
         <Label htmlFor="checkout-promo" className="sr-only">
-          Promo code
+          {t("checkout.promo.heading")}
         </Label>
         <Input
           id="checkout-promo"
           value={code}
           onChange={(event) => onCodeChange(event.target.value)}
-          placeholder="Enter code"
+          placeholder={t("checkout.promo.placeholder")}
           className="flex-1"
         />
         <Button type="button" variant="outline" onClick={() => onApply(code)}>
           <RenderIcon icon={SparklesIcon} size={14} />
-          Apply
+          {t("checkout.promo.apply")}
         </Button>
       </Cluster>
 
       {appliedCode && (
         <Typography variant="text-xs" textColor="muted">
-          Trying code: <span className="font-semibold uppercase">{appliedCode}</span>
+          {t("checkout.promo.trying")}{" "}
+          <span className="font-semibold uppercase">{appliedCode}</span>
         </Typography>
       )}
     </Stack>

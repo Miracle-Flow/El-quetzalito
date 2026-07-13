@@ -4,39 +4,89 @@ import Image from "next/image";
 
 import { useTranslation } from "@/lib/i18n";
 
+import { Button } from "@/components/ui/button";
+
+import { useCartStore } from "@/src/store/cart.ts";
+
 import GuatemalanPattern from "./GuatemalanPattern";
 
 const plates = [
   {
-    name: "Churrasco Tikal",
+    slug: "churrasco-tikal",
+    nameKey: "sig.plate1.name",
+    spanishName: "Churrasco Tikal",
     descKey: "sig.plate1.desc",
-    price: "$20",
+    price: 20,
     src: "/Menu/Churrasco_Tikal.avif",
   },
-  { name: "Carne Asada", descKey: "sig.plate2.desc", price: "$15", src: "/Menu/Carne Asada.avif" },
   {
-    name: "Costillas BBQ",
+    slug: "carne-asada",
+    nameKey: "sig.plate2.name",
+    spanishName: "Carne Asada",
+    descKey: "sig.plate2.desc",
+    price: 15,
+    src: "/Menu/Carne Asada.avif",
+  },
+  {
+    slug: "costillas-bbq",
+    nameKey: "sig.plate3.name",
+    spanishName: "Costillas BBQ",
     descKey: "sig.plate3.desc",
-    price: "$18",
+    price: 18,
     src: "/Menu/Costillas BBQ.avif",
   },
-  { name: "Alitas BBQ", descKey: "sig.plate4.desc", price: "$14", src: "/Menu/Alitas BBQ.avif" },
   {
-    name: "Desayuno El Quetzalito",
+    slug: "alitas-bbq",
+    nameKey: "sig.plate4.name",
+    spanishName: "Alitas BBQ",
+    descKey: "sig.plate4.desc",
+    price: 14,
+    src: "/Menu/Alitas BBQ.avif",
+  },
+  {
+    slug: "desayuno-el-quetzalito",
+    nameKey: "sig.plate5.name",
+    spanishName: "Desayuno El Quetzalito",
     descKey: "sig.plate5.desc",
-    price: "$12",
+    price: 12,
     src: "/Menu/Desayuno El Quetzalito.avif",
   },
   {
-    name: "Pepián de Gallina o Res",
+    slug: "pepian-gallina-res",
+    nameKey: "sig.plate6.name",
+    spanishName: "Pepián de Gallina o Res",
     descKey: "sig.plate6.desc",
-    price: "$14",
+    price: 14,
     src: "/Menu/Pepián de Gallina o Res.avif",
   },
 ];
 
+function slugToId(slug: string): number {
+  let hash = 0;
+  for (let i = 0; i < slug.length; i++) {
+    hash = Math.trunc(hash * 31 + slug.codePointAt(i)) % 2_147_483_647;
+  }
+  return Math.abs(hash);
+}
+
 export default function Signatures() {
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
+  const addItem = useCartStore((state) => state.addItem);
+
+  function handleAdd(plate: (typeof plates)[number]) {
+    addItem(
+      {
+        id: slugToId(plate.slug),
+        name: plate.spanishName,
+        basePrice: plate.price * 100,
+        category: "Signatures",
+        categoryId: 0,
+        availabilityType: "steamTable",
+      },
+      [],
+      1,
+    );
+  }
 
   return (
     <section className="relative overflow-hidden bg-[#FEFBEE] px-6 py-24 sm:px-10 lg:px-16 lg:py-32 xl:px-24">
@@ -65,31 +115,45 @@ export default function Signatures() {
         </div>
 
         <ul className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {plates.map(({ name, descKey, price, src }) => (
-            <li key={name}>
-              <a
-                href="/menu"
-                className="group flex items-start gap-4 rounded-xl border border-cream-deep bg-white p-4 transition-shadow duration-200 hover:shadow-md"
-              >
-                <div className="flex min-w-0 flex-1 flex-col">
-                  <h3 className="text-base leading-snug font-bold text-ink">{name}</h3>
-                  <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-moss">
-                    {t(descKey)}
-                  </p>
-                  <p className="mt-auto pt-2 text-sm font-bold text-ink">{price}</p>
-                </div>
-                <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-cream-deep">
-                  <Image
-                    src={src}
-                    alt={name}
-                    fill
-                    sizes="96px"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                </div>
-              </a>
-            </li>
-          ))}
+          {plates.map((plate) => {
+            const displayName = t(plate.nameKey);
+            const showSubName = locale === "en";
+
+            return (
+              <li key={plate.slug}>
+                <article className="flex items-start gap-4 rounded-xl border border-cream-deep bg-white p-4 transition-shadow duration-200 hover:shadow-md">
+                  <div className="flex min-w-0 flex-1 flex-col">
+                    <div className="flex flex-wrap items-baseline gap-x-2">
+                      <h3 className="text-base leading-snug font-bold text-ink">{displayName}</h3>
+                      {showSubName && (
+                        <span className="text-xs font-medium text-moss/70 italic">
+                          {plate.spanishName}
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-1 line-clamp-2 text-sm leading-relaxed text-moss">
+                      {t(plate.descKey)}
+                    </p>
+                    <div className="mt-auto flex items-center justify-between gap-2 pt-2">
+                      <p className="text-sm font-bold text-ink">${plate.price}</p>
+                      <Button size="sm" onClick={() => handleAdd(plate)}>
+                        + Add
+                      </Button>
+                    </div>
+                  </div>
+                  <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden rounded-lg bg-cream-deep">
+                    <Image
+                      src={plate.src}
+                      alt={plate.spanishName}
+                      fill
+                      sizes="96px"
+                      className="object-cover transition-transform duration-300 hover:scale-105"
+                    />
+                  </div>
+                </article>
+              </li>
+            );
+          })}
         </ul>
 
         <div className="mt-10 text-center">

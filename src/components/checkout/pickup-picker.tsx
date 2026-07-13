@@ -2,6 +2,8 @@
 
 import * as React from "react";
 
+import { useTranslation } from "@/lib/i18n";
+
 import { Label } from "@/components/ui/label";
 
 import { CalendarIcon, ClockIcon } from "@/components/icons.tsx";
@@ -23,13 +25,19 @@ interface PickupPickerProps {
 }
 
 export function PickupPicker({ mode, slot, slots, onModeChange, onSlotChange }: PickupPickerProps) {
+  const { t } = useTranslation();
+
   return (
     <Stack gap="4" align="stretch">
       <Typography as="h2" variant="h5" weight="semibold">
-        Pickup
+        {t("checkout.pickup.heading")}
       </Typography>
 
-      <Box role="radiogroup" aria-label="Pickup mode" className="grid grid-cols-2 gap-3">
+      <Box
+        role="radiogroup"
+        aria-label={t("checkout.pickup.heading")}
+        className="grid grid-cols-2 gap-3"
+      >
         <label
           className={`flex cursor-pointer items-center gap-3 rounded-lg border px-4 py-3 transition-colors ${
             mode === "asap"
@@ -48,10 +56,10 @@ export function PickupPicker({ mode, slot, slots, onModeChange, onSlotChange }: 
           <RenderIcon icon={ClockIcon} size={18} />
           <Stack gap="0" align="start">
             <Typography variant="text-sm" weight="semibold">
-              ASAP
+              {t("checkout.pickup.asap")}
             </Typography>
             <Typography variant="text-xs" textColor="muted">
-              As soon as possible
+              {t("checkout.pickup.asap.sub")}
             </Typography>
           </Stack>
         </label>
@@ -74,10 +82,10 @@ export function PickupPicker({ mode, slot, slots, onModeChange, onSlotChange }: 
           <RenderIcon icon={CalendarIcon} size={18} />
           <Stack gap="0" align="start">
             <Typography variant="text-sm" weight="semibold">
-              Scheduled
+              {t("checkout.pickup.scheduled")}
             </Typography>
             <Typography variant="text-xs" textColor="muted">
-              Choose a time
+              {t("checkout.pickup.scheduled.sub")}
             </Typography>
           </Stack>
         </label>
@@ -87,7 +95,7 @@ export function PickupPicker({ mode, slot, slots, onModeChange, onSlotChange }: 
         <Stack gap="1" align="stretch">
           <Label htmlFor="checkout-slot">
             <RenderIcon icon={ClockIcon} size={14} />
-            Pickup time
+            {t("checkout.pickup.time")}
           </Label>
           <select
             id="checkout-slot"
@@ -97,7 +105,7 @@ export function PickupPicker({ mode, slot, slots, onModeChange, onSlotChange }: 
             className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-base outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm"
           >
             <option value="" disabled>
-              Select a pickup slot
+              {t("checkout.pickup.select")}
             </option>
             {slots.map((pickupSlot) => (
               <option key={pickupSlot.value} value={pickupSlot.value}>
@@ -107,7 +115,7 @@ export function PickupPicker({ mode, slot, slots, onModeChange, onSlotChange }: 
           </select>
           {slots.length === 0 && (
             <Typography variant="text-xs" textColor="muted">
-              No pickup slots are available right now.
+              {t("checkout.pickup.none")}
             </Typography>
           )}
         </Stack>
