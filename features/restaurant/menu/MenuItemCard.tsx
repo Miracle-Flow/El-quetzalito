@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 
+import { useTranslation } from "@/lib/i18n";
+
 import { Button } from "@/components/ui/button";
 
 import { MenuItemConfigurator } from "@/components/menu-item-configurator";
@@ -28,6 +30,7 @@ function slugToId(slug: string): number {
 
 function StaticAddToCart({ item }: { item: MenuItem & { price: number } }) {
   const addItem = useCartStore((state) => state.addItem);
+  const { t } = useTranslation();
 
   function handleAdd() {
     addItem(
@@ -45,8 +48,8 @@ function StaticAddToCart({ item }: { item: MenuItem & { price: number } }) {
   }
 
   return (
-    <Button size="sm" onClick={handleAdd} aria-label={`Add ${item.name} to cart`}>
-      + Add
+    <Button size="sm" onClick={handleAdd} aria-label={`${t("menu.add")} ${item.name}`}>
+      + {t("menu.add")}
     </Button>
   );
 }
@@ -58,15 +61,17 @@ export default function MenuItemCard({
   item: MenuItem;
   catalogBySlug: CatalogBySlug;
 }) {
+  const { locale } = useTranslation();
   const price = formatPrice(item);
   const cmsItem = catalogBySlug[item.slug] ?? null;
+  const description = locale === "es" && item.descriptionEs ? item.descriptionEs : item.description;
 
   return (
     <article className="flex items-start gap-4 rounded-xl border border-cream-deep bg-white p-4 transition-shadow duration-200 hover:shadow-md">
       <div className="flex min-w-0 flex-1 flex-col">
         <h4 className="text-base leading-snug font-bold text-ink">{item.name}</h4>
-        {item.description && (
-          <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-moss">{item.description}</p>
+        {description && (
+          <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-moss">{description}</p>
         )}
         <div className="mt-auto flex flex-wrap items-center justify-between gap-2 pt-2">
           {price && <p className="text-sm font-bold text-ink">{price}</p>}

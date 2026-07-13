@@ -10,7 +10,7 @@ export const CartLineSchema = z.object({
   itemId: z.number().int().positive(),
   name: z.string().min(1),
   basePriceCents: z.number().int().min(0),
-  categoryId: z.number().int().positive(),
+  categoryId: z.number().int().min(0),
   quantity: z.number().int().min(1),
   modifiers: z.array(ModifierSelectionSchema).default([]),
   notes: z.string().max(500).optional(),

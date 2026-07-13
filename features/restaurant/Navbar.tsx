@@ -65,19 +65,40 @@ export default function Navbar() {
 
         <div className="flex items-center gap-3">
           <CartTrigger variant="navbar" solid={solid} />
-          <button
-            type="button"
-            onClick={() => setLocale(locale === "en" ? "es" : "en")}
-            aria-label={`Switch to ${locale === "en" ? "Spanish" : "English"}`}
-            className={`flex h-10 items-center gap-1.5 rounded-full px-3 text-sm font-semibold transition-colors ${
-              solid
-                ? "bg-cream-deep text-ink hover:bg-gold hover:text-white"
-                : "bg-white/15 text-cream hover:bg-white/25"
+          <div
+            role="group"
+            aria-label="Language"
+            className={`relative flex items-center rounded-full p-0.5 text-xs font-bold ${
+              solid ? "bg-cream-deep" : "bg-white/15"
             }`}
           >
-            <span aria-hidden="true">{locale === "en" ? "🇬🇹" : "🇺🇸"}</span>
-            {t("nav.switchTo")}
-          </button>
+            <div
+              aria-hidden="true"
+              className={`absolute top-0.5 h-7 w-9 rounded-full bg-white shadow transition-transform duration-200 ${
+                locale === "es" ? "translate-x-9" : "translate-x-0.5"
+              }`}
+            />
+            <button
+              type="button"
+              onClick={() => setLocale("en")}
+              aria-pressed={locale === "en"}
+              className={`relative z-10 h-7 w-9 rounded-full transition-colors ${
+                locale === "en" ? "text-ink" : solid ? "text-moss" : "text-cream/70"
+              }`}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              onClick={() => setLocale("es")}
+              aria-pressed={locale === "es"}
+              className={`relative z-10 h-7 w-9 rounded-full transition-colors ${
+                locale === "es" ? "text-ink" : solid ? "text-moss" : "text-cream/70"
+              }`}
+            >
+              ES
+            </button>
+          </div>
           <a
             href="/menu"
             className={`hidden rounded-full px-7 py-3.5 text-base font-bold transition-colors sm:inline-flex sm:items-center sm:gap-2 ${
@@ -132,14 +153,34 @@ export default function Navbar() {
               >
                 {t("nav.orderNow")}
               </a>
-              <button
-                type="button"
-                onClick={() => setLocale(locale === "en" ? "es" : "en")}
-                className="flex h-10 shrink-0 items-center gap-1.5 rounded-full bg-cream-deep px-3 text-sm font-semibold text-ink transition-colors hover:bg-gold hover:text-white"
+              <div
+                role="group"
+                aria-label="Language"
+                className="relative flex shrink-0 items-center rounded-full bg-cream-deep p-0.5 text-xs font-bold"
               >
-                <span aria-hidden="true">{locale === "en" ? "🇬🇹" : "🇺🇸"}</span>
-                {t("nav.switchTo")}
-              </button>
+                <div
+                  aria-hidden="true"
+                  className={`absolute top-0.5 h-7 w-9 rounded-full bg-white shadow transition-transform duration-200 ${
+                    locale === "es" ? "translate-x-9" : "translate-x-0.5"
+                  }`}
+                />
+                <button
+                  type="button"
+                  onClick={() => setLocale("en")}
+                  aria-pressed={locale === "en"}
+                  className={`relative z-10 h-7 w-9 rounded-full transition-colors ${locale === "en" ? "text-ink" : "text-moss"}`}
+                >
+                  EN
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLocale("es")}
+                  aria-pressed={locale === "es"}
+                  className={`relative z-10 h-7 w-9 rounded-full transition-colors ${locale === "es" ? "text-ink" : "text-moss"}`}
+                >
+                  ES
+                </button>
+              </div>
             </li>
           </ul>
         </div>

@@ -128,6 +128,9 @@ export const translations: Record<Locale, Record<string, string>> = {
     "checkout.submit": "Place order",
     "checkout.placing": "Placing order…",
     "checkout.fixErrors": "Please fix the errors before placing your order.",
+
+    // Menu items
+    "menu.add": "Add",
   },
   es: {
     // Nav
@@ -256,5 +259,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     "checkout.submit": "Hacer pedido",
     "checkout.placing": "Haciendo pedido…",
     "checkout.fixErrors": "Por favor corrige los errores antes de hacer tu pedido.",
+
+    // Menu items
+    "menu.add": "Agregar",
   },
 };
