@@ -43,6 +43,13 @@
       "when": 1783878196704,
       "tag": "0005_goofy_lady_deathstrike",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1784088296721,
+      "tag": "0006_spooky_synch",
+      "breakpoints": true
     }
   ]
 }

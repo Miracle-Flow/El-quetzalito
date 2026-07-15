@@ -168,6 +168,16 @@ class InMemoryWebhookStore implements WebhookStore {
     }
   }
 
+  private readonly enqueuedPrintJobs = new Set<number>();
+
+  public async enqueuePrintJob(orderId: number) {
+    this.enqueuedPrintJobs.add(orderId);
+  }
+
+  public getEnqueuedPrintJobs(): number[] {
+    return [...this.enqueuedPrintJobs];
+  }
+
   public seedOrder(
     overrides: Partial<OrderRecord> & { totalCents: number; status: OrderStatus },
   ): OrderRecord {
