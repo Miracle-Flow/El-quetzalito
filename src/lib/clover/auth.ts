@@ -15,27 +15,24 @@ export async function getValidAccessToken(merchant: CloverMerchant): Promise<str
   return refreshAccessToken(merchant);
 }
 
-// Clover refresh contract: see docs.clover.com/dev/docs/refresh-access-tokens.
-// The token URL and request shape differ by OAuth version (legacy /oauth/refresh vs
-// OAuth 2.1 /oauth/v1/token). Verify the exact form against the merchant's app config
-// in sandbox before relying on this in production.
+// Clover v2/OAuth refresh contract: POST /oauth/v2/refresh with { client_id, refresh_token }.
+// No client_secret or grant_type is sent. The response returns access_token_expiration and
+// refresh_token_expiration as Unix timestamps (seconds). Refresh tokens are single-use; the
+// returned refresh_token replaces the old one immediately. See docs.clover.com/dev/docs/refresh-access-tokens.
 async function refreshAccessToken(merchant: CloverMerchant): Promise<string> {
-  const tokenUrl = process.env.CLOVER_TOKEN_URL;
+  const apiBase = process.env.CLOVER_API_BASE_URL;
   const clientId = process.env.CLOVER_APP_ID;
-  const clientSecret = process.env.CLOVER_APP_SECRET;
 
-  if (!tokenUrl || !clientId || !clientSecret) {
-    throw new Error("CLOVER_TOKEN_URL, CLOVER_APP_ID, and CLOVER_APP_SECRET must be configured");
+  if (!apiBase || !clientId) {
+    throw new Error("CLOVER_API_BASE_URL and CLOVER_APP_ID must be configured");
   }
 
-  const response = await fetch(tokenUrl, {
+  const response = await fetch(`${apiBase}/oauth/v2/refresh`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      grant_type: "refresh_token",
-      refresh_token: merchant.refreshToken,
       client_id: clientId,
-      client_secret: clientSecret,
+      refresh_token: merchant.refreshToken,
     }),
   });
 
@@ -46,18 +43,18 @@ async function refreshAccessToken(merchant: CloverMerchant): Promise<string> {
 
   const data = (await response.json()) as {
     access_token: string;
-    refresh_token?: string;
-    expires_in?: number;
+    access_token_expiration: number;
+    refresh_token: string;
+    refresh_token_expiration: number;
   };
-
-  const tokenExpiresAt = new Date(Date.now() + (data.expires_in ?? 3600) * 1000);
 
   await db
     .update(cloverMerchants)
     .set({
       accessToken: data.access_token,
-      refreshToken: data.refresh_token ?? merchant.refreshToken,
-      tokenExpiresAt,
+      refreshToken: data.refresh_token,
+      tokenExpiresAt: new Date(data.access_token_expiration * 1000),
+      refreshTokenExpiresAt: new Date(data.refresh_token_expiration * 1000),
       updatedAt: new Date(),
     })
     .where(eq(cloverMerchants.id, merchant.id));

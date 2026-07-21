@@ -9,6 +9,7 @@ export const cloverMerchants = commerceSchema.table("clover_merchants", {
   accessToken: varchar("access_token", { length: 255 }).notNull(),
   refreshToken: varchar("refresh_token", { length: 255 }).notNull(),
   tokenExpiresAt: timestamp("token_expires_at", { withTimezone: true }).notNull(),
+  refreshTokenExpiresAt: timestamp("refresh_token_expires_at", { withTimezone: true }),
   apiBaseUrl: text("api_base_url").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow(),
