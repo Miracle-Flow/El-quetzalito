@@ -15,3 +15,19 @@ Key rules:
 - Use semantic color tokens (`bg-primary`, `text-muted-foreground`, `bg-tertiary`) — never raw hex or oklch in components.
 - Spacing/radius follow fixed scales defined in DESIGN.md (spacing keys × 4px; radius additive from `--radius: 0.625rem`).
 - **Documented exception — decorative background layers.** Full-bleed gradient/glow/texture backgrounds have no token yet (DESIGN.md §5 has no elevation or gradient scale). They may use inline `style` referencing semantic-token CSS vars (e.g. `var(--chart-5)`, `var(--primary)`) or arbitrary utilities built from semantic color classes (`bg-tertiary/40`). Never raw hex/oklch, and only behind content (`-z-*`, `aria-hidden`). Keep it to background decoration — surface and text colors still must use semantic utilities.
+
+---
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in **Linear** (team: `miracle-flow`); use the Linear CLI for all operations. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Five canonical roles map 1:1 to Linear labels of the same name (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context — `CONTEXT.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
