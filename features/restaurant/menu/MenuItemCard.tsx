@@ -23,7 +23,7 @@ function formatPrice(item: MenuItem) {
 function slugToId(slug: string): number {
   let hash = 0;
   for (let i = 0; i < slug.length; i++) {
-    hash = Math.trunc(hash * 31 + slug.codePointAt(i)) % 2_147_483_647;
+    hash = Math.trunc(hash * 31 + (slug.codePointAt(i) ?? 0)) % 2_147_483_647;
   }
   return Math.abs(hash);
 }
