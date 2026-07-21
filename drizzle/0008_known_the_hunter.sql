@@ -1,0 +1,1 @@
+ALTER TABLE "commerce"."clover_merchants" ADD COLUMN "refresh_token_expires_at" timestamp with time zone;

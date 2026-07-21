@@ -44,7 +44,10 @@ export async function processStripeWebhookEvent(
   };
 
   try {
-    if (event.type === "checkout.session.completed") {
+    if (
+      event.type === "checkout.session.completed" ||
+      event.type === "checkout.session.async_payment_succeeded"
+    ) {
       await handleCheckoutSessionCompleted(store, event.data.object);
     } else if (event.type === "charge.refunded") {
       await handleChargeRefunded(store, event.data.object);
@@ -101,6 +104,8 @@ async function handleCheckoutSessionCompleted(
     amountReceivedCents: amountReceived,
     updatedAt: new Date(),
   });
+
+  await store.enqueuePrintJob(orderId);
 
   console.info(`[stripe webhook] checkout.session.completed order=${orderId} event=${session.id}`);
 }

@@ -168,6 +168,16 @@ class InMemoryWebhookStore implements WebhookStore {
     }
   }
 
+  private readonly enqueuedPrintJobs = new Set<number>();
+
+  public async enqueuePrintJob(orderId: number) {
+    this.enqueuedPrintJobs.add(orderId);
+  }
+
+  public getEnqueuedPrintJobs(): number[] {
+    return [...this.enqueuedPrintJobs];
+  }
+
   public seedOrder(
     overrides: Partial<OrderRecord> & { totalCents: number; status: OrderStatus },
   ): OrderRecord {
@@ -214,7 +224,7 @@ class InMemoryWebhookStore implements WebhookStore {
       status: overrides.status,
       amountCents: overrides.amountCents,
       amountReceivedCents: overrides.amountReceivedCents ?? null,
-      currency: overrides.currency ?? "gtq",
+      currency: overrides.currency ?? "usd",
       checkoutSessionUrl: overrides.checkoutSessionUrl ?? null,
       checkoutSessionId: overrides.checkoutSessionId ?? null,
       clientSecret: overrides.clientSecret ?? null,

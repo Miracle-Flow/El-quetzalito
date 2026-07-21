@@ -1,0 +1,1 @@
+ALTER TABLE "commerce"."payment_intents" ALTER COLUMN "currency" SET DEFAULT 'usd';

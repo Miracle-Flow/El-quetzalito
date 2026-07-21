@@ -196,7 +196,7 @@ export async function submitCheckout(input: unknown): Promise<CheckoutActionResu
       provider: "stripe",
       status: "pending",
       amountCents: quote.totalCents,
-      currency: "gtq",
+      currency: "usd",
       expiresAt: new Date(Date.now() + 30 * 60 * 1000),
     });
 
@@ -238,7 +238,7 @@ export async function submitCheckout(input: unknown): Promise<CheckoutActionResu
   try {
     const session = await createCheckoutSession({
       amount: quote.totalCents,
-      currency: "gtq",
+      currency: "usd",
       orderId: insertedOrder.id,
       orderNumber: insertedOrder.orderNumber,
       customerEmail: parsed.email,

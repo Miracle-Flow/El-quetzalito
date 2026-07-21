@@ -4,6 +4,7 @@ import type { db } from "@/src/db/client";
 import {
   orders,
   paymentIntents,
+  printJob,
   webhookEvents,
   type OrderStatus,
   type PaymentIntentStatus,
@@ -37,6 +38,7 @@ export interface WebhookStore {
       updatedAt?: Date;
     },
   ) => Promise<void>;
+  enqueuePrintJob: (orderId: number) => Promise<void>;
 }
 
 export function createDrizzleWebhookStore(tx: TransactionClient): WebhookStore {
@@ -108,6 +110,13 @@ export function createDrizzleWebhookStore(tx: TransactionClient): WebhookStore {
 
     async updatePaymentIntent(id, data) {
       await tx.update(paymentIntents).set(data).where(eq(paymentIntents.id, id));
+    },
+
+    async enqueuePrintJob(orderId) {
+      await tx
+        .insert(printJob)
+        .values({ orderId })
+        .onConflictDoNothing({ target: printJob.orderId });
     },
   };
 }
