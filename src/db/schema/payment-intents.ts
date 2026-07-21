@@ -27,7 +27,7 @@ export const paymentIntents = commerceSchema.table("payment_intents", {
   status: varchar("status", { length: 30 }).notNull().default("pending"),
   amountCents: integer("amount_cents").notNull(),
   amountReceivedCents: integer("amount_received_cents"),
-  currency: varchar("currency", { length: 3 }).notNull().default("gtq"),
+  currency: varchar("currency", { length: 3 }).notNull().default("usd"),
   checkoutSessionUrl: text("checkout_session_url"),
   checkoutSessionId: varchar("checkout_session_id", { length: 255 }),
   clientSecret: text("client_secret"),

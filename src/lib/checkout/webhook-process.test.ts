@@ -224,7 +224,7 @@ class InMemoryWebhookStore implements WebhookStore {
       status: overrides.status,
       amountCents: overrides.amountCents,
       amountReceivedCents: overrides.amountReceivedCents ?? null,
-      currency: overrides.currency ?? "gtq",
+      currency: overrides.currency ?? "usd",
       checkoutSessionUrl: overrides.checkoutSessionUrl ?? null,
       checkoutSessionId: overrides.checkoutSessionId ?? null,
       clientSecret: overrides.clientSecret ?? null,

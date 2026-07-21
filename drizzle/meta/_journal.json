@@ -50,6 +50,13 @@
       "when": 1784088296721,
       "tag": "0006_spooky_synch",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1784088641937,
+      "tag": "0007_nervous_vanisher",
+      "breakpoints": true
     }
   ]
 }
